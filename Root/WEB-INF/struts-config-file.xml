@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_3.dtd">
+<struts-config>
+	<form-beans>
+		<form-bean name="commonActionForm" type="org.xianwu.core.web.CommonActionForm" />
+	</form-beans>
+
+	<!-- Action映射 -->
+	<action-mappings type="org.xianwu.core.mvc.xstruts.action.ActionMapping">
+
+		<!-- 系统软件 -->
+		<action name="commonActionForm" path="/software" scope="request" validate="false" parameter="code"
+				type="org.xianwu.file.admin.web.SoftwareAction">
+			<forward name="softwareView" path="/file/software.jsp" />
+		</action>
+
+		<!-- 系统文件 -->
+		<action name="commonActionForm" path="/systemFile" scope="request" validate="false" parameter="code"
+				type="org.xianwu.file.admin.web.SystemFileAction">
+			<forward name="systemFileView" path="/file/systemFile.jsp" />
+		</action>
+
+		<!-- 模板管理 -->
+		<action name="commonActionForm" path="/template" scope="request" validate="false" parameter="code"
+			type="org.xianwu.file.admin.web.TemplateAction">
+			<forward name="templateView" path="/file/template.jsp" />
+		</action>
+	</action-mappings>
+
+</struts-config>

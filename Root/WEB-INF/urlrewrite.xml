@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 4.0//EN"
+        "http://www.tuckey.org/res/dtds/urlrewrite4.0.dtd">
+<urlrewrite>
+	<rule>
+		<from>^/login.html</from>
+		<to>/login.do?code=init</to>
+	</rule>
+
+	<rule>
+		<from>^/loginr.html</from>
+		<to>/login.do?code=login</to>
+	</rule>
+	
+	<rule>
+		<from>^/index.html</from>
+		<to>/index.do?code=indexInit</to>
+	</rule>
+
+	<rule>
+		<from>^/logout.html</from>
+		<to>/login.do?code=logout</to>
+	</rule>
+	
+	<rule>
+		<from>^/([a-zA-Z0-9]+)/([a-zA-Z0-9]+)$</from>
+		<to>/$1.do?code=$2</to>
+	</rule>
+	
+	<!-- <outbound-rule> <from>^/([a-zA-Z0-9]+).do?code=([a-zA-Z0-9]+)#?$</from> 
+		<to>/$1/$2.html</to> </outbound-rule> -->
+
+</urlrewrite>

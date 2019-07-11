@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_3.dtd">
+<struts-config>
+	<form-beans>
+		<form-bean name="commonActionForm" type="org.xianwu.core.web.CommonActionForm" />
+	</form-beans>
+
+	<!-- Action映射 -->
+	<action-mappings type="org.xianwu.core.mvc.xstruts.action.ActionMapping">
+
+		<!-- 登录页面 -->
+		<action name="commonActionForm" path="/login" scope="request"  parameter="code"
+			type="org.xianwu.system.admin.web.LoginAction">
+			<forward name="loginView" path="/login.jsp" />
+		</action>
+
+		<!-- 首页 -->
+		<action name="commonActionForm" path="/index" scope="request"  parameter="code"
+			type="org.xianwu.system.admin.web.IndexAction">
+			<forward name="indexView" path="/index.jsp" />
+			<forward name="desktopView" path="/desktop.jsp" />
+			<forward name="welcomeView" path="/system/admin/welcome.jsp" />
+			<forward name="index2loginView" path="/login.jsp" />
+		</action>
+
+		<!-- 资源管理 -->
+		<action name="commonActionForm" path="/resource" scope="request"  parameter="code"
+			type="org.xianwu.system.admin.web.ResourceAction">
+			<forward name="manageMenuResourceView" path="/system/admin/menu.jsp" />
+			<forward name="codeTableView" path="/system/admin/code.jsp" />
+			<forward name="manageIconView" path="/system/admin/icon.jsp" />
+			<forward name="colorPaletteView" path="/system/admin/color.jsp" />
+		</action>
+
+		<!-- 组织机构管理 -->
+		<action name="commonActionForm" path="/organization" scope="request"  parameter="code"
+			type="org.xianwu.system.admin.web.OrganizationAction">
+			<forward name="manageDepartmentView" path="/system/admin/department.jsp" />
+		</action>
+
+		<!-- 角色管理与授权 -->
+		<action name="commonActionForm" path="/role" scope="request"  parameter="code"
+			type="org.xianwu.system.admin.web.RoleAction">
+			<forward name="manageRoleView" path="/system/admin/role.jsp" />
+			<forward name="operatorTabView" path="/system/admin/auth/operatorTab.jsp" />
+			<forward name="selectUserTabView" path="/system/admin/auth/selectUserTab.jsp" />
+			<forward name="managerTabView" path="/system/admin/auth/managerTab.jsp" />
+		</action>
+
+		<!-- 人员管理与授权 -->
+		<action name="commonActionForm" path="/user" scope="request"  parameter="code"
+			type="org.xianwu.system.admin.web.UserAction">
+			<forward name="manageUserView" path="/system/admin/user.jsp" />
+			<forward name="selectRoleTreeView" path="/system/admin/auth/selectRoleTree.jsp" />
+			<forward name="selectMenuTreeView" path="/system/admin/auth/selectMenuTree.jsp" />
+		</action>
+
+		<!-- 全局参数表管理 -->
+		<action name="commonActionForm" path="/param" scope="request"  parameter="code"
+			type="org.xianwu.system.admin.web.ParamAction">
+			<forward name="manageParamView" path="/system/admin/parameter.jsp" />
+		</action>
+
+		<!-- 会话监控 -->
+		<action name="commonActionForm" path="/sessionMonitor" scope="request"  parameter="code"
+			type="org.xianwu.system.admin.web.HttpSessionMonitorAction">
+			<forward name="sessionMonitorView" path="/system/admin/session.jsp" />
+		</action>
+
+		<!-- JDBC监控 -->
+		<action name="commonActionForm" path="/jdbcMonitor" scope="request"  parameter="code"
+			type="org.xianwu.system.admin.web.JdbcMonitorAction">
+			<forward name="jdbcInitView" path="/system/admin/database.jsp" />
+		</action>
+
+		<!-- 事件跟踪 -->
+		<action name="commonActionForm" path="/eventTrack" scope="request"  parameter="code"
+			type="org.xianwu.system.admin.web.EventTrackAction">
+			<forward name="eventTrackView" path="/system/admin/eventtrack.jsp" />
+		</action>
+
+		<!-- 获取服务器信息及内存CPU实时监控 -->
+		<action name="commonActionForm" path="/serverInfo" scope="request"  parameter="code"
+			type="org.xianwu.system.admin.web.ServerInfoAction">
+			<forward name="serverInfoView" path="/system/admin/server.jsp" />
+		</action>
+
+		<!-- SpringBean切面监控 -->
+		<action name="commonActionForm" path="/beanMonitor" scope="request"  parameter="code"
+			type="org.xianwu.system.admin.web.BeanMonitorAction">
+			<forward name="beanMonitorView" path="/system/admin/exception.jsp" />
+		</action>
+
+		<!-- UI组件托管 -->
+		<action name="commonActionForm" path="/part" scope="request"  parameter="code"
+			type="org.xianwu.system.admin.web.PartAction">
+			<forward name="initView" path="/system/admin/uipart.jsp" />
+		</action>
+
+		<!-- UI组件人员授权 -->
+		<action name="commonActionForm" path="/userPart" scope="request"  parameter="code"
+			type="org.xianwu.system.admin.web.UserPartAction">
+			<forward name="initView" path="/system/admin/uiuser.jsp" />
+		</action>
+
+		<!-- UI组件角色授权 -->
+		<action name="commonActionForm" path="/rolePart" scope="request"  parameter="code"
+			type="org.xianwu.system.admin.web.RolePartAction">
+			<forward name="initView" path="/system/admin/uirole.jsp" />
+		</action>
+
+		<!-- Web报表引擎 -->
+		<action name="commonActionForm" path="/report" scope="request"  parameter="code"
+			type="org.xianwu.core.web.report.jasper.ReportAcion">
+			<forward name="printInitView" path="/resource/jasper/printInit.jsp" />
+			<forward name="pdfInitView" path="/resource/jasper/pdfInit.jsp" />
+			<forward name="excelInitView" path="/resource/jasper/excelInit.jsp" />
+		</action>
+
+		<!-- 代码生成器 -->
+		<action name="commonActionForm" path="/codeGenerator" scope="request"  parameter="code"
+			type="org.xianwu.system.devtoolkit.web.CodeGeneratorAction">
+			<forward name="daoCodeInitView" path="/system/devtoolkit/daoCodeGenerator.jsp" />
+		</action>
+
+	</action-mappings>
+
+</struts-config>

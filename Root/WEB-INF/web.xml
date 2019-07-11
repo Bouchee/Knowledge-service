@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.4"
+	xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<display-name>dec</display-name>
+	<description></description>
+
+	<!-- 配置ESB.Webservice
+			<context-param>
+				<param-name>contextConfigLocation</param-name>
+				<param-value>classpath:config/esb/webservice.server.xml</param-value>
+			</context-param>
+			<listener>
+				<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+			</listener>
+			<servlet>
+			<servlet-name>CXFServlet</servlet-name>
+				<servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+				<load-on-startup>1</load-on-startup>
+			</servlet>
+			<servlet-mapping>
+				<servlet-name>CXFServlet</servlet-name>
+				<url-pattern>/esb/webservice/*</url-pattern>
+			</servlet-mapping>
+		-->
+	<!-- 配置ESB.Httpinvoker
+		<servlet>
+			<servlet-name>httpinvokerServlet</servlet-name>
+			<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+			<init-param>
+				<param-name>contextConfigLocation</param-name>
+				<param-value>classpath:config/esb/httpinvoker.server.xml</param-value>
+			</init-param>
+			<load-on-startup>1</load-on-startup>
+		</servlet>
+		<servlet-mapping>
+			<servlet-name>httpinvokerServlet</servlet-name>
+			<url-pattern>/esb/httpinvoker/*</url-pattern>
+		</servlet-mapping>
+		-->
+	<!-- 演示客户端Applet调用 服务器端Servlet使用
+		<servlet>
+			<servlet-name>myServlet</servlet-name>
+			<servlet-class>org.xianwu.demo.web.other.applet.MyServlet</servlet-class>
+			<load-on-startup>1</load-on-startup>
+		</servlet>
+		<servlet-mapping>
+			<servlet-name>myServlet</servlet-name>
+			<url-pattern>/myServlet</url-pattern>
+		</servlet-mapping>
+		-->
+
+	<!-- 伪静态 -->
+	<filter>
+		<filter-name>UrlRewriteFilter</filter-name>
+		<filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>UrlRewriteFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+
+	<!-- 字符编码过滤器 -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.xianwu.core.web.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>utf-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>enabled</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+
+	<!-- /路径过滤 -->
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>DisableUnsecureHttpActions</web-resource-name>
+			<url-pattern>/*</url-pattern>
+			<http-method>DELETE</http-method>
+			<http-method>PUT</http-method>
+			<http-method>HEAD</http-method>
+			<http-method>TRACE</http-method>
+			<http-method>OPTIONS</http-method>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>NotExistingRole</role-name>
+		</auth-constraint>
+		<user-data-constraint>
+			<transport-guarantee>NONE</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
+
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+
+	<!-- 请求拦截过滤器 -->
+	<filter>
+		<filter-name>requestFilter</filter-name>
+		<filter-class>org.xianwu.core.web.RequestFilter</filter-class>
+		<init-param>
+			<param-name>enabled</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>requestFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+
+	<!-- 静态资源过滤器:提供压缩和缓存的功能(强力建议在开发调试阶段将此组件注释掉,在生产环境中部署时再打开)
+		<filter>
+			<filter-name>resourceFilter</filter-name>
+			<filter-class>org.xianwu.core.resource.impl.ResourceFilter</filter-class>
+			<init-param>
+				<param-name>config</param-name>
+				<param-value>/WEB-INF/classes/resource.properties</param-value>
+			</init-param>
+		</filter>
+		<filter-mapping>
+			<filter-name>resourceFilter</filter-name>
+			<url-pattern>*.js</url-pattern>
+		</filter-mapping>
+		<filter-mapping>
+			<filter-name>resourceFilter</filter-name>
+			<url-pattern>*.css</url-pattern>
+		</filter-mapping>
+		  -->
+
+	<!-- 系统启动监听器 -->
+	<listener>
+		<listener-class>org.xianwu.core.web.SystemInitListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+	</listener>
+	<!-- 会话监听器 -->
+	<listener>
+		<listener-class>org.xianwu.core.web.SessionListener</listener-class>
+	</listener>
+
+	<!-- 配置ActionServlet,加载Struts配置文件 -->
+	<servlet>
+		<servlet-name>action</servlet-name>
+		<servlet-class>org.xianwu.core.web.BaseActionServlet</servlet-class>
+		<init-param>
+			<param-name>config</param-name>
+			<param-value>
+				/WEB-INF/struts-config.xml,
+				/WEB-INF/struts-config-file.xml,
+				/WEB-INF/struts-config-dec.xml
+			</param-value>
+		</init-param>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>2</param-value>
+		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>action</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+
+	<!-- 设置Session时长:以分钟为单位;如果是零或负数,那么会话就永远不会超时。 -->
+	<session-config>
+		<session-timeout>0</session-timeout>
+	</session-config>
+
+	<!-- Resource interpreted as Script but transferred with MIME type text/plain -->
+	<mime-mapping>    
+		<extension>js</extension>        
+		<mime-type>text/javascript</mime-type>        
+	</mime-mapping>
+	<mime-mapping>
+		<extension>css</extension>
+		<mime-type>text/css</mime-type>
+	</mime-mapping>
+    
+	<!-- 浏览器根据文件类型自动打开文件 -->
+	<mime-mapping>
+		<extension>doc</extension>
+		<mime-type>application/msword</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>docx</extension>
+		<mime-type>application/vnd.openxmlformats-officedocument.wordprocessingml.document</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>xls</extension>
+		<mime-type>application/vnd.ms-excel</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>xlsx</extension>
+		<mime-type>application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>pps</extension>
+		<mime-type>application/vnd.ms-powerpoint</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>ppsx</extension>
+		<mime-type>application/vnd.openxmlformats-officedocument.presentationml.slideshow</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>ppt</extension>
+		<mime-type>application/vnd.ms-powerpoint</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>pptx</extension>
+		<mime-type>application/vnd.openxmlformats-officedocument.presentationml.presentation</mime-type>
+	</mime-mapping>
+    
+	<mime-mapping>
+		<extension>gif</extension>
+		<mime-type>image/gif</mime-type>
+	</mime-mapping>
+    <mime-mapping>
+		<extension>mht</extension>
+		<mime-type>message/rfc822</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>mhtml</extension>
+		<mime-type>message/rfc822</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>pdf</extension>
+		<mime-type>application/pdf</mime-type>
+	</mime-mapping>
+	    
+	<!-- 缺省首页 -->
+	<welcome-file-list>
+		<welcome-file>login.htm</welcome-file>
+		<!-- <welcome-file>login.htm</welcome-file> -->
+	</welcome-file-list>
+
+	<!-- 404错误响应页面 -->
+	<error-page>
+		<error-code>404</error-code>
+		<location>/common/error/404.jsp</location>
+	</error-page>
+
+	<!-- 500错误响应页面，提示：500错误平台已做了特殊处理，无需再配置。
+			<error-page>
+				<error-code>500</error-code>
+				<location>/common/error/500.jsp</location>
+			</error-page>
+		 -->
+</web-app>

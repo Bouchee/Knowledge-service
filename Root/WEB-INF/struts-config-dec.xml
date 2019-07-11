@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_3.dtd">
+<struts-config>
+	<form-beans>
+		<form-bean name="commonActionForm" type="org.xianwu.core.web.CommonActionForm" />
+	</form-beans>
+
+	<!-- Action映射 -->
+	<action-mappings type="org.xianwu.core.mvc.xstruts.action.ActionMapping">
+
+		<!-- 品牌库 -->
+		<action name="commonActionForm" path="/brand" scope="request"
+			validate="false" parameter="code"
+			type="org.xianwu.dec.admin.web.general.BrandAction">
+			<forward name="brandView" path="/dec/general/brand.jsp" />
+		</action>
+		<!-- 切削液 -->
+		<action name="commonActionForm" path="/category" scope="request"
+			validate="false" parameter="code"
+			type="org.xianwu.dec.admin.web.general.CategoryAction">
+			<forward name="categoryView" path="/dec/general/category.jsp" />
+		</action>
+		<!-- 机床 -->
+		<action name="commonActionForm" path="/machinetool" scope="request"
+			validate="false" parameter="code"
+			type="org.xianwu.dec.admin.web.general.MachinetoolAction">
+			<forward name="machinetoolView" path="/dec/general/machinetool.jsp" />
+		</action>
+		<!-- 工件材料 -->
+		<action name="commonActionForm" path="/workpiecematerial"
+			scope="request" validate="false" parameter="code"
+			type="org.xianwu.dec.admin.web.general.WorkpiecematerialAction">
+			<forward name="workpiecematerialView" path="/dec/general/workpiecematerial.jsp" />
+		</action>
+
+		<!-- 普通车削刀体库 -->
+		<action name="commonActionForm" path="/toolholder" scope="request"
+			validate="false" parameter="code"
+			type="org.xianwu.dec.admin.web.turning.general.ToolholderAction">
+			<forward name="toolholderView" path="/dec/turning/general/toolholder.jsp" />
+		</action>
+		<!-- 普通车削刀片库 -->
+		<action name="commonActionForm" path="/blade" scope="request"
+			validate="false" parameter="code"
+			type="org.xianwu.dec.admin.web.turning.general.BladeAction">
+			<forward name="bladeView" path="/dec/turning/general/blade.jsp" />
+		</action>
+		<!-- 普通车削刀片材料信息管理 -->
+		<action name="commonActionForm" path="/bladematerial" scope="request"
+			validate="false" parameter="code"
+			type="org.xianwu.dec.admin.web.turning.general.BladematerialAction">
+			<forward name="bladematerialView" path="/dec/turning/general/bladematerial.jsp" />
+		</action>
+		<!-- 普通车削槽形库 -->
+		<action name="commonActionForm" path="/groove" scope="request"
+			validate="false" parameter="code"
+			type="org.xianwu.dec.admin.web.turning.general.GrooveAction">
+			<forward name="grooveView" path="/dec/turning/general/groove.jsp" />
+		</action>
+		<!-- 螺纹刀片 -->
+		<action name="commonActionForm" path="/threadblade" scope="request"
+			validate="false" parameter="code"
+			type="org.xianwu.dec.admin.web.turning.thread.ThreadbladeAction">
+			<forward name="threadbladeView" path="/dec/turning/thread/threadblade.jsp" />
+		</action>
+		<!-- 螺纹刀体 -->
+		<action name="commonActionForm" path="/threadtoolholder" scope="request"
+			validate="false" parameter="code"
+			type="org.xianwu.dec.admin.web.turning.thread.ThreadtoolholderAction">
+			<forward name="threadtoolholderView" path="/dec/turning/thread/threadtoolholder.jsp" />
+		</action>
+		<!-- 螺纹材质 -->
+		<action name="commonActionForm" path="/threadbladematerial"
+			scope="request" validate="false" parameter="code"
+			type="org.xianwu.dec.admin.web.turning.thread.ThreadbladematerialAction">
+			<forward name="threadbladematerialView" path="/dec/turning/thread/threadbladematerial.jsp" />
+		</action>
+		<!-- 切断切槽刀片 -->
+		<action name="commonActionForm" path="/cutblade" scope="request"
+			validate="false" parameter="code"
+			type="org.xianwu.dec.admin.web.turning.cut.CutbladeAction">
+			<forward name="cutbladeView" path="/dec/turning/cut/cutblade.jsp" />
+		</action>
+		<!-- 切断切槽刀体 -->
+		<action name="commonActionForm" path="/cuttoolholder" scope="request"
+			validate="false" parameter="code"
+			type="org.xianwu.dec.admin.web.turning.cut.CuttoolholderAction">
+			<forward name="cuttoolholderView" path="/dec/turning/cut/cuttoolholder.jsp" />
+		</action>
+		<!-- 切断切槽刀片材质 -->
+		<action name="commonActionForm" path="/cutbladematerial" scope="request"
+			validate="false" parameter="code"
+			type="org.xianwu.dec.admin.web.turning.cut.CutbladematerialAction">
+			<forward name="cutbladematerialView" path="/dec/turning/cut/cutbladematerial.jsp" />
+		</action>
+		<!-- 切断切槽刀片槽形 -->
+		<action name="commonActionForm" path="/cutgroove" scope="request"
+			validate="false" parameter="code"
+			type="org.xianwu.dec.admin.web.turning.cut.CutgrooveAction">
+			<forward name="cutgrooveView" path="/dec/turning/cut/cutgroove.jsp" />
+		</action>
+
+		<!-- 车削系统管理 -->
+		<action name="commonActionForm" path="/turning" scope="request"
+			validate="false" parameter="code"
+			type="org.xianwu.dec.admin.web.turning.TurningAction">
+			<forward name="turningView" path="/dec/turning/turning.jsp" />
+		</action>
+		<!-- 普通车削 -->
+		<action name="commonActionForm" path="/generalturning" scope="request"
+			validate="false" parameter="code"
+			type="org.xianwu.dec.admin.web.turning.GeneralturningAction">
+			<forward name="generalturningView" path="/dec/turning/generalturning.jsp" />
+		</action>
+		<!-- 切断切槽 -->
+		<action name="commonActionForm" path="/cut" scope="request"
+			validate="false" parameter="code"
+			type="org.xianwu.dec.admin.web.turning.CutAction">
+			<forward name="cutView" path="/dec/turning/cut.jsp" />
+		</action>
+		<!-- 螺纹车削 -->
+		<action name="commonActionForm" path="/screwcutting" scope="request"
+			validate="false" parameter="code"
+			type="org.xianwu.dec.admin.web.turning.ScrewcuttingAction">
+			<forward name="screwcuttingView" path="/dec/turning/screwcutting.jsp" />
+		</action>
+
+		<!-- 整体刀具 -->
+		<action name="commonActionForm" path="/milling_integral" scope="request"
+			validate="false" parameter="code"
+			type="org.xianwu.dec.admin.web.milling.general.Milling_integralAction">
+			<forward name="milling_integralView" path="/dec/milling/general/milling_integral.jsp" />
+		</action>
+		<!-- 机夹刀具刀体 -->
+		<action name="commonActionForm" path="/milling_blade_clamp"
+			scope="request" validate="false" parameter="code"
+			type="org.xianwu.dec.admin.web.milling.general.Milling_blade_clampAction">
+			<forward name="milling_blade_clampView" path="/dec/milling/general/milling_blade_clamp.jsp" />
+		</action>
+		<!-- 机夹刀具刀片 -->
+		<action name="commonActionForm" path="/milling_toolholder_clamp"
+			scope="request" validate="false" parameter="code"
+			type="org.xianwu.dec.admin.web.milling.general.Milling_toolholder_clampAction">
+			<forward name="milling_toolholder_clampView"
+				path="/dec/milling/general/milling_toolholder_clamp.jsp" />
+		</action>
+
+		<!-- 铣削系统管理 -->
+		<action name="commonActionForm" path="/milling" scope="request"
+			validate="false" parameter="code"
+			type="org.xianwu.dec.admin.web.milling.MillingAction">
+			<forward name="cutgroovingView" path="/dec/milling/cutgrooving.jsp" />
+		</action>
+		<!-- 面铣 -->
+		<action name="commonActionForm" path="/surfacemilling" scope="request"
+			parameter="code" type="org.xianwu.dec.admin.web.milling.SurfacemillingAction">
+			<forward name="surfacemillingView" path="/dec/milling/surfacemilling.jsp" />
+		</action>
+		<!-- 方肩铣 -->
+		<action name="commonActionForm" path="/shouldermilling" scope="request"
+			validate="false" parameter="code"
+			type="org.xianwu.dec.admin.web.milling.ShouldermillingAction">
+			<forward name="shouldermillingView" path="/dec/milling/shouldermilling.jsp" />
+		</action>
+		<!-- 仿型铣 -->
+		<action name="commonActionForm" path="/templetmilling" scope="request"
+			validate="false" parameter="code"
+			type="org.xianwu.dec.admin.web.milling.TempletmillingAction">
+			<forward name="templetmillingView" path="/dec/milling/templetmilling.jsp" />
+		</action>
+
+		<!-- 槽铣 -->
+		<action name="commonActionForm" path="/groovemilling" scope="request"
+			validate="false" parameter="code"
+			type="org.xianwu.dec.admin.web.milling.GroovemillingAction">
+			<forward name="groovemillingView" path="/dec/milling/groovemilling.jsp" />
+		</action>
+		
+		
+		<!-- 钻孔 -->
+		<action name="commonActionForm" path="/drilling" scope="request"
+			parameter="code" type="org.xianwu.dec.admin.web.holedrilling.DrillingAction">
+			<forward name="drillingView" path="/dec/holedrilling/drilling.jsp" />
+		</action>
+		<!-- 攻丝 -->
+		<action name="commonActionForm" path="/tapping" scope="request"
+			parameter="code" type="org.xianwu.dec.admin.web.holedrilling.TappingAction">
+			<forward name="tappingView" path="/dec/holedrilling/tapping.jsp" />
+			</action>
+		<!-- 扩孔 -->
+		<action name="commonActionForm" path="/enlarging" scope="request"
+			parameter="code" type="org.xianwu.dec.admin.web.holedrilling.EnlargingAction">
+			<forward name="enlargingView" path="/dec/holedrilling/enlarging.jsp" />
+		</action>
+		<!-- 铰孔 -->
+		<action name="commonActionForm" path="/reaming" scope="request"
+			parameter="code" type="org.xianwu.dec.admin.web.holedrilling.ReamingAction">
+			<forward name="reamingView" path="/dec/holedrilling/reaming.jsp" />
+		</action>		
+		<!-- 镗孔 -->
+		<action name="commonActionForm" path="/boring" scope="request"
+			parameter="code" type="org.xianwu.dec.admin.web.holedrilling.BoringAction">
+			<forward name="boringView" path="/dec/holedrilling/boring.jsp" />
+		</action>	
+			
+		<!-- 镗削刀体 -->
+		<action name="commonActionForm" path="/hd_toolholder_boring" scope="request"
+			parameter="code" type="org.xianwu.dec.admin.web.holedrilling.boring.Hd_toolholder_boringAction">
+			<forward name="hd_toolholder_boringView" path="/dec/holedrilling/boring/hd_toolholder_boring.jsp" />
+		</action>
+		
+		<!-- 镗削模块-->
+		<action name="commonActionForm" path="/hd_toolholder_boring_module" scope="request"
+			parameter="code" type="org.xianwu.dec.admin.web.holedrilling.boring.Hd_toolholder_boring_moduleAction">
+			<forward name="hd_toolholder_boring_moduleView" path="/dec/holedrilling/boring/hd_toolholder_boring_module.jsp" />
+		</action>
+		
+		<!-- 镗削刀片 -->
+		<action name="commonActionForm" path="/hd_blade_boring" scope="request"
+			parameter="code" type="org.xianwu.dec.admin.web.holedrilling.boring.Hd_blade_boringAction">
+			<forward name="hd_blade_boringView" path="/dec/holedrilling/boring/hd_blade_boring.jsp" />
+		</action>
+		
+		<!-- 整体式铰刀 -->
+		<action name="commonActionForm" path="/hd_toolholder_reaming_integral" scope="request"
+			parameter="code" type="org.xianwu.dec.admin.web.holedrilling.reaming.Hd_toolholder_reaming_integralAction">
+			<forward name="hd_toolholder_reaming_integralView" path="/dec/holedrilling/reaming/hd_toolholder_reaming_integral.jsp" />
+		</action>
+		
+		<!-- 机夹式铰刀刀体 -->
+		<action name="commonActionForm" path="/hd_toolholder_reaming_clamp" scope="request"
+			parameter="code" type="org.xianwu.dec.admin.web.holedrilling.reaming.Hd_toolholder_reaming_clampAction">
+			<forward name="hd_toolholder_reaming_clampView" path="/dec/holedrilling/reaming/hd_toolholder_reaming_clamp.jsp" />
+		</action>
+		
+		<!-- 机夹式铰刀模块 -->
+		<action name="commonActionForm" path="/hd_module_reaming_clamp" scope="request"
+			parameter="code" type="org.xianwu.dec.admin.web.holedrilling.reaming.Hd_module_reaming_clampAction">
+			<forward name="hd_module_reaming_clampView" path="/dec/holedrilling/reaming/hd_module_reaming_clamp.jsp" />
+		</action>
+
+		<!-- 丝锥 -->
+		<action name="commonActionForm" path="/hd_toolholder_tapping"
+			scope="request" parameter="code"
+			type="org.xianwu.dec.admin.web.holedrilling.tapping.Hd_toolholder_tappingAction">
+			<forward name="hd_toolholder_tappingView"
+				path="/dec/holedrilling/tapping/hd_toolholder_tapping.jsp" />
+		</action>
+		
+		<!-- 复合钻刀体 -->
+		<action name="commonActionForm" path="/hd_toolholder_combineddrilling" scope="request"
+			parameter="code" type="org.xianwu.dec.admin.web.holedrilling.drilling.Hd_toolholder_combineddrillingAction">
+			<forward name="hd_toolholder_combineddrillingView" path="/dec/holedrilling/drilling/hd_toolholder_combineddrilling.jsp" />
+		</action>
+		
+         	<!-- 复合钻刀片 -->
+		<action name="commonActionForm" path="/hd_blade_combineddrilling" scope="request"
+			parameter="code" type="org.xianwu.dec.admin.web.holedrilling.drilling.Hd_blade_combineddrillingAction">
+			<forward name="hd_blade_combineddrillingView" path="/dec/holedrilling/drilling/hd_blade_combineddrilling.jsp" />
+		</action>
+		
+		<!-- 复合钻中心钻 -->
+		<action name="commonActionForm" path="/hd_blade_combined_centredrilling" scope="request"
+			parameter="code" type="org.xianwu.dec.admin.web.holedrilling.drilling.Hd_blade_combined_centredrillingAction">
+			<forward name="hd_blade_combined_centredrillingView" path="/dec/holedrilling/drilling/hd_blade_combined_centredrilling.jsp" />
+		</action>
+		
+		<!-- 复合钻钻杆 -->
+		<action name="commonActionForm" path="/hd_cutterbar_combineddrilling" scope="request"
+			parameter="code" type="org.xianwu.dec.admin.web.holedrilling.drilling.Hd_cutterbar_combineddrillingAction">
+			<forward name="hd_cutterbar_combineddrillingView" path="/dec/holedrilling/drilling/hd_cutterbar_combineddrilling.jsp" />
+		</action>
+		
+		<!--浅孔钻刀体 -->
+		<action name="commonActionForm" path="/hd_toolholder_poledrilling"
+			scope="request" parameter="code"
+			type="org.xianwu.dec.admin.web.holedrilling.poledrilling.Hd_toolholder_poledrillingAction">
+			<forward name="hd_toolholder_poledrillingView"
+				path="/dec/holedrilling/poledrilling/hd_toolholder_poledrilling.jsp" />
+		</action>
+		
+		 <!--浅孔钻刀片 -->
+		<action name="commonActionForm" path="/hd_blade_poledrilling"
+			scope="request" parameter="code"
+			type="org.xianwu.dec.admin.web.holedrilling.poledrilling.Hd_blade_poledrillingAction">
+			<forward name="hd_blade_poledrillingView"
+				path="/dec/holedrilling/poledrilling/hd_blade_poledrilling.jsp" />	
+		</action>
+		
+		 <!--麻花钻刀体 -->
+		<action name="commonActionForm" path="/hd_toolholder_holedrilling_integral"
+			scope="request" parameter="code"
+			type="org.xianwu.dec.admin.web.holedrilling.drilling.Hd_toolholder_holedrilling_integralAction">
+			<forward name="hd_toolholder_holedrilling_integralView"
+				path="/dec/holedrilling/drilling/hd_toolholder_holedrilling_integral.jsp" />	
+		</action>
+		
+				<!-- 单刀片机夹钻刀片 -->
+		<action name="commonActionForm" path="/hd_blade_singledrilling_clamp"
+			scope="request" parameter="code"
+			type="org.xianwu.dec.admin.web.holedrilling.drilling.Hd_blade_singledrilling_clampAction">
+			<forward name="hd_blade_singledrilling_clampView"
+				path="/dec/holedrilling/drilling/hd_blade_singledrilling_clamp.jsp" />
+		</action>
+		
+		<!-- 单刀片机夹钻刀体 -->
+		<action name="commonActionForm" path="/hd_toolholder_singledrilling_clamp"
+			scope="request" parameter="code"
+			type="org.xianwu.dec.admin.web.holedrilling.drilling.Hd_toolholder_singledrilling_clampAction">
+			<forward name="hd_toolholder_singledrilling_clampView"
+				path="/dec/holedrilling/drilling/hd_toolholder_singledrilling_clamp.jsp" />
+		</action>
+
+		<!-- 套式扩孔钻模块 -->
+		<action name="commonActionForm" path="/hd_module_coredrilling_shell"
+			scope="request" parameter="code"
+			type="org.xianwu.dec.admin.web.holedrilling.enlarging.Hd_module_coredrilling_shellAction">
+			<forward name="hd_module_coredrilling_shellView"
+				path="/dec/holedrilling/enlarging/hd_module_coredrilling_shell.jsp" />
+		</action>
+
+		<!-- 套式扩孔钻 -->
+		<action name="commonActionForm" path="/hd_toolholder_coredrilling_shell"
+			scope="request" parameter="code"
+			type="org.xianwu.dec.admin.web.holedrilling.enlarging.Hd_toolholder_coredrilling_shellAction">
+			<forward name="hd_toolholder_coredrilling_shellView"
+				path="/dec/holedrilling/enlarging/hd_toolholder_coredrilling_shell.jsp" />
+		</action>
+		
+		<!-- 中心钻 -->
+		<action name="commonActionForm" path="/centredrilling" scope="request"
+			parameter="code" type="org.xianwu.dec.admin.web.holedrilling.CentredrillingAction">
+			<forward name="centredrillingView" path="/dec/holedrilling/centredrilling.jsp" />
+			</action>
+			
+		<!-- 中心钻基本信息 -->
+		<action name="commonActionForm" path="/hd_centredrilling"
+			scope="request" parameter="code"
+			type="org.xianwu.dec.admin.web.holedrilling.centredrilling.Hd_centredrillingAction">
+			<forward name="hd_centredrillingView"
+				path="/dec/holedrilling/centredrilling/hd_centredrilling.jsp" />
+		</action>
+		
+		<!-- 材料知识库 -->
+		<action name="commonActionForm" path="/material"
+			scope="request" parameter="code"
+			type="org.xianwu.dec.admin.web.knowledgebasesystem.MaterialAction">
+			<forward name="materialView"
+				path="/dec/knowledgebasesystem/material.jsp" />
+		</action>
+		
+		<!-- 机床功能菜单 -->
+		<action name="commonActionForm" path="/machinetoolfunction"
+			scope="request" parameter="code"
+			type="org.xianwu.dec.admin.web.general.MachinetoolAction">
+			<forward name="machinetoolView" path="/dec/general_information_management/machinetoolfunction.jsp" />
+		</action>
+		
+		<!-- 切削液功能菜单 -->
+		<action name="commonActionForm" path="/categoryfunction"
+			scope="request" parameter="code"
+			type="org.xianwu.dec.admin.web.general.CategoryAction">
+			<forward name="categoryView" path="/dec/general_information_management/categoryfunction.jsp" />
+		</action>
+		
+		<!-- 工件材料功能菜单 -->
+		<action name="commonActionForm" path="/workpiecematerialfunction"
+			scope="request" parameter="code"
+			type="org.xianwu.dec.admin.web.general.WorkpiecematerialAction">
+			<forward name="workpiecematerialView" path="/dec/general_information_management/workpiecematerialfunction.jsp" />
+		</action>
+		
+		<!-- 刀具品牌功能菜单 -->
+		<action name="commonActionForm" path="/brandfunction"
+			scope="request" parameter="code"
+			type="org.xianwu.dec.admin.web.general.BrandAction">
+			<forward name="brandView" path="/dec/general_information_management/brandfunction.jsp" />
+		</action> 
+		
+		<!-- 普通车削材质功能菜单 -->
+		<action name="commonActionForm" path="/bladematerialfunction"
+			scope="request" parameter="code"
+			type="org.xianwu.dec.admin.web.turning.general.BladematerialAction">
+			<forward name="bladematerialView" path="/dec/tool_material_management/bladematerialfunction.jsp" />
+		</action> 
+		
+		<!-- 螺纹车削材质功能菜单 -->
+		<action name="commonActionForm" path="/threadbladematerialfunction"
+			scope="request" parameter="code"
+			type="org.xianwu.dec.admin.web.turning.thread.ThreadbladematerialAction">
+			<forward name="threadbladematerialView" path="/dec/tool_material_management/threadbladematerialfunction.jsp" />
+		</action> 
+		
+		<!-- 切削切槽材质功能菜单 -->
+		<action name="commonActionForm" path="/cutbladematerialfunction"
+			scope="request" parameter="code"
+			type="org.xianwu.dec.admin.web.turning.cut.CutbladematerialAction">
+			<forward name="cutbladematerialView" path="/dec/tool_material_management/cutbladematerialfunction.jsp" />
+		</action> 
+		
+		<!-- 普通车削槽型功能菜单 -->
+		<action name="commonActionForm" path="/groovefunction"
+			scope="request" parameter="code"
+			type="org.xianwu.dec.admin.web.turning.general.GrooveAction">
+			<forward name="grooveView" path="/dec/tool_cuttinggroove_management/groovefunction.jsp" />
+		</action> 
+		
+		<!-- 切断切槽槽型功能菜单 -->
+		<action name="commonActionForm" path="/cutgroovefunction"
+			scope="request" parameter="code"
+			type="org.xianwu.dec.admin.web.turning.cut.CutgrooveAction">
+			<forward name="cutgrooveView" path="/dec/tool_cuttinggroove_management/cutgroovefunction.jsp" />
+		</action> 
+		<!-- 切断切槽 <action name="commonActionForm" path="/cutgrooving" scope="request" 
+			validate="false" parameter="code" type="org.xianwu.dec.admin.web.turning.CutgroovingAction"> 
+			<forward name="cutgroovingView" path="/dec/cutgrooving.jsp" /> </action> -->
+		<!-- 机床性能卡 <action name="commonActionForm" path="/mtperformance" scope="request" 
+			validate="false" parameter="code" type="org.xianwu.dec.admin.web.MtperformanceAction"> 
+			<forward name="mtperformanceView" path="/dec/mtperformance.jsp" /> </action> -->
+		<!-- 机床 - 刀体 <action name="commonActionForm" path="/machinetoolholder" 
+			scope="request" validate="false" parameter="code" type="org.xianwu.dec.admin.web.MachinetoolholderAction"> 
+			<forward name="machinetoolholderView" path="/dec/machinetoolholder.jsp" /> 
+			</action> -->
+		<!-- 刀片 - 刀体 <action name="commonActionForm" path="/bladetoolholder" scope="request" 
+			validate="false" parameter="code" type="org.xianwu.dec.admin.web.BladetoolholderAction"> 
+			<forward name="bladetoolholderView" path="/dec/bladetoolholder.jsp" /> </action> -->
+		<!-- 工件材料 - 刀片材料 <action name="commonActionForm" path="/workpieceblade" 
+			scope="request" validate="false" parameter="code" type="org.xianwu.dec.admin.web.WorkpiecebladeAction"> 
+			<forward name="workpiecebladeView" path="/dec/workpieceblade.jsp" /> </action> -->
+		<!-- 齿轮 <action name="commonActionForm" path="/gear" scope="request" parameter="code" 
+			type="org.xianwu.dec.admin.web.GearAction"> <forward name="gearView" path="/dec/gear.jsp" 
+			/> </action> -->
+
+		<!-- 关于系统 -->
+		<action name="commonActionForm" path="/about_system" scope="request"
+			parameter="code" type="org.xianwu.help.admin.web.AboutSystemAction">
+			<forward name="aboutsystemView" path="/help/dec/about_system.jsp" />
+		</action>
+		<!-- 发明原理 -->
+		<action name="commonActionForm" path="/invention_principle"
+			scope="request" parameter="code"
+			type="org.xianwu.dec.admin.web.knowledgebasesystem.Invention_principleAction">
+			<forward name="invention_principleView"
+				path="/dec/knowledgebasesystem/invention/invention_principle.jsp" />
+		</action>
+		<!-- 创新策略 -->
+		<action name="commonActionForm" path="/netbrainstorm"
+			scope="request" parameter="code"
+			type="org.xianwu.dec.admin.web.knowledgebasesystem.NetBrainstormAction">
+			<forward name="netbrainstormView"
+				path="/dec/knowledgebasesystem/inventiontool/netbrainstorm.jsp" />
+		</action>		
+		<action name="commonActionForm" path="/triz"
+			scope="request" parameter="code"
+			type="org.xianwu.dec.admin.web.knowledgebasesystem.TrizAction">
+			<forward name="trizView"
+				path="/dec/knowledgebasesystem/inventiontool/triz.jsp" />
+		</action>
+			<action name="commonActionForm" path="/fbs"
+			scope="request" parameter="code"
+			type="org.xianwu.dec.admin.web.knowledgebasesystem.FbsAction">
+			<forward name="fbsView"
+				path="/dec/knowledgebasesystem/inventiontool/fbs.jsp" />
+		</action>
+		<action name="commonActionForm" path="/expan"
+			scope="request" parameter="code"
+			type="org.xianwu.dec.admin.web.knowledgebasesystem.ExpanAction">
+			<forward name="expanView"
+				path="/dec/knowledgebasesystem/inventiontool/expan.jsp" />
+		</action>
+		<action name="commonActionForm" path="/ideal"
+			scope="request" parameter="code"
+			type="org.xianwu.dec.admin.web.knowledgebasesystem.IdealAction">
+			<forward name="idealView"
+				path="/dec/knowledgebasesystem/inventiontool/ideal.jsp" />
+		</action>
+		<action name="commonActionForm" path="/brainstorming"
+			scope="request" parameter="code"
+			type="org.xianwu.dec.admin.web.knowledgebasesystem.BrainstormingAction">
+			<forward name="brainstormingView"
+				path="/dec/knowledgebasesystem/inventiontool/brainstorming.jsp" />
+		</action>
+	</action-mappings>
+
+</struts-config>
