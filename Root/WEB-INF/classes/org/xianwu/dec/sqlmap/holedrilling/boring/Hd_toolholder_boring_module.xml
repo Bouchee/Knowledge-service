@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 机夹刀具模块 -->
+<sqlMap namespace="Hd_toolholder_boring_module">
+	<typeAlias alias="dto" type="org.xianwu.core.metatype.impl.BaseDto" />
+	<!-- 查询模块 -->
+	<select id="queryHd_toolholder_boring_module4Manage" parameterClass="map"
+		resultClass="dto">
+	SELECT 
+	hm.toolholderid ,
+	hm.sapcode,
+	hm. NAME,
+	hm.type,
+	hm.figure,
+	hm.figure2,
+	(select name from brand where brandid
+		= hm.brandid limit 1) AS brandid,
+	hm.cuttype,
+	hm.standard,
+	hm.nodiameter,
+	hm.adprecision,
+	hm.mainangle,
+	hm.teethnumber,
+	hm.length,
+	hm.mcm,
+	hm.mcc,
+	hm.coolingtype,
+	hm.description,
+	hm.remark,
+	hm.aname1,
+	hm.anametype1 ,
+	hm.aname2,
+	hm.anametype2,
+	hm.aname3,
+	hm.anametype3,
+	hm.aname4,
+	hm.anametype4
+FROM
+	hd_toolholder_boring_module AS hm
+WHERE 1=1 
+		<dynamic>
+			
+			<isNotEmpty prepend="AND" property="keyword">
+				(hm.name like
+				'%$keyword$%' or hm.type like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<select id="queryHd_toolholder_boring_module4Manage4PageCount"
+		parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		FROM
+	hd_toolholder_boring_module AS hm
+           WHERE 1=1 
+		<dynamic>
+			
+			<isNotEmpty prepend="AND" property="keyword">
+				(hm.name like
+				'%$keyword$%' or hm.type like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<!-- 插入机夹刀具模块 -->
+	<insert id="saveHd_toolholder_boring_module" parameterClass="dto">
+		INSERT INTO
+		Hd_toolholder_boring_module (toolholderid,
+sapcode,
+name,
+type,
+figure,
+figure2,
+brandid,
+cuttype,
+standard,
+nodiameter,
+adprecision,
+mainangle,
+teethnumber,
+length,
+mcm,
+mcc,
+coolingtype,
+description,
+remark,
+aname1,
+anametype1,
+aname2,
+anametype2,
+aname3,
+anametype3,
+aname4,
+anametype4)
+		VALUES (#toolholderid#,
+#sapcode#,
+#name#,
+#type#,
+#figure#,
+#figure2#,
+#brandid#,
+#cuttype#,
+#standard#,
+#nodiameter#,
+#adprecision#,
+#mainangle#,
+#teethnumber#,
+#length#,
+#mcm#,
+#mcc#,
+#coolingtype#,
+#description#,
+#remark#,
+#aname1#,
+#anametype1#,
+#aname2#,
+#anametype2#,
+#aname3#,
+#anametype3#,
+#aname4#,
+#anametype4#)
+	</insert>
+
+
+	<!-- 更新机夹刀具模块 -->
+	<update id="updateHd_toolholder_boring_module" parameterClass="map">
+		UPDATE Hd_toolholder_boring_module set
+
+
+		toolholderid=#toolholderid#,
+sapcode=#sapcode#,
+name=#name#,
+type=#type#,
+figure=#figure#,
+figure2=#figure2#,
+brandid=#brandid#,
+cuttype=#cuttype#,
+standard=#standard#,
+nodiameter=#nodiameter#,
+adprecision=#adprecision#,
+mainangle=#mainangle#,
+teethnumber=#teethnumber#,
+length=#length#,
+mcm=#mcm#,
+mcc=#mcc#,
+coolingtype=#coolingtype#,
+description=#description#,
+remark=#remark#,
+aname1=#aname1#,
+anametype1=#anametype1#,
+aname2=#aname2#,
+anametype2=#anametype2#,
+aname3=#aname3#,
+anametype3=#anametype3#,
+aname4=#aname4#,
+anametype4=#anametype4#
+
+
+
+		<dynamic>
+			<isNotEmpty prepend="," property="figure">
+				figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="figure2">
+				figure2 = #figure2#
+			</isNotEmpty>
+		</dynamic>
+
+		WHERE toolholderid = #toolholderid#
+	</update>
+
+	<!-- 删除机夹刀具模块 -->
+	<delete id="deleteHd_toolholder_boring_module" parameterClass="map">
+		DELETE
+		FROM
+		Hd_toolholder_boring_module
+		WHERE toolholderid = #toolholderid#
+	</delete>
+
+	<!-- 根据ID查询图片位置 -->
+	<select id="queryFigure4Delete4Hd_toolholder_boring_module" parameterClass="map"
+		resultClass="dto">
+		SELECT figure, figure2
+		FROM hd_toolholder_boring_module where toolholderid =
+		#toolholderid#
+	</select>
+
+	<!-- 查询模块品牌 -->
+	<select id="queryBrand4Hd_toolholder_boring_module" parameterClass="map"
+		resultClass="dto">
+		SELECT brandid as value, name as text
+		FROM brand
+	</select>
+
+</sqlMap>

@@ -1,0 +1,825 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 槽铣 -->
+<sqlMap namespace="Groovemilling">
+	<typeAlias alias="dto" type="org.xianwu.core.metatype.impl.BaseDto" />
+
+	<!-- 查询整体式铣刀 -->
+	<select id="queryMilling_toolholder_integral4Manage"
+		parameterClass="map" resultClass="dto">
+		SELECT
+		mi.toolholderid AS toolholderid,
+		mi.sapcode AS sapcode,
+		mi.toolholdertype AS toolholdertype,
+		mi.name AS name,
+		(select name from
+		brand where brandid = mi.brandid ) AS brandid,
+		mi.figure AS figure,
+		mi.figure2 AS figure2,
+		mi.cuttype AS cuttype,
+		mi.aemax AS aemax,
+		mi.celength AS celength,
+		mi.nominaldiameter AS nominaldiameter,
+		mi.helicalangle AS helicalangle,
+		mi.noseradius AS noseradius,
+		mi.coneangle AS coneangle,
+		mi.teethnumber AS teethnumber,
+		mi.portsize AS
+		portsize,
+		mi.length AS length,
+		mi.material AS material,
+		mim.name As
+		mimmaterialname,
+		mi.remark AS remark,
+		mi.k1
+		FROM
+		milling_integral as mi left
+		join milling_integral_material as mim on (mi.material =
+		mim.bladematerialid)
+		WHERE mi.cuttype like '%槽%' and mi.k1 !=""
+
+		<dynamic>
+			<isNotEmpty prepend="AND" property="material">
+				mi.material =
+				#material#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="workpieceisotype">
+				mi.material in
+				(select
+				bladematerialid from milling_integral_material
+				where
+				isotype like
+				CONCAT("%", (select isotype from workpiecematerial
+				where
+				workpiecematerial.workpiecematerialid = #workpieceisotype#), "%"))
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="cuttype">
+				mi.cuttype = #cuttype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="nominaldiameter">
+				mi.nominaldiameter =
+				#nominaldiameter#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="interferencedepth_or_celength">
+				 <![CDATA[mi.celength  >= #interferencedepth_or_celength#]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="cutedge_or_celength">
+				 <![CDATA[mi.celength  >= #cutedge_or_celength#]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="interferencedepth_or_aemax">
+				 <![CDATA[mi.celength  >= #interferencedepth_or_aemax#]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="noseradius">
+				mi.noseradius =
+				#noseradius#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+				mi.name =
+				#name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="sapcode">
+				mi.sapcode = #sapcode#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<select id="queryMilling_toolholder_integral4Manage4PageCount"
+		parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		FROM
+		milling_integral as mi left
+		join milling_integral_material as mim on (mi.material =
+		mim.bladematerialid)
+		WHERE mi.cuttype like '%槽%' and mi.k1 !=""
+
+		<dynamic>
+			<isNotEmpty prepend="AND" property="material">
+				mi.material =
+				#material#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="workpieceisotype">
+				mi.material in
+				(select
+				bladematerialid from milling_integral_material
+				where
+				isotype like
+				CONCAT("%", (select isotype from workpiecematerial
+				where
+				workpiecematerial.workpiecematerialid = #workpieceisotype#), "%"))
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="cuttype">
+				mi.cuttype = #cuttype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="nominaldiameter">
+				mi.nominaldiameter =
+				#nominaldiameter#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="interferencedepth_or_celength">
+				 <![CDATA[mi.celength  >= #interferencedepth_or_celength#]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="cutedge_or_celength">
+				 <![CDATA[mi.celength  >= #cutedge_or_celength#]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="interferencedepth_or_aemax">
+				 <![CDATA[mi.celength  >= #interferencedepth_or_aemax#]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="noseradius">
+				mi.noseradius =
+				#noseradius#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+				mi.name =
+				#name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="sapcode">
+				mi.sapcode = #sapcode#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<!-- 查询工件材料状态 -->
+	<select id="queryWorkpiecematerial" parameterClass="map"
+		resultClass="dto">
+		SELECT workpiecematerialid, name, mark, wmtype, heattreat, hardness,
+		concat(name, '-', mark) as name2 FROM workpiecematerial a
+		WHERE 1 = 1
+		<!-- <dynamic> <isNotEmpty prepend="AND" property="keyword"> (a.name like 
+			'%$keyword$%' or a.mark like '%$keyword$%') </isNotEmpty> </dynamic> -->
+		order by a.workpiecematerialid
+	</select>
+
+	<!-- 查询铣削方式 -->
+	<select id="queryCuttypeInMilling_toolholder_integral"
+		parameterClass="map" resultClass="dto">
+		select cuttype as value
+		from
+		milling_integral
+		order by cuttype
+	</select>
+
+	<!-- 查询公称直径 -->
+	<select id="queryNominaldiameterInMilling_toolholder_integral"
+		parameterClass="map" resultClass="dto">
+		select nominaldiameter as value
+		from
+		milling_integral where nominaldiameter is not NULL and cuttype like
+		'%槽%'
+		<dynamic>
+		
+			<isNotEmpty prepend="AND" property="name">
+				name =
+				#name#
+			</isNotEmpty>
+		
+		</dynamic>
+		GROUP BY
+		nominaldiameter
+	</select>
+
+	<!-- 查询刃长 -->
+	<select id="queryCelengthInMilling_toolholder_integral"
+		parameterClass="map" resultClass="dto">
+		select celength as value
+		from
+		milling_integral where celength is not NULL and cuttype like '%槽%'
+		GROUP BY
+		celength
+	</select>
+
+	<!-- 查询最大径向切深 -->
+	<select id="queryAemaxInMilling_toolholder_integral"
+		parameterClass="map" resultClass="dto">
+		select aemax as value
+		from
+		milling_integral where aemax is not NULL and cuttype like '%槽%'
+		GROUP
+		BY
+		aemax
+	</select>
+
+	<!-- 查询刀尖圆角半径 -->
+	<select id="queryNoseradiusInMilling_toolholder_integral"
+		parameterClass="map" resultClass="dto">
+		select noseradius as value
+		from
+		milling_integral where noseradius is not NULL and cuttype like '%槽%'
+		GROUP BY
+		noseradius
+	</select>
+
+	<!-- 查询机夹刀体 -->
+	<select id="queryMilling_toolholder_clamp4Manage"
+		parameterClass="map" resultClass="dto">
+		SELECT
+		mtc.toolholderid AS toolholderid,
+		mtc.sapcode AS sapcode,
+		mtc.name AS name,
+		mtc.toolholdertype AS toolholdertype,
+		(select name
+		from brand where brandid = mtc.brandid ) AS brandid,
+		mtc.figure AS
+		figure,
+		mtc.figure2 AS figure2,
+		mtc.cuttype AS cuttype,
+		mtc.nominaldiameter AS nominaldiameter,
+		mtc.mainangle AS mainangle,
+		mtc.toothnumber AS toothnumber,
+		mtc.effectivetoothnumber AS
+		effectivetoothnumber,
+		mtc.portsize AS portsize,
+		mtc.length AS length,
+		mtc.interferencedepth AS interferencedepth,
+		mtc.apmax AS apmax,
+		mtc.aemax AS aemax,
+		mtc.featurecode AS featurecode,
+		mtc.toolweight AS
+		toolweight,
+		mtc.aname1 AS aname1,
+		mtc.atype1 AS atype1,
+		mtc.aname2 AS
+		aname2,
+		mtc.atype2 AS atype2,
+		mtc.aname3 AS aname3,
+		mtc.atype3 AS atype3,
+		mtc.aname4 AS aname4,
+		mtc.atype4 AS atype4,
+		mtc.aname5 AS aname5,
+		mtc.atype5 AS atype5,
+		mtc.aname6 AS aname6,
+		mtc.atype6 AS atype6,
+		mtc.aname7 AS aname7,
+		mtc.atype7 AS atype7,
+		mtc.aname8 AS aname8,
+		mtc.atype8 AS atype8,
+		mtc.aname9 AS aname9,
+		mtc.atype9 AS atype9,
+		mtc.remark AS remark,
+		mtc.priority,
+		mtc.k1
+		FROM
+		milling_toolholder_clamp as mtc
+		WHERE mtc.cuttype like '%槽%' 
+		<dynamic>
+			<isNotEmpty prepend="AND" property="nominaldiameter">
+				mtc.nominaldiameter =
+				#nominaldiameter#
+			</isNotEmpty>
+			<!-- <isNotEmpty prepend="AND" property="cuttype"> mtc.cuttype = #cuttype# 
+				</isNotEmpty> -->
+			<isNotEmpty prepend="AND" property="featurecode">
+			(<iterate property="featurecode">INSTR(mtc.featurecode,#featurecode[]#) + </iterate>0)
+			</isNotEmpty>
+			<!-- <isNotEmpty prepend="AND" property="interferencedepth_or_interferencedepth"> 
+				mtc.interferencedepth = #interferencedepth_or_interferencedepth# </isNotEmpty> -->
+			<isNotEmpty prepend="AND" property="interferencedepth_or_aemax">
+				 <![CDATA[mtc.aemax  >= #interferencedepth_or_aemax#]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="cutedge_or_apmax">
+				 <![CDATA[mtc.apmax  >= #cutedge_or_apmax#]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="interferencedepth">
+				 <![CDATA[mtc.interferencedepth  >= #interferencedepth#]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="noseradius">
+				mtc.featurecode IN (SELECT mtc.featurecode FROM
+				milling_toolholder_clamp mtc,milling_blade_clamp mbc WHERE
+				instr(mtc.featurecode,mbc.featurecode) AND mtc.featurecode!="" AND  mbc.noseradius =#noseradius# )
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="workpieceisotype">
+				mtc.featurecode IN (SELECT mtc.featurecode FROM
+				milling_toolholder_clamp mtc,milling_blade_clamp mbc WHERE
+				instr(mtc.featurecode,
+				mbc.featurecode ) and
+				mbc.bladematerialid in
+				(select
+				bladematerialid from milling_blade_material
+				where isotype
+				like
+				CONCAT("%", (select isotype from workpiecematerial
+				where
+				workpiecematerial.workpiecematerialid = #workpieceisotype#), "%")) AND mbc.featurecode !=""
+				)
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+				mtc.name =
+				#name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="cuttype">
+				if((SELECT codedesc
+				from code where codedic = #cuttype# and field = "CUTTYPE") = "三面刃铣",
+				INSTR(NAME, "三面") ,! INSTR(NAME, "三面"))
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="sapcode">
+				mtc.sapcode = #sapcode#
+			</isNotEmpty>
+		</dynamic>
+		ORDER BY IF (isnull(mtc.priority), 1, 0), mtc.priority
+	</select>
+
+
+
+	<select id="queryMilling_toolholder_clamp4Manage4PageCount"
+		parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		FROM
+		milling_toolholder_clamp as mtc
+		WHERE mtc.cuttype like '%槽%' 
+		<dynamic>
+			<isNotEmpty prepend="AND" property="nominaldiameter">
+				mtc.nominaldiameter =
+				#nominaldiameter#
+			</isNotEmpty>
+			<!-- <isNotEmpty prepend="AND" property="cuttype"> mtc.cuttype = #cuttype# 
+				</isNotEmpty> -->
+			<isNotEmpty prepend="AND" property="featurecode">
+			(<iterate property="featurecode">INSTR(mtc.featurecode,#featurecode[]#) + </iterate>0)
+			</isNotEmpty>
+			<!-- <isNotEmpty prepend="AND" property="interferencedepth_or_interferencedepth"> 
+				mtc.interferencedepth = #interferencedepth_or_interferencedepth# </isNotEmpty> -->
+			<isNotEmpty prepend="AND" property="interferencedepth_or_aemax">
+				 <![CDATA[mtc.aemax  >= #interferencedepth_or_aemax#]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="cutedge_or_apmax">
+				 <![CDATA[mtc.apmax  >= #cutedge_or_apmax#]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="interferencedepth">
+				 <![CDATA[mtc.interferencedepth  >= #interferencedepth#]]>
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="noseradius">
+				mtc.featurecode IN (SELECT mtc.featurecode FROM
+				milling_toolholder_clamp mtc,milling_blade_clamp mbc WHERE
+				instr(mtc.featurecode,mbc.featurecode) AND mtc.featurecode!="" AND  mbc.noseradius =#noseradius# )
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="workpieceisotype">
+				mtc.featurecode IN (SELECT mtc.featurecode FROM
+				milling_toolholder_clamp mtc,milling_blade_clamp mbc WHERE
+				instr(mtc.featurecode,
+				mbc.featurecode ) and
+				mbc.bladematerialid in
+				(select
+				bladematerialid from milling_blade_material
+				where isotype
+				like
+				CONCAT("%", (select isotype from workpiecematerial
+				where
+				workpiecematerial.workpiecematerialid = #workpieceisotype#), "%")) AND mbc.featurecode !=""
+				)
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+				mtc.name =
+				#name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="cuttype">
+				if((SELECT codedesc
+				from code where codedic = #cuttype# and field = "CUTTYPE") = "三面刃铣",
+				INSTR(NAME, "三面") ,! INSTR(NAME, "三面"))
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="sapcode">
+				mtc.sapcode = #sapcode#
+			</isNotEmpty>
+		</dynamic>
+		ORDER BY IF (isnull(mtc.priority), 1, 0), mtc.priority
+	</select>
+
+
+	<!-- 查询铣削方式 -->
+	<select id="queryCuttypeInMilling_toolholder_clamp"
+		parameterClass="map" resultClass="dto">
+		select cuttype as value
+		from
+		milling_toolholder_clamp
+		order by cuttype
+	</select>
+
+	<!-- 查询公称直径 -->
+	<select id="queryNominaldiameterInMilling_toolholder_clamp"
+		parameterClass="map" resultClass="dto">
+		select nominaldiameter as value,
+		nominaldiameter as text
+		from milling_toolholder_clamp where
+		nominaldiameter is not NULL and cuttype like '%槽%'
+	<dynamic>
+		
+			<isNotEmpty prepend="AND" property="name">
+				name =
+				#name#
+			</isNotEmpty>
+		
+		</dynamic>
+		GROUP BY
+		nominaldiameter
+	</select>
+
+	<!-- 查询侧铣深度 -->
+	<select id="queryInterferencedepthInMilling_toolholder_clamp"
+		parameterClass="map" resultClass="dto">
+		select interferencedepth as value
+		from milling_toolholder_clamp where interferencedepth is not NULL and
+		cuttype like '%槽%'
+		GROUP BY
+		interferencedepth
+	</select>
+
+	<!-- 查询最大径向切深 -->
+	<select id="queryAemaxInMilling_toolholder_clamp"
+		parameterClass="map" resultClass="dto">
+		select aemax as value
+		from
+		milling_toolholder_clamp where aemax is not NULL and cuttype like
+		'%槽%'
+		GROUP BY
+		aemax
+	</select>
+	<!-- 查询最大轴向切深 -->
+	<select id="queryApmaxInMilling_toolholder_clamp"
+		parameterClass="map" resultClass="dto">
+		select apmax as value
+		from
+		milling_toolholder_clamp where apmax is not NULL and cuttype like
+		'%槽%'
+		GROUP BY
+		apmax
+	</select>
+
+	<!-- 查询机夹式刀片 -->
+	<select id="queryMilling_blade_clamp4Manage" parameterClass="map"
+		resultClass="dto">
+		SELECT
+		mbc.bladeid AS bladeid,
+		mbc.sapcode AS sapcode,
+		mbc.name AS name,
+		mbc.bladetype AS bladetype,
+		(select name from brand where brandid =
+		mbc.brandid ) AS brandid,
+		mbc.figure AS figure,
+		mbc.figure2 AS figure2,
+		mbc.bladematerialid AS bladematerialid,
+		mbm.name As bladematerialname,
+		(SELECT name FROM milling_groove WHERE grooveid = mbc.grooveid ) AS
+		grooveid,
+		mbc.shape AS shape,
+		mbc.reliefangle AS reliefangle,
+		mbc.celength AS celength,
+		mbc.turningtime AS turningtime,
+		mbc.thichness
+		AS thichness,
+		mbc.noseradius AS noseradius,
+		mbc.wiperlength AS
+		wiperlength,
+		mbc.characteristic AS characteristic,
+		mbc.featurecode AS
+		featurecode,
+		mbc.remark AS remark,
+		mbc.k2
+		FROM
+		milling_blade_clamp as mbc left
+		join milling_blade_material as mbm on
+		(mbc.bladematerialid =
+		mbm.bladematerialid)
+		where 1=1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="noseradius">
+				mbc.noseradius =
+				#noseradius#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="celength">
+				mbc.celength =
+				#celength#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladematerialid">
+				mbc.bladematerialid =
+				#bladematerialid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featurecode">
+					(<iterate property="featurecode">INSTR(#featurecode[]#,mbc.featurecode) + </iterate>0)
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="workpieceisotype">
+				mbc.bladematerialid in
+				(select bladematerialid from milling_blade_material
+				where isotype
+				like
+				CONCAT("%", (select isotype from workpiecematerial
+				where
+				workpiecematerial.workpiecematerialid = #workpieceisotype#), "%"))
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="sapcode2">
+				mbc.sapcode =
+				#sapcode2#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<select id="queryMilling_blade_clamp4Manage4PageCount"
+		parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		FROM
+		milling_blade_clamp as mbc left
+		join milling_blade_material as mbm on
+		(mbc.bladematerialid =
+		mbm.bladematerialid)
+		where 1=1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="noseradius">
+				mbc.noseradius =
+				#noseradius#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="celength">
+				mbc.celength =
+				#celength#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladematerialid">
+				mbc.bladematerialid =
+				#bladematerialid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featurecode">
+					(<iterate property="featurecode">INSTR(#featurecode[]#,mbc.featurecode) + </iterate>0)
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="workpieceisotype">
+				mbc.bladematerialid in
+				(select bladematerialid from milling_blade_material
+				where isotype
+				like
+				CONCAT("%", (select isotype from workpiecematerial
+				where
+				workpiecematerial.workpiecematerialid = #workpieceisotype#), "%"))
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="sapcode2">
+				mbc.sapcode =
+				#sapcode2#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<!-- 查询刀尖圆角半径 -->
+	<select id="queryNoseradiusInMilling_blade_clamp"
+		parameterClass="map" resultClass="dto">
+		select noseradius as value
+		from
+		milling_blade_clamp where noseradius Is Not Null
+		GROUP BY noseradius
+	</select>
+	<!-- 查询刃长 -->
+	<select id="queryCelengthInMilling_blade_clamp" parameterClass="map"
+		resultClass="dto">
+		select celength as value
+		from milling_blade_clamp where
+		celength Is Not Null
+		GROUP BY celength
+	</select>
+
+
+
+
+	<!-- 查询切削参数 -->
+	<select id="queryParameter" parameterClass="map" resultClass="dto">
+		SELECT 
+		a.parametersid as parametersid,
+		a.materialid as materialid,
+		a.workpiecematerialid as workpiecematerialid,
+		a.wmcode as wmcode,
+		a.K1 as K1,
+		a.K2 as K2,
+		a.ae as ae,
+		a.ap as ap,
+		a.vc as vc,
+		  IF(a.vc LIKE "%-%",CONCAT(
+		FORMAT(((1000*LEFT(a.vc,LOCATE("-",a.vc)))/(3.14*b.nominaldiameter)),0) ,"-",
+    FORMAT(((1000*RIGHT(a.vc,LENGTH(a.vc)-LOCATE("-",a.vc)))/(3.14*b.nominaldiameter)),0))
+,FORMAT(((1000*a.vc)/(3.14*b.nominaldiameter)),0)) as s,
+		a.fz as fz,
+			CASE	
+	(CONCAT(LENGTH(REPLACE(a.fz,'-','--'))-LENGTH(a.fz),LENGTH(REPLACE(IF(a.vc LIKE "%-%",CONCAT(
+		FORMAT(((1000*LEFT(a.vc,LOCATE("-",a.vc)))/(3.14*b.nominaldiameter)),0) ,"-",
+    FORMAT(((1000*RIGHT(a.vc,LENGTH(a.vc)-LOCATE("-",a.vc)))/(3.14*b.nominaldiameter)),0))
+,FORMAT(((1000*a.vc)/(3.14*b.nominaldiameter)),0)),'-','--'))-LENGTH(IF(a.vc LIKE "%-%",CONCAT(
+		FORMAT(((1000*LEFT(a.vc,LOCATE("-",a.vc)))/(3.14*b.nominaldiameter)),0) ,"-",
+    FORMAT(((1000*RIGHT(a.vc,LENGTH(a.vc)-LOCATE("-",a.vc)))/(3.14*b.nominaldiameter)),0))
+,FORMAT(((1000*a.vc)/(3.14*b.nominaldiameter)),0)))))
+  WHEN("00") THEN  
+ ((FORMAT(a.fz*b.toothnumber*(1000*a.vc)/(3.14*b.nominaldiameter),0)))
+  WHEN("01") THEN 
+CONCAT(FORMAT(b.toothnumber*a.fz*((1000*LEFT(a.vc,LOCATE("-",a.vc)))/(3.14*b.nominaldiameter)),0),"-",FORMAT(b.toothnumber*a.fz*((1000*RIGHT(a.vc,LENGTH(a.vc)-LOCATE("-",a.vc)))/(3.14*b.nominaldiameter)),0))
+
+ WHEN("11") THEN
+CONCAT(FORMAT(b.toothnumber*LEFT(a.fz,LOCATE("-",a.fz))*((1000*LEFT(a.vc,LOCATE("-",a.vc)))/(3.14*b.nominaldiameter)),0),"-",FORMAT((b.toothnumber*(RIGHT(a.fz,LENGTH(a.fz)-LOCATE("-",a.fz)))*((1000*RIGHT(a.vc,LENGTH(a.vc)-LOCATE("-",a.vc)))/(3.14*b.nominaldiameter))),0)
+) 
+WHEN("10") THEN 
+( CONCAT(FORMAT(b.toothnumber*LEFT(a.fz,LOCATE("-",a.fz))*(1000*a.vc)/(3.14*b.nominaldiameter),0) ,"-",FORMAT(b.toothnumber*RIGHT(a.fz,LENGTH(a.fz)-LOCATE("-",a.fz))*((1000*a.vc)/(3.14*b.nominaldiameter)),0)))
+
+END as f,
+		a.chip as chip,
+		a.removalrates as removalrates,
+		a.power as power,
+		a.remark as remark,
+		b.apmax as apmax,
+		b.aemax as aemax
+		FROM
+		milling_clamp_parameter AS a left join
+		milling_toolholder_clamp AS b on a.k1=b.k1
+		WHERE 1 = 1 and  a.k1 != ""
+		<dynamic>
+			<isNotEmpty prepend="AND" property="k1">
+				a.k1 = #k1#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="sapcode">
+				b.sapcode = #sapcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="k2">
+				a.k2 = #k2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="workpiecematerialid">
+				a.wmcode = (SELECT
+				wmcode FROM workpiecematerial AS d WHERE
+				d.workpiecematerialid=#workpiecematerialid#)
+			</isNotEmpty>
+		</dynamic>
+		GROUP BY a.ae, a.ap, a.fz
+	</select>
+
+	<!-- 查询整体式切削参数 -->
+	<select id="queryIntegralParameter" parameterClass="map"
+		resultClass="dto">
+		SELECT
+		a.parametersid as parametersid,
+		a.materialid as materialid,
+		a.workpiecematerialid as workpiecematerialid,
+		a.wmcode as wmcode,
+		a.K1
+		as K1,
+		a.ae as ae,
+		a.ap as ap,
+		a.vc as vc,
+		IF(a.vc LIKE "%-%",CONCAT(
+		FORMAT(((1000*LEFT(a.vc,LOCATE("-",a.vc)))/(3.14*b.nominaldiameter)),0) ,"-",
+    FORMAT(((1000*RIGHT(a.vc,LENGTH(a.vc)-LOCATE("-",a.vc)))/(3.14*b.nominaldiameter)),0))
+,FORMAT(((1000*a.vc)/(3.14*b.nominaldiameter)),0)) as s,
+		a.fz as fz,
+		CASE	
+	(CONCAT(LENGTH(REPLACE(a.fz,'-','--'))-LENGTH(a.fz),LENGTH(REPLACE(IF(a.vc LIKE "%-%",CONCAT(
+		FORMAT(((1000*LEFT(a.vc,LOCATE("-",a.vc)))/(3.14*b.nominaldiameter)),0) ,"-",
+    FORMAT(((1000*RIGHT(a.vc,LENGTH(a.vc)-LOCATE("-",a.vc)))/(3.14*b.nominaldiameter)),0))
+,FORMAT(((1000*a.vc)/(3.14*b.nominaldiameter)),0)),'-','--'))-LENGTH(IF(a.vc LIKE "%-%",CONCAT(
+		FORMAT(((1000*LEFT(a.vc,LOCATE("-",a.vc)))/(3.14*b.nominaldiameter)),0) ,"-",
+    FORMAT(((1000*RIGHT(a.vc,LENGTH(a.vc)-LOCATE("-",a.vc)))/(3.14*b.nominaldiameter)),0))
+,FORMAT(((1000*a.vc)/(3.14*b.nominaldiameter)),0)))))
+  WHEN("00") THEN  
+ ((FORMAT(a.fz*b.teethnumber*(1000*a.vc)/(3.14*b.nominaldiameter),0)))
+  WHEN("01") THEN 
+CONCAT(FORMAT(b.teethnumber*a.fz*((1000*LEFT(a.vc,LOCATE("-",a.vc)))/(3.14*b.nominaldiameter)),0),"-",FORMAT(b.teethnumber*a.fz*((1000*RIGHT(a.vc,LENGTH(a.vc)-LOCATE("-",a.vc)))/(3.14*b.nominaldiameter)),0))
+
+ WHEN("11") THEN
+CONCAT(FORMAT(b.teethnumber*LEFT(a.fz,LOCATE("-",a.fz))*((1000*LEFT(a.vc,LOCATE("-",a.vc)))/(3.14*b.nominaldiameter)),0),"-",FORMAT((b.teethnumber*(RIGHT(a.fz,LENGTH(a.fz)-LOCATE("-",a.fz)))*((1000*RIGHT(a.vc,LENGTH(a.vc)-LOCATE("-",a.vc)))/(3.14*b.nominaldiameter))),0)
+) 
+WHEN("10") THEN 
+( CONCAT(FORMAT(b.teethnumber*LEFT(a.fz,LOCATE("-",a.fz))*(1000*a.vc)/(3.14*b.nominaldiameter),0) ,"-",FORMAT(b.teethnumber*RIGHT(a.fz,LENGTH(a.fz)-LOCATE("-",a.fz))*((1000*a.vc)/(3.14*b.nominaldiameter)),0)))
+
+END as f,
+		a.chip as chip,
+		a.removalrates as removalrates,
+		a.power as power,
+		a.remark as remark
+		FROM
+		milling_integral_parameter AS a left join
+		milling_integral AS b on a.k1=b.k1
+		WHERE 1 = 1 and  a.k1 != ""
+		<dynamic>
+			<isNotEmpty prepend="AND" property="k1">
+				a.k1 = #k1#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="sapcode">
+				b.sapcode = #sapcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="workpiecematerialid">
+				a.wmcode = (SELECT
+				wmcode FROM workpiecematerial AS d WHERE
+				d.workpiecematerialid=#workpiecematerialid#)
+			</isNotEmpty>
+		</dynamic>
+		GROUP BY a.ae, a.ap, a.fz
+	</select>
+
+	<!-- 查询机夹式刀具名称 -->
+	<select id="queryNameInMilling_toolholder_clamp" parameterClass="map"
+		resultClass="dto">
+		select name as value,
+		name as text
+		from
+		milling_toolholder_clamp where
+		name !="" and cuttype like '%槽%'
+		<dynamic>
+		<isNotEmpty prepend="AND" property="cuttype">
+				if((SELECT codedesc
+				from code where codedic = #cuttype# and field = "CUTTYPE") = "三面刃铣",
+				INSTR(NAME, "三面") ,! INSTR(NAME, "三面"))
+			</isNotEmpty>
+		</dynamic>
+		<dynamic>
+		
+			<isNotEmpty prepend="AND" property="nominaldiameter">
+				nominaldiameter =
+				#nominaldiameter#
+			</isNotEmpty>
+		
+		</dynamic>
+		group
+		by
+		name
+	</select>
+
+	<!-- 查询整体式刀具名称 -->
+	<select id="queryNameInMilling_toolholder_integral"
+		parameterClass="map" resultClass="dto">
+		select name as value,
+		name as text
+		from milling_integral where name
+		!="" and cuttype like '%槽%'
+		<dynamic>
+		
+			<isNotEmpty prepend="AND" property="nominaldiameter">
+				nominaldiameter =
+				#nominaldiameter#
+			</isNotEmpty>
+		
+		</dynamic>
+		group by
+		name
+	</select>
+	<!-- 查询刀体报表图片地址figure2 -->
+	<select id="queryfigure2integer" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT figure2 FROM  milling_integral a
+		WHERE 1 = 1
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="sapcode">
+				a.sapcode = #sapcode#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>
+<!-- 查询工件材料名称 -->
+	<select id="querycailiaonanme2" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT name FROM workpiecematerial a
+		WHERE 1
+		= 1
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="workpieceisotype">
+				a.workpiecematerialid = #workpieceisotype#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	<!-- 查询刀体报表图片地址figure2 -->
+	<select id="queryfigure2toolholder" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT figure2 FROM  milling_toolholder_clamp a
+		WHERE 1 = 1
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="sapcode">
+				a.sapcode = #sapcode#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	<!-- 查询工件材料名称 -->
+	<select id="querycailiaonanme" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT name FROM workpiecematerial a
+		WHERE 1
+		= 1
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="workpieceisotype">
+				a.workpiecematerialid = #workpieceisotype#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	<!-- 查询刀片报表图片地址figure2 -->
+	<select id="queryfigure2blade" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT figure2 FROM  milling_blade_clamp a
+		WHERE 1 = 1
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="sapcode2">
+				a.sapcode = #sapcode2#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	<!-- 查询工件材料名称 -->
+	<select id="querycailiaonanme3" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT name FROM workpiecematerial a
+		WHERE 1
+		= 1
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="workpieceisotype">
+				a.workpiecematerialid = #workpieceisotype#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+</sqlMap>

@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 机夹刀具刀片 -->
+<sqlMap namespace="Hd_blade_combineddrilling">
+	<typeAlias alias="dto" type="org.xianwu.core.metatype.impl.BaseDto"/>
+
+	<!-- 查询机夹刀具刀片 -->
+	<select id="queryHd_blade_combineddrilling4Manage" parameterClass="map" resultClass="dto">
+		SELECT toolholderid,sapcode,name,type,
+		(select name from brand where brandid = hbc.brandid limit 1) AS brandid,
+		figure,figure2,
+		(select name from hd_material where
+		materialid = hbc.materialid) as
+		materialid,
+		(SELECT name FROM hd_groove WHERE grooveid = hbc.grooveid ) AS grooveid,
+		shape,reliefangle,diameter,thickness,noseradius,description,featurecode,k2,remark
+		FROM hd_blade_combineddrilling AS hbc WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="toolholderid">
+									hbc.toolholderid = #toolholderid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="sapcode">
+									hbc.sapcode = #sapcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+									hbc.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="type">
+									hbc.type = #type#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure">
+									hbc.figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure2">
+									hbc.figure2 = #figure2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandid">
+									hbc.brandid = #brandid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="materialid">
+									hbc.materialid = #materialid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="grooveid">
+									hbc.grooveid = #grooveid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="shape">
+									hbc.shape = #shape#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="reliefangle">
+									hbc.reliefangle = #reliefangle#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="diameter">
+									hbc.diameter = #diameter#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="thickness">
+									hbc.thickness = #thickness#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="noseradius">
+									hbc.noseradius = #noseradius#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="description">
+									hbc.description = #description#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featurecode">
+									hbc.featurecode = #featurecode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+									hbc.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="k2">
+				 					hbc.k2 = #k2# 
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="keyword">
+				(hbc.name like '%$keyword$%' or hbc.type like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<select id="queryHd_blade_combineddrilling4Manage4PageCount" parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		FROM hd_blade_combineddrilling AS hbc WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="toolholderid">
+									hbc.toolholderid = #toolholderid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="sapcode">
+									hbc.sapcode = #sapcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+									hbc.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="type">
+									hbc.type = #type#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure">
+									hbc.figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure2">
+									hbc.figure2 = #figure2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandid">
+									hbc.brandid = #brandid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="materialid">
+									hbc.materialid = #materialid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="grooveid">
+									hbc.grooveid = #grooveid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="shape">
+									hbc.shape = #shape#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="reliefangle">
+									hbc.reliefangle = #reliefangle#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="diameter">
+									hbc.diameter = #diameter#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="thickness">
+									hbc.thickness = #thickness#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="noseradius">
+									hbc.noseradius = #noseradius#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="description">
+									hbc.description = #description#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featurecode">
+									hbc.featurecode = #featurecode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+									hbc.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="k2">
+				 					hbc.k2 = #k2# 
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="keyword">
+				(hbc.name like '%$keyword$%' or hbc.type like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<!-- 插入机夹刀具刀片 -->
+	<insert id="saveHd_blade_combineddrilling" parameterClass="dto">
+		INSERT INTO hd_blade_combineddrilling (toolholderid,sapcode,name,type,brandid,
+		figure,figure2,materialid,grooveid,shape,
+		reliefangle,diameter,thickness,noseradius,description,remark,featurecode,k2)
+		VALUES (#toolholderid#,#sapcode#,#name#,#type#,#brandid#,#
+		figure#,#figure2#,#materialid#,#grooveid#,#shape#,#
+		reliefangle#,#diameter#,#thickness#,#noseradius#,#description#,#remark#,#featurecode#,#k2#)
+	</insert>
+
+
+	<!-- 更新机夹刀具刀片  -->
+	<update id="updateHd_blade_combineddrilling" parameterClass="map" >
+		UPDATE hd_blade_combineddrilling set
+
+
+	sapcode = #sapcode#,
+	name = #name#,
+	type = #type#,
+
+
+	brandid = #brandid#,
+
+
+	materialid = #materialid#,
+
+
+	grooveid = #grooveid#,
+
+
+	shape = #shape#,
+
+
+	reliefangle = #reliefangle#,
+
+
+	diameter = #diameter#,
+
+
+	thickness = #thickness#,
+
+
+	noseradius = #noseradius#,
+
+
+	description = #description#,
+	
+	
+	remark = #remark#,
+	
+	
+	featurecode = #featurecode#,
+	
+
+	k2 = #k2#
+
+
+	
+		<dynamic>
+			<isNotEmpty prepend=","   property="figure">
+	figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend=","  property="figure2">
+	figure2 = #figure2#
+			</isNotEmpty>
+		</dynamic>
+
+			WHERE toolholderid = #toolholderid#
+	</update>
+
+	<!-- 删除机夹刀具刀片  -->
+	<delete id="deleteHd_blade_combineddrilling" parameterClass="map" >
+		DELETE FROM hd_blade_combineddrilling
+			  WHERE toolholderid = #toolholderid#
+	</delete>
+
+	<!-- 根据ID查询图片位置 -->
+	<select id="queryFigure4Delete4Hd_blade_combineddrilling" parameterClass="map"
+		resultClass="dto">
+		SELECT figure, figure2
+		FROM hd_blade_combineddrilling where toolholderid = #toolholderid#
+	</select>
+	
+	<!-- 查询刀片品牌 -->
+	<select id="queryBrand4Hd_blade_combineddrilling" parameterClass="map" resultClass="dto">
+		SELECT brandid as value, name as text
+		FROM brand
+	</select>
+	
+</sqlMap>

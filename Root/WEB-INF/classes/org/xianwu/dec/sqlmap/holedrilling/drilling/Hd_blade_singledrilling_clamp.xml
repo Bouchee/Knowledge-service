@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 单刀片机夹钻刀片 -->
+<sqlMap namespace="Hd_blade_singledrilling_clamp">
+	<typeAlias alias="dto" type="org.xianwu.core.metatype.impl.BaseDto" />
+
+	<!-- 查询单刀片机夹钻刀片 -->
+	<select id="queryHd_blade_singledrilling_clamp4Manage"
+		parameterClass="map" resultClass="dto">
+		SELECT
+		sc.toolholderid,
+		sc.sapcode,
+		sc.`name`,
+		sc.type,
+		sc.figure,
+		sc.figure2,
+		(select name from brand where brandid = sc.brandid limit 1)
+		AS brandid,
+		sc.nominaldiameter,
+		(select name from hd_material where
+		materialid = sc.materialid) as
+		materialid,
+		sc.indexabletimes,
+		sc.description,
+		sc.remark,
+		sc.featurecode,
+		sc.k2
+		FROM
+		hd_blade_singledrilling_clamp AS sc
+		WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="sapcode">
+				sc.sapcode = #sapcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+				sc.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="type">
+				sc.type = #type#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure">
+				sc.figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure2">
+				sc.figure2 = #figure2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandid">
+				sc.brandid = #brandid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="nominaldiameter">
+				sc.nominaldiameter =
+				#nominaldiameter#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="materialid">
+				sc.materialid =
+				#materialid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="indexabletimes">
+				sc.indexabletimes =
+				#indexabletimes#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="description">
+				sc.description =
+				#description#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+				sc.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featurecode">
+				sc.featurecode =
+				#featurecode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="k2">
+				sc.k2 = #k2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="keyword">
+				(sc.name like
+				'%$keyword$%' or sc.type like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<select id="queryHd_blade_singledrilling_clamp4Manage4PageCount"
+		parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		FROM
+		hd_blade_singledrilling_clamp AS sc
+		WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="sapcode">
+				sc.sapcode = #sapcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+				sc.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="type">
+				sc.type = #type#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure">
+				sc.figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure2">
+				sc.figure2 = #figure2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandid">
+				sc.brandid = #brandid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="nominaldiameter">
+				sc.nominaldiameter =
+				#nominaldiameter#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="materialid">
+				sc.materialid =
+				#materialid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="indexabletimes">
+				sc.indexabletimes =
+				#indexabletimes#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="description">
+				sc.description =
+				#description#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+				sc.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featurecode">
+				sc.featurecode =
+				#featurecode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="k2">
+				sc.k2 = #k2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="keyword">
+				(sc.name like
+				'%$keyword$%' or sc.type like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<!-- 插入单刀片机夹钻刀片 -->
+	<insert id="saveHd_blade_singledrilling_clamp" parameterClass="dto">
+		INSERT INTO hd_blade_singledrilling_clamp (
+		toolholderid,
+		sapcode,
+		NAME,
+		type,
+		figure,
+		figure2,
+		brandid,
+		nominaldiameter,
+		materialid,
+		indexabletimes,
+		description,
+		remark,
+		featurecode,
+		k2
+		)
+		VALUES
+		(
+		#toolholderid#,
+		#sapcode#,
+		#name#,
+		#type#,
+		#figure#,
+		#figure2#,
+		#brandid#,
+		#nominaldiameter#,
+		#materialid#,
+		#indexabletimes#,
+		#description#,
+		#remark#,
+		#featurecode#,
+		#k2#
+		)
+	</insert>
+
+
+	<!-- 更新单刀片机夹钻刀片 -->
+	<update id="updateHd_blade_singledrilling_clamp" parameterClass="map">
+		UPDATE Hd_blade_singledrilling_clamp
+		SET
+		sapcode = #sapcode#,
+		NAME =
+		#name#,
+		type = #type#,
+		figure = #figure#,
+		figure2 = #figure2#,
+		brandid =
+		#brandid#,
+		nominaldiameter = #nominaldiameter#,
+		materialid =
+		#materialid#,
+		indexabletimes = #indexabletimes#,
+		description =
+		#description#,
+		remark = #remark#,
+		featurecode = #featurecode#,
+		k2 = #k2#
+		<dynamic>
+			<isNotEmpty prepend="," property="figure">
+				figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="figure2">
+				figure2 = #figure2#
+			</isNotEmpty>
+		</dynamic>
+		WHERE toolholderid = #toolholderid#
+	</update>
+
+	<!-- 删除单刀片机夹钻刀片 -->
+	<delete id="deleteHd_blade_singledrilling_clamp" parameterClass="map">
+		DELETE FROM Hd_blade_singledrilling_clamp
+		WHERE toolholderid =
+		#toolholderid#
+	</delete>
+
+	<!-- 根据ID查询图片位置 -->
+	<select id="queryFigure4Delete4Hd_blade_singledrilling_clamp"
+		parameterClass="map" resultClass="dto">
+		SELECT figure, figure2
+		FROM
+		hd_blade_singledrilling_clamp where toolholderid =
+		#toolholderid#
+	</select>
+
+	<!-- 查询刀片品牌 -->
+
+	<select id="queryBrand4Hd_blade_singledrilling_clamp"
+		parameterClass="map" resultClass="dto">
+		SELECT brandid as value, name as text
+		FROM brand
+	</select>
+
+
+	<!-- 查询刀片材质 -->
+
+	<select id="queryMaterial4Hd_blade_singledrilling_clamp"
+		parameterClass="map" resultClass="dto">
+		SELECT materialid as value, name
+		as
+		text
+		FROM hd_material
+	</select>
+
+</sqlMap>

@@ -1,0 +1,402 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 刀体 -->
+<sqlMap namespace="Cuttoolholder">
+	<typeAlias alias="dto" type="org.xianwu.core.metatype.impl.BaseDto" />
+
+	<!-- 查询刀体 -->
+	<select id="queryCuttoolholder4Manage" parameterClass="map"
+		resultClass="dto">
+		SELECT toolholderid, sapcode, NAME, toolholdertype, brandid, ( SELECT
+		NAME FROM brand WHERE brandid = a.brandid ) AS brandname, turningtype,
+		figure, figure2, handletype, portsize, handoftool,
+		featurecode,
+		cutwidthmax, cutwidthmin, cseries, length, width,
+		cuttingdepth,
+		diametermax, cutdiametermax, cutdiametermin, aname1,
+		atype1, aname2,
+		atype2, aname3, atype3, aname4, atype4, aname5,
+		atype5, remark FROM
+		cuttoolholder a WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="sapcode">
+				a.sapcode = #sapcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+				a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="toolholdertype">
+				a.toolholdertype =
+				#toolholdertype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandid">
+				a.brandid = #brandid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="turningtype">
+				a.turningtype =
+				#turningtype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="portsize">
+				a.portsize = #portsize#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="handoftool">
+				a.handoftool =
+				#handoftool#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure">
+				a.figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure2">
+				a.figure2 = #figure2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode =
+				#featurecode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="cseries">
+				a.cseries = #cseries#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="length">
+				a.length = #length#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="width">
+				a.width = #width#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bore">
+				a.bore = #bore#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="thheadangle">
+				a.thheadangle =
+				#thheadangle#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname1">
+				a.aname1 = #aname1#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype1">
+				a.atype1 = #atype1#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname2">
+				a.aname2 = #aname2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype2">
+				a.atype2 = #atype2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname3">
+				a.aname3 = #aname3#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype3">
+				a.atype3 = #atype3#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname4">
+				a.aname4 = #aname4#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype4">
+				a.atype4 = #atype4#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname5">
+				a.aname5 = #aname5#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype5">
+				a.atype5 = #atype5#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+				a.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="keyword">
+				(a.toolholdertype like
+				'%$keyword$%' or a.portsize like '%$keyword$%' or a.handoftool like
+				'%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+		order by a.toolholderid desc
+	</select>
+
+	<select id="queryCuttoolholder4Manage4PageCount" parameterClass="map"
+		resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		FROM cuttoolholder a WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="sapcode">
+				a.sapcode = #sapcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+				a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="toolholdertype">
+				a.toolholdertype =
+				#toolholdertype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandid">
+				a.brandid = #brandid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="turningtype">
+				a.turningtype =
+				#turningtype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="portsize">
+				a.portsize = #portsize#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="handoftool">
+				a.handoftool =
+				#handoftool#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure">
+				a.figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure2">
+				a.figure2 = #figure2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode =
+				#featurecode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="cseries">
+				a.cseries = #cseries#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="length">
+				a.length = #length#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="width">
+				a.width = #width#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bore">
+				a.bore = #bore#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="thheadangle">
+				a.thheadangle =
+				#thheadangle#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname1">
+				a.aname1 = #aname1#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype1">
+				a.atype1 = #atype1#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname2">
+				a.aname2 = #aname2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype2">
+				a.atype2 = #atype2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname3">
+				a.aname3 = #aname3#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype3">
+				a.atype3 = #atype3#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname4">
+				a.aname4 = #aname4#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype4">
+				a.atype4 = #atype4#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname5">
+				a.aname5 = #aname5#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype5">
+				a.atype5 = #atype5#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+				a.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="keyword">
+				(a.toolholdertype like
+				'%$keyword$%' or a.portsize like '%$keyword$%' or a.handoftool like
+				'%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+		order by a.toolholderid desc
+	</select>
+
+	<!-- 插入刀体 -->
+	<insert id="saveCuttoolholder" parameterClass="dto">
+
+
+		INSERT INTO cuttoolholder ( toolholderid, sapcode, NAME,
+		toolholdertype,
+		brandid, turningtype, figure, figure2, handletype,
+		portsize, handoftool,
+		featurecode, cutwidthmax, cutwidthmin, cseries,
+		length, width,
+		cuttingdepth, diametermax, cutdiametermax,
+		cutdiametermin, aname1,
+		atype1, aname2, atype2, aname3, atype3, aname4,
+		atype4, aname5,
+		atype5,
+		remark ) VALUES (
+		#toolholderid# , #sapcode# ,
+		#NAME# , #toolholdertype# , #brandid# , #turningtype# , #figure# ,
+		#figure2# , #handletype# , #portsize# , #handoftool# , #featurecode# ,
+		#cutwidthmax# , #cutwidthmin# , #cseries# , #length# , #width# ,
+		#cuttingdepth# , #diametermax# , #cutdiametermax# , #cutdiametermin# ,
+		#aname1# , #atype1# , #aname2# , #atype2# , #aname3# , #atype3# ,
+		#aname4# , #atype4# , #aname5# , #atype5# , #remark#)
+		</insert>
+
+		<!-- 更新刀体 -->
+		<update id="updateCuttoolholder" parameterClass="map">
+			UPDATE Cuttoolholder  set
+
+
+
+					sapcode = #sapcode#,
+
+
+					name = #name#,
+
+
+					toolholdertype =
+					#toolholdertype#,
+
+
+					brandid = #brandid#,
+
+
+					turningtype =
+					#turningtype#,
+
+
+
+					handletype =
+					#handletype#,
+
+
+					portsize = #portsize#,
+
+
+					handoftool =
+					#handoftool#,
+
+
+					featurecode =
+					#featurecode#,
+
+
+					cutwidthmax =
+					#cutwidthmax#,
+
+
+					cutwidthmin =
+					#cutwidthmin#,
+
+
+					cseries = #cseries#,
+
+
+					length = #length#,
+
+
+					width = #width#,
+
+
+					cuttingdepth =
+					#cuttingdepth#,
+
+
+					diametermax =
+					#diametermax#,
+
+
+					cutdiametermax =
+					#cutdiametermax#,
+
+
+					cutdiametermin =
+					#cutdiametermin#,
+
+
+					aname1 = #aname1#,
+
+
+					atype1 = #atype1#,
+
+
+					aname2 = #aname2#,
+
+
+					atype2 = #atype2#,
+
+
+					aname3 = #aname3#,
+
+
+					atype3 = #atype3#,
+
+
+					aname4 = #aname4#,
+
+
+					atype4 = #atype4#,
+
+
+					aname5 = #aname5#,
+
+
+					atype5 = #atype5#,
+
+
+					remark = #remark#
+
+			<dynamic>
+<isNotEmpty prepend=","   property="figure">
+	figure = #figure#
+</isNotEmpty>
+<isNotEmpty prepend=","  property="figure2">
+	figure2 = #figure2#
+</isNotEmpty>
+	</dynamic>
+
+
+			WHERE toolholderid = #toolholderid#
+		</update>
+
+		<!-- 删除刀体 -->
+		<delete id="deleteCuttoolholder" parameterClass="map">
+			DELETE
+			FROM
+			Cuttoolholder
+			WHERE toolholderid = #toolholderid#
+		</delete>
+
+		<!-- 更新刀体 -->
+		<update id="updateMachinetoolholder4Cuttoolholder"
+			parameterClass="map">
+			update Machinetoolholder set toolholderid = null
+			WHERE
+			toolholderid = #toolholderid#
+		</update>
+
+		<!-- 更新刀体 -->
+		<update id="updateBladetoolholder4Cuttoolholder"
+			parameterClass="map">
+			update Bladetoolholder set toolholderid = null WHERE
+			toolholderid =
+			#toolholderid#
+		</update>
+
+		<!-- 查询刀体品牌 -->
+		<select id="queryBrand4Cuttoolholder" parameterClass="map"
+			resultClass="dto">
+			SELECT brandid as value, name as text
+			FROM brand
+		</select>
+
+		<!-- 根据刀体型号和刀体品牌判定是否存在刀体 -->
+		<select id="checkCuttoolholdertypeAndCuttoolholderbrand4Cuttoolholder"
+			parameterClass="map" resultClass="dto">
+			SELECT count(toolholderid) as count
+			FROM cuttoolholder where toolholdertype = #toolholdertype# and
+			brandid =
+			#brandid#
+		</select>
+
+		<!-- 根据ID查询图片位置 -->
+		<select id="queryFigure4Delete4Cuttoolholder" parameterClass="map"
+			resultClass="dto">
+			SELECT figure, figure2
+			FROM cuttoolholder where
+			toolholderid
+			=
+			#toolholderid#
+		</select>
+</sqlMap>

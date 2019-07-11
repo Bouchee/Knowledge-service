@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 演示与教程手工映射SQL语句 -->
+
+<sqlMap namespace="Software">
+	<!-- 查询软件列表信息 -->
+	<select id="querySoftware4Manage" parameterClass="map" resultClass="dto">
+		SELECT fileid, title, path, filesize, filetype, username, ip, submittime, remark
+		FROM software a WHERE 1=1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="keyword">
+				(a.title like '%$keyword$%' or a.remark like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+		order by fileid desc
+	</select>
+
+	<!-- 统计软件列表 -->
+	<select id="querySoftware4Manage4PageCount" parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1)
+		FROM software a WHERE 1=1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="keyword">
+				(a.title like '%$keyword$%' or a.remark like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+		order by fileid desc
+	</select>
+
+	<!-- 插入一软件上传数据 -->
+	<insert id="insertSoftware" parameterClass="dto">
+		INSERT INTO
+		software (fileid, title, path, filesize, filetype, username, ip, submittime, remark)
+		VALUES (#fileid#, #title#, #path#, #filesize#, #filetype#, #username#, #ip#, #submittime#, #remark#)
+	</insert>
+
+	<!-- 更新软件数据 -->
+	<update id="updateSoftware" parameterClass="dto">
+	UPDATE software
+		<dynamic prepend="SET">
+			<isNotNull prepend="," property="title">
+				title = #title#
+			</isNotNull>
+			<isNotNull prepend="," property="path">
+				path = #path#
+			</isNotNull>
+			<isNotNull prepend="," property="filesize">
+				filesize = #filesize#
+			</isNotNull>
+			<isNotNull prepend="," property="filetype">
+				filetype = #filetype#
+			</isNotNull>
+			<isNotNull prepend="," property="username">
+				username = #username#
+			</isNotNull>
+			<isNotNull prepend="," property="ip">
+				ip = #ip#
+			</isNotNull>
+			<isNotNull prepend="," property="remark">
+				remark = #remark#
+			</isNotNull>
+		</dynamic>
+		WHERE fileid = #fileid#
+	</update>
+
+	<!-- 根据软件ID获取一个软件 -->
+	<select id="querySoftwareByKey" parameterClass="java.lang.String"
+		resultClass="dto">
+		SELECT fileid, title, path, filesize, filetype, username, ip, submittime, remark
+		FROM software WHERE fileid = #fileid#
+	</select>
+
+	<!-- 根据软件ID删除一个软件 -->
+	<delete id="deleteSoftwareByKey" parameterClass="java.lang.String">
+		DELETE FROM software WHERE fileid = #fileid#
+	</delete>
+</sqlMap>

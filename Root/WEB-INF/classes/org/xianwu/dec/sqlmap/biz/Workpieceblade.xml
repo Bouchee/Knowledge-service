@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 工件材料与刀片材质匹配规则-->
+<sqlMap namespace="Workpieceblade">
+	<typeAlias alias="dto" type="org.xianwu.core.metatype.impl.BaseDto"/>
+	
+	<!-- 查询工件材料与刀片材质匹配规则-->
+	<select id="queryWorkpieceblade4Manage" parameterClass="map" resultClass="dto">
+SELECT
+	c.workpiecematerialid AS workpiecematerialid,
+	c.bladematerialid AS bladematerialid,
+	c.remark AS workpiecebladeremark,
+	b.name AS bladematerialname,
+	b.isotype AS bladematerialisotype,
+	b.brandid AS brandid,
+	(
+		SELECT
+			brand.name
+		FROM
+			brand
+		WHERE
+			(
+				brand.brandid = b.brandid
+			)
+	) AS brandname,
+	b.coatingtype AS coatingtype,
+	b.coating AS coating,
+	b.application AS bladematerialapplication,
+	b.remark AS bladematerialremark,
+	w.name AS workpiecematerialname,
+	w.heattreatcode AS heattreatcode,
+	w.wmtype AS wmtype,
+	w.isotype AS workpiecematerialisotype,
+	w.heattreat AS heattreat,
+	w.blanktype AS blanktype,
+	w.hardness AS hardness,
+	w.mark AS mark,
+	w.application AS workpiecematerialapplication,
+	w.remark AS workpiecematerialremark
+FROM
+	(
+		(
+			workpieceblade c
+			LEFT JOIN bladematerial b ON (
+				(
+					b.bladematerialid = c.bladematerialid
+				)
+			)
+		)
+		LEFT JOIN workpiecematerial w ON (
+			(
+				w.workpiecematerialid = c.workpiecematerialid
+			)
+		)
+	)
+	where 1 = 1
+	<dynamic>
+	<isNotEmpty prepend="AND" property="keyword">
+				(b.name like '%$keyword$%' or w.wmtype like '%$keyword$%')
+			</isNotEmpty>
+	</dynamic>
+	</select>
+	
+	<select id="queryWorkpieceblade4Manage4PageCount" parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		FROM
+	(
+		(
+			workpieceblade c
+			LEFT JOIN bladematerial b ON (
+				(
+					b.bladematerialid = c.bladematerialid
+				)
+			)
+		)
+		LEFT JOIN workpiecematerial w ON (
+			(
+				w.workpiecematerialid = c.workpiecematerialid
+			)
+		)
+	)
+	where 1 = 1
+	<dynamic>
+	<isNotEmpty prepend="AND" property="keyword">
+				(b.name like '%$keyword$%' or w.wmtype like '%$keyword$%')
+			</isNotEmpty>
+	</dynamic>
+	</select>
+		
+	<!-- 插入工件材料与刀片材质匹配规则-->
+	<insert id="saveWorkpieceblade" parameterClass="dto">
+		INSERT INTO Workpieceblade (workpiecematerialid,bladematerialid,remark) 
+		VALUES (#workpiecematerialid#, #bladematerialid#, #remark#)
+	</insert>
+	
+	<!-- 更新匹配关系表 -->
+	<update id="updateWorkpieceblade" parameterClass="dto">
+		UPDATE Workpieceblade
+		<dynamic prepend="SET">
+			<isNotEmpty prepend="," property="remark">
+				remark = #remark#
+			</isNotEmpty>
+		</dynamic>
+		 WHERE workpiecematerialid = #workpiecematerialid# and bladematerialid = #bladematerialid#
+	</update>
+	
+	<!-- 删除工件材料与刀片材质匹配规则 -->
+	<delete id="deleteWorkpieceblade" parameterClass="map" >
+		DELETE FROM Workpieceblade
+		      WHERE workpiecematerialid = #workpiecematerialid# and bladematerialid = #bladematerialid#
+	</delete>
+	
+	<!-- 查询刀片材质 -->
+	<select id="queryBladematerial4Workpieceblade" parameterClass="map" resultClass="dto">
+		 SELECT bladematerialid as value, name as text
+		 FROM bladematerial
+	</select>
+	
+	<!-- 查询工件材料 -->
+	<select id="queryWorkpiecematerial4Workpieceblade" parameterClass="map" resultClass="dto">
+		 SELECT workpiecematerialid as value, name as text
+		 FROM workpiecematerial
+	</select>
+	
+	<!-- 查询数量 -->
+	<select id="queryWorkpiecebladeNumber" parameterClass="map"
+		resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		FROM workpieceblade WHERE workpiecematerialid = #workpiecematerialid# and bladematerialid = #bladematerialid#
+	</select>
+</sqlMap>

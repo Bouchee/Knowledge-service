@@ -1,0 +1,1032 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 刀片 -->
+<sqlMap namespace="Screwcutting">
+	<typeAlias alias="dto" type="org.xianwu.core.metatype.impl.BaseDto" />
+
+	<!-- 查询刀片 -->
+	<select id="queryThreadblade4Manage" parameterClass="map"
+		resultClass="dto">
+		SELECT
+		a.threadbladeid,
+		a.sapcode,
+		a. NAME,
+		a.bladetype,
+		a.figure,
+		a.figure2,
+		a.threadtype,
+		a.bladematerialid,
+		b. NAME AS bladematerialname,
+		b.priority AS priority,
+		a.brandid,
+		(
+		SELECT
+		NAME
+		FROM
+		brand
+		WHERE
+		brandid =
+		a.brandid
+		) AS brandname,
+		a.pitch,
+		(select codedesc from code where a.threadstandard =codedic and fieldname='螺纹标准') AS threadstandard,
+		(select codedesc from code where a.blademold =codedic and field='BLADEMOLD') AS blademold,
+		(select codedesc from code where a.bladesize =codedic and fieldname='螺纹刀片大小') AS bladesize,
+		(select codedesc from code where a.thickness =codedic and field='THICKNESS') AS thickness,
+		(select codedesc from code where a.threadhand =codedic and field='THREADHAND') AS threadhand,
+		a.description,
+		a.featurecode,
+		a.apmax,
+		a.fnmax,
+		a.remark
+		FROM
+		(
+		threadblade AS a
+		LEFT JOIN
+		threadbladematerial b ON (
+		a.bladematerialid = b.bladematerialid
+		)
+		)
+		WHERE
+		1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="threadbladeid">
+				a.threadbladeid =
+				#threadbladeid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="sapcode">
+				a.sapcode = #sapcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+				a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladetype">
+				a.bladetype =
+				#bladetype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure">
+				a.figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure2">
+				a.figure2 = #figure2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladematerialid">
+				a.bladematerialid =
+				#bladematerialid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandid">
+				a.brandid = #brandid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="blademold">
+				a.blademold =
+				#blademold#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="thickness">
+				a.thickness =
+				#thickness#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="threadhand">
+				a.threadhand =
+				#threadhand#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="description">
+				a.description =
+				#description#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="apmax">
+				a.apmax = #apmax#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="fnmax">
+				a.fnmax = #fnmax#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+				a.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="workpieceisotype">
+				a.bladematerialid in
+				(select bladematerialid from threadbladematerial
+				where isotype like
+				CONCAT("%", (select isotype from workpiecematerial
+				where
+				workpiecematerial.workpiecematerialid = #workpieceisotype#), "%"))
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="threadtype">
+				RIGHT(a.featurecode,2)= mid(#threadtype#,2,2)
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="threadstandard">
+				a.threadstandard =
+				#threadstandard#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="pitch">
+				(a.pitch = #pitch# or (LEFT(a.pitch,instr(a.pitch,'-')-1) <![CDATA[ <= ]]>
+				#pitch# and #pitch# <![CDATA[ <= ]]>RIGHT(a.pitch,instr(REVERSE(a.pitch),'-')-1)))
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladesize">
+				a.bladesize =
+				#bladesize#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode in
+				<iterate property="featurecode" open="(" close=")"
+					conjunction=",">#featurecode[]#</iterate>
+			</isNotEmpty>
+		</dynamic>
+		ORDER BY IF (isnull(b.priority), 1, 0), b.priority,a.bladematerialid
+	</select>
+
+	<select id="queryThreadblade4Manage4PageCount" parameterClass="map"
+		resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		FROM
+		(
+		threadblade AS a
+		LEFT JOIN
+		threadbladematerial B ON (
+		a.bladematerialid = b.bladematerialid
+		)
+		)
+		WHERE
+		1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="threadbladeid">
+				a.threadbladeid =
+				#threadbladeid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="sapcode">
+				a.sapcode = #sapcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+				a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladetype">
+				a.bladetype =
+				#bladetype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure">
+				a.figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure2">
+				a.figure2 = #figure2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladematerialid">
+				a.bladematerialid =
+				#bladematerialid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandid">
+				a.brandid = #brandid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="blademold">
+				a.blademold =
+				#blademold#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="thickness">
+				a.thickness =
+				#thickness#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="threadhand">
+				a.threadhand =
+				#threadhand#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="description">
+				a.description =
+				#description#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="apmax">
+				a.apmax = #apmax#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="fnmax">
+				a.fnmax = #fnmax#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+				a.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="workpieceisotype">
+				a.bladematerialid in
+				(select bladematerialid from threadbladematerial
+				where isotype like
+				CONCAT("%", (select isotype from workpiecematerial
+				where
+				workpiecematerial.workpiecematerialid = #workpieceisotype#), "%"))
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="threadtype">
+				RIGHT(a.featurecode,2)= mid(#threadtype#,2,2)
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="threadstandard">
+				a.threadstandard =
+				#threadstandard#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="pitch">
+				(a.pitch = #pitch# or (LEFT(a.pitch,instr(a.pitch,'-')-1) <![CDATA[ <= ]]>
+				#pitch# and #pitch# <![CDATA[ <= ]]>RIGHT(a.pitch,instr(REVERSE(a.pitch),'-')-1)))
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladesize">
+				a.bladesize =
+				#bladesize#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode in
+				<iterate property="featurecode" open="(" close=")"
+					conjunction=",">#featurecode[]#</iterate>
+			</isNotEmpty>
+		</dynamic>
+		ORDER BY IF (isnull(b.priority), 1, 0), b.priority,a.bladematerialid
+	</select>
+
+	<!-- 查询工件材料状态 -->
+	<select id="queryWorkpiecematerial" parameterClass="map"
+		resultClass="dto">
+		SELECT workpiecematerialid, name, mark, wmtype, heattreat, hardness,
+		concat(name, '-', mark) as
+		name2 FROM workpiecematerial a
+		WHERE 1 = 1
+		 <dynamic>
+     <isNotEmpty prepend="AND" property="featurecode">
+			workpiecematerialid in  (select workpiecematerialid from workpiecematerial where (LOCATE(isotype,(
+				 select group_concat(isotype)isotype from threadbladematerial where bladematerialid in (select bladematerialid from threadblade where featurecode = #featurecode# ))
+			)>0)
+		)      
+				
+			</isNotEmpty>
+			 </dynamic>
+		order by a.name
+	</select>
+   
+   <!-- 查询材质信息 -->
+	<select id="querythreadbladematerial" parameterClass="map"
+		resultClass="dto">
+		SELECT name,isotype,(SELECT
+		brand.name
+		FROM
+		brand
+		WHERE
+		
+		brand.brandid = threadbladematerial.brandid
+		) as brandid,coatingtype,coating,priority,application,remark  FROM threadbladematerial 
+		WHERE 1
+		= 1
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="name">
+				name = #name#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>	
+	
+    <!-- 查询进给方向 -->
+	<select id="queryThreaddirectionInThreadblade" parameterClass="map"
+		resultClass="dto">
+		select
+          b.codedic ,
+          b.codedesc as text,
+          a.threadhand as value 
+          from code  as b 
+
+           LEFT JOIN threadblade as a ON (b.codedic=a.threadhand)
+             where field ='THREADDIRECTION'  AND codedic IN (select threadhand from threadblade) 
+              <dynamic>
+               <isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode =#featurecode#
+				
+			</isNotEmpty>
+			</dynamic>
+         
+            GROUP BY codedic
+	</select>
+	
+	<!-- 查询螺纹类型 -->
+	<select id="queryThreadtypeInThreadblade" parameterClass="map"
+		resultClass="dto">
+		<!-- select threadtype as value from threadblade where
+		threadtype != ""
+		 <dynamic>
+               <isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode =#featurecode#
+				
+			</isNotEmpty>
+			</dynamic> -->
+			
+			
+			SELECT
+	b.codedic AS
+VALUE
+	,
+	b.codedesc AS text
+FROM
+	CODE AS b LEFT JOIN
+	threadblade AS a ON (RIGHT(a.featurecode,2)= RIGHT(b.codedic,2))
+             
+             where fieldname ='螺纹类型'  
+             <dynamic>
+			<isNotEmpty prepend="AND" property="threaddirection">
+				
+				LEFT(b.codedic,1) = #threaddirection#
+				
+				
+			</isNotEmpty>
+			  <isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode =#featurecode#
+				
+			</isNotEmpty>
+			
+		</dynamic>
+			
+			
+			
+			
+		GROUP BY VALUE
+	</select>
+
+	<!-- 查询螺纹标准 -->
+	<select id="queryThreadstandardInThreadblade" parameterClass="map"
+		resultClass="dto">
+		select DISTINCT
+          b.codedic as value,
+          b.codedesc as text,
+          a.threadstandard
+          from code  as b 
+
+           LEFT JOIN threadblade as a ON  b.codedic = a.threadstandard
+             
+             where field ='THREADSTANDARD' 
+        <dynamic>
+		<isNotEmpty prepend="AND" property="threadtype">
+				RIGHT(a.featurecode,2) = RIGHT(#threadtype#,2)		
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="workpiecematerialid">
+				a.bladematerialid IN (
+	SELECT
+		bladematerialid
+	FROM
+		threadbladematerial
+	WHERE
+		isotype LIKE CONCAT(
+			"%",
+			(
+				SELECT
+					isotype
+				FROM
+					workpiecematerial
+				WHERE
+					workpiecematerial.workpiecematerialid = #workpiecematerialid#
+			),
+			"%"
+		)
+)		
+		</isNotEmpty>
+		  <isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode =#featurecode#
+				
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<!-- 查询螺距 -->
+	<select id="queryPitchInThreadblade" parameterClass="map"
+		resultClass="dto">
+		select distinct pitch as value
+		from threadblade a where
+		a.pitch != "" 
+		
+			<dynamic>
+			<isNotEmpty prepend="AND" property="threadstandard">
+				a.threadstandard =
+				#threadstandard#
+			</isNotEmpty>
+		    <isNotEmpty prepend="AND" property="threadtype">
+				RIGHT(a.featurecode,2) = RIGHT(#threadtype#,2)		
+		   </isNotEmpty>
+		   <isNotEmpty prepend="AND" property="workpiecematerialid">
+				a.bladematerialid IN (
+	SELECT
+		bladematerialid
+	FROM
+		threadbladematerial
+	WHERE
+		isotype LIKE CONCAT(
+			"%",
+			(
+				SELECT
+					isotype
+				FROM
+					workpiecematerial
+				WHERE
+					workpiecematerial.workpiecematerialid = #workpiecematerialid#
+			),
+			"%"
+		)
+)		
+		  </isNotEmpty>
+		   <isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode =#featurecode#
+				
+			</isNotEmpty>
+		</dynamic>
+		order BY a.pitch 
+	
+
+	</select>
+
+
+	<!-- 查询刀片大小 -->
+	<select id="queryBladesizeInThreadblade" parameterClass="map"
+		resultClass="dto">
+			select DISTINCT
+          b.codedic as value,
+          b.codedesc as text,
+          a.bladesize
+          from code  as b 
+
+           LEFT JOIN threadblade as a ON  b.codedic = a.bladesize
+             
+             where field ='BLADESIZE'
+             
+             <dynamic>
+             <isNotEmpty prepend="AND" property="pitch">
+				b.codedic in (select bladesize from threadblade where 	a.pitch = #pitch#)
+			
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="threadstandard">
+				b.codedic in (select bladesize from threadblade where a.threadstandard = #threadstandard#)
+				
+			</isNotEmpty>
+		    <isNotEmpty prepend="AND" property="threadtype">
+				b.codedic in (select bladesize from threadblade where RIGHT(a.featurecode,2) = RIGHT(#threadtype#,2))
+						
+		   </isNotEmpty>
+		   <isNotEmpty prepend="AND" property="workpiecematerialid">
+				b.codedic in (select bladesize from threadblade where a.bladematerialid IN (
+	SELECT
+		bladematerialid
+	FROM
+		threadbladematerial
+	WHERE
+		isotype LIKE CONCAT(
+			"%",
+			(
+				SELECT
+					isotype
+				FROM
+					workpiecematerial
+				WHERE
+					workpiecematerial.workpiecematerialid = #workpiecematerialid#
+			),
+			"%"
+		)
+)		)
+				
+				
+		  </isNotEmpty>
+		   <isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode =#featurecode#
+				
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<!-- 查询刀体 -->
+	<select id="queryThreadtoolholder4Manage" parameterClass="map"
+		resultClass="dto">
+		SELECT a.toolholderid, a.sapcode, a.name, a.toolholdertype,
+		a.figure,
+		a.figure2, a.brandid, ( SELECT name FROM brand WHERE brandid
+		=
+		a.brandid ) AS brandname,
+		(select codedesc from code where a.portsize =codedic and field='PORTSIZE') AS portsize,
+		(select codedesc from code where a.cseries =codedic and field='CSERIES') AS cseries,
+		(select codedesc from code where a.handoftool =codedic and field='HANDOFTOOL') AS handoftool,
+		(select codedesc from code where a.threadtype =codedic and field='THREADTYPE') AS threadtype,
+		
+		a.featurecode, a.length, a.width, a.diameter,
+		a.aname1,
+		a.atype1, a.aname2, a.atype2, a.aname3, a.atype3, a.aname4,
+		a.atype4,
+		a.aname5, a.atype5, a.remark FROM threadtoolholder AS a
+		WHERE 1=1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="toolholderid">
+				a.toolholderid =
+				#toolholderid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="sapcode">
+				a.sapcode = #sapcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+				a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="toolholdertype">
+				a.toolholdertype =
+				#toolholdertype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure">
+				a.figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure2">
+				a.figure2 = #figure2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandid">
+				a.brandid = #brandid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="threadtype">
+				RIGHT(a.featurecode,2)= mid(#threadtype#,2,2)
+			</isNotEmpty>
+			<!-- <isNotEmpty prepend="AND" property="threadtype">
+				a.threadtype = #threadtype#
+			</isNotEmpty> -->
+			<isNotEmpty prepend="AND" property="portsize">
+				a.portsize = #portsize#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="handoftool">
+				mid(a.handoftool,1,1) =
+				#handoftool#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="cseries">
+				a.cseries = #cseries#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="length">
+				a.length = #length#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="width">
+				a.width = #width#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="diameter">
+				a.diameter = #diameter#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname1">
+				a.aname1 = #aname1#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype1">
+				a.atype1 = #atype1#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname2">
+				a.aname2 = #aname2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype2">
+				a.atype2 = #atype2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname3">
+				a.aname3 = #aname3#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype3">
+				a.atype3 = #atype3#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname4">
+				a.aname4 = #aname4#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype4">
+				a.atype4 = #atype4#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname5">
+				a.aname5 = #aname5#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype5">
+				a.atype5 = #atype5#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+				a.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladesize">
+				a.featurecode in
+				(SELECT featurecode FROM threadblade WHERE threadblade.bladesize =
+				#bladesize#)
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode in
+				<iterate property="featurecode" open="(" close=")"
+					conjunction=",">#featurecode[]#</iterate>
+			</isNotEmpty>
+		</dynamic>
+		order by a.toolholderid desc
+	</select>
+
+	<select id="queryThreadtoolholder4Manage4PageCount"
+		parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		FROM threadtoolholder AS a
+		WHERE 1=1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="toolholderid">
+				a.toolholderid =
+				#toolholderid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="sapcode">
+				a.sapcode = #sapcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+				a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="toolholdertype">
+				a.toolholdertype =
+				#toolholdertype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure">
+				a.figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure2">
+				a.figure2 = #figure2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandid">
+				a.brandid = #brandid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="threadtype">
+				RIGHT(a.featurecode,2)= mid(#threadtype#,2,2)
+			</isNotEmpty>
+			<!-- <isNotEmpty prepend="AND" property="threadtype">
+				a.threadtype = #threadtype#
+			</isNotEmpty> -->
+			<isNotEmpty prepend="AND" property="portsize">
+				a.portsize = #portsize#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="handoftool">
+				mid(a.handoftool,1,1) =
+				#handoftool#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="cseries">
+				a.cseries = #cseries#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="length">
+				a.length = #length#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="width">
+				a.width = #width#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="diameter">
+				a.diameter = #diameter#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname1">
+				a.aname1 = #aname1#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype1">
+				a.atype1 = #atype1#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname2">
+				a.aname2 = #aname2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype2">
+				a.atype2 = #atype2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname3">
+				a.aname3 = #aname3#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype3">
+				a.atype3 = #atype3#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname4">
+				a.aname4 = #aname4#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype4">
+				a.atype4 = #atype4#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname5">
+				a.aname5 = #aname5#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype5">
+				a.atype5 = #atype5#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+				a.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladesize">
+				a.featurecode in
+				(SELECT featurecode FROM threadblade WHERE threadblade.bladesize =
+				#bladesize#)
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode in
+				<iterate property="featurecode" open="(" close=")"
+					conjunction=",">#featurecode[]#</iterate>
+			</isNotEmpty>
+		</dynamic>
+		order by a.toolholderid desc
+	</select>
+
+	<!-- 查询螺纹类型 -->
+	<select id="queryThreadtype2InThreadtoolholder" parameterClass="map"
+		resultClass="dto">
+	SELECT
+	b.codedic AS
+VALUE
+	,
+	b.codedesc AS text
+FROM
+	CODE AS b LEFT JOIN
+	threadtoolholder AS a ON (RIGHT(a.featurecode,2)= RIGHT(b.codedic,2))
+             
+             where fieldname ='螺纹类型'  
+             <dynamic>
+			<isNotEmpty prepend="AND" property="threaddirection">
+				
+				LEFT(b.codedic,1) = #threaddirection#
+				
+				
+			</isNotEmpty>
+			  <isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode =#featurecode#
+				
+			</isNotEmpty>
+			
+		</dynamic>
+             	
+             
+GROUP BY codedic
+	</select>
+
+	<!-- 查询螺纹直径 -->
+	<select id="querydiameter2InThreadtoolholder" parameterClass="map"
+		resultClass="dto">
+		select
+          b.codedic ,
+          b.codedesc as text,
+          a.diameter as value
+          from code  as b 
+
+           LEFT JOIN threadtoolholder as a ON (b.codedesc IN (select a.diameter  FROM threadtoolholder))
+             
+             where fieldname ='螺纹直径'  AND codedesc IN (select a.diameter  FROM threadtoolholder)
+              	<dynamic>
+			<isNotEmpty prepend="AND" property="threadtype">
+				
+				a.diameter in (select diameter from threadtoolholder where RIGHT(a.featurecode,2)  = (SELECT RIGHT(#threadtype#,2)))
+				
+				
+			</isNotEmpty>
+			  <isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode =#featurecode#
+				
+			</isNotEmpty>
+			
+		</dynamic>
+		
+GROUP BY codedesc
+	</select>
+
+	<!-- 查询接口规格 -->
+	<select id="queryportsizeInThreadtoolholder" parameterClass="map"
+		resultClass="dto">
+			select
+          b.codedic as value,
+          b.codedesc as text,
+          a.portsize
+          from code  as b 
+
+           LEFT JOIN threadtoolholder as a ON  b.codedic = a.portsize
+             
+             where field ='PORTSIZE' 
+             <dynamic>
+			<isNotEmpty prepend="AND" property="threadtype">
+				b.codedic in (SELECT portsize FROM threadtoolholder WHERE RIGHT(threadtype,2) = RIGHT(#threadtype#,2))
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="diameter">
+				b.codedic in (SELECT portsize FROM threadtoolholder WHERE diameter = #diameter#)
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladesize">
+				b.codedic in (SELECT portsize FROM threadtoolholder WHERE LEFT(featurecode,2) IN (SELECT codedesc FROM code where codedic = #bladesize# and fieldname = '螺纹刀片大小'))
+				
+				
+			</isNotEmpty>
+			  <isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode =#featurecode#
+				
+			</isNotEmpty>
+		</dynamic>
+GROUP BY codedesc
+	</select>
+<!-- 查询刀片尺寸 -->
+	<select id="querybladesize2InThreadtoolholder" parameterClass="map"
+		resultClass="dto">
+			select
+          b.codedic as value,
+          b.codedesc as text,
+          a.featurecode  
+          from code  as b 
+
+           LEFT JOIN threadtoolholder as a ON (b.codedesc IN (select LEFT(a.featurecode,2) FROM threadtoolholder))
+             
+             where fieldname ='螺纹刀片大小'  AND codedesc IN (select LEFT(a.featurecode,2) FROM threadtoolholder)
+             
+             	<dynamic>
+			<isNotEmpty prepend="AND" property="threadtype">
+				RIGHT(a.featurecode,2)  = (SELECT RIGHT(#threadtype#,2))
+				
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="diameter">
+				a.diameter = #diameter#
+				
+			</isNotEmpty>
+			  <isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode =#featurecode#
+				
+			</isNotEmpty>
+		</dynamic>
+             
+GROUP BY codedesc
+	</select>
+<!-- 查询进给方向 -->
+	<select id="querythreaddirection2InThreadtoolholder" parameterClass="map"
+		resultClass="dto">
+			select
+DISTINCT
+          b.codedic as value,
+          b.codedesc as text,
+          a.handoftool
+          from code  as b 
+
+           LEFT JOIN threadtoolholder as a ON (b.codedic = a.handoftool)
+             
+             where fieldname ='进给方向' 
+            <dynamic> 
+               <isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode =#featurecode#
+				
+			</isNotEmpty>
+             </dynamic>
+	</select>
+	<!-- 查询切削参数 -->
+	<select id="queryCtparameter" parameterClass="map" resultClass="dto">
+		<!-- SELECT
+		wpm.name AS workpiecematerialname, tbm.name AS
+		bladematerialname,
+		ctp.vcmax, ctp.vcmin
+		FROM
+		ttparameter AS ctp
+		LEFT JOIN
+		workpiecematerial AS wpm
+		ON ctp.workpiecematerialid =
+		wpm.workpiecematerialid
+		LEFT JOIN
+		threadbladematerial AS tbm
+		ON
+		ctp.bladematerialid = tbm.bladematerialid -->
+		SELECT DISTINCT
+		ctp.vcmax as vcmax, ctp.vcmin as vcmin,
+		tb.apmax as apmax,
+		tb.fnmax as fnmax
+		FROM
+		ttparameter AS ctp
+		LEFT JOIN 
+		threadblade AS tb 
+		on ctp.bladematerialid=tb.bladematerialid
+		WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="workpiecematerialid">
+				(ctp.workpiecematerialid = #workpiecematerialid#
+				OR ctp.wmcode IN
+				(SELECT wpm2.wmcode FROM workpiecematerial AS wpm2
+				WHERE
+				wpm2.workpiecematerialid = #workpiecematerialid# ))
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladematerialid">
+				ctp.bladematerialid =
+				#bladematerialid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladetype">
+				tb.bladetype =
+				#bladetype#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+<!-- 查询工件材料名称 -->
+	<select id="querycailiaonanme" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT name FROM workpiecematerial a
+		WHERE 1
+		= 1
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="workpieceisotype">
+				a.workpiecematerialid = #workpieceisotype#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	<!-- 查询进给方向名称 -->
+	<select id="queryjingeifangxiangnanme" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT codedesc FROM code a
+		WHERE a.fieldname = '进给方向'
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="threaddirection">
+				a.codedic = #threaddirection#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	<!-- 查询螺纹类型名称 -->
+	<select id="queryluowenleixingnanme" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT codedesc from code a    where fieldname ='螺纹类型'  
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="threadtype">
+				a.codedic = #threadtype#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	<!-- 查询螺纹标准名称 -->
+	<select id="queryluowenbiaozhunnanme" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT codedesc from code a    where field ='THREADSTANDARD'  
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="threadstandard">
+				a.codedic = #threadstandard#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	<!-- 查询刀片报表图片地址figure2 -->
+	<select id="queryfigure2blade" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT figure2 FROM  threadblade a
+		WHERE 1
+		= 1
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="sapcode">
+				a.sapcode = #sapcode#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	<!-- 查询进给方向名称 -->
+	<select id="queryjingeifangxiang2nanme" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT codedesc FROM  code a
+		WHERE a.fieldname = '进给方向'
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="threaddirection">
+				a.codedic = #threaddirection#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	<!-- 查询螺纹类型名称 -->
+	<select id="queryluowenleixing2nanme" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT codedesc FROM  code a
+		WHERE a.fieldname = '螺纹类型'
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="threadtype">
+				a.codedic = #threadtype#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	<!-- 查询刀片尺寸名称 -->
+	<select id="querydaopianchicun2nanme" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT codedesc FROM  code a
+		WHERE a.fieldname = '螺纹刀片大小'
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="bladesize">
+				a.codedic = #bladesize#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	<!-- 查询接口规格名称 -->
+	<select id="queryjiekouguige2nanme" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT codedesc FROM  code a
+		WHERE a.field = 'PORTSIZE'
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="portsize">
+				a.codedic = #portsize#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	<!-- 查询刀体报表图片地址figure2 -->
+	<select id="queryfigure2toolholder" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT figure2 FROM  threadtoolholder a
+		WHERE 1
+		= 1
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="sapcode">
+				a.sapcode = #sapcode#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	<!-- 查询刀片尺寸 -->
+	<select id="querybladesize" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT codedesc FROM  code a
+		WHERE a.fieldname = '螺纹刀片大小'
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="bladesize">
+				a.codedic = #bladesize#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>
+</sqlMap>

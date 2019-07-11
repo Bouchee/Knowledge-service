@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 切削液种类 -->
+<sqlMap namespace="Category">
+	<typeAlias alias="dto" type="org.xianwu.core.metatype.impl.BaseDto"/>
+
+	<!-- 查询切削液种类 -->
+	<select id="queryCategory4Manage" parameterClass="map" resultClass="dto">
+		 SELECT categoryid, productname, categoryname, emulsionname,color,refractioncoefficient,proportion,ph,manufacturer,characteristic,remark,remark1
+		 FROM category a WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="categoryname">
+									a.categoryname = #categoryname#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="emulsionname">
+									a.emulsionname = #emulsionname#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+									a.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="keyword">
+				(a.emulsionname like '%$keyword$%' or
+				a.remark like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<select id="queryCategory4Manage4PageCount" parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		FROM category a WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="categoryname">
+									a.categoryname = #categoryname#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="emulsionname">
+									a.emulsionname = #emulsionname#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+									a.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="keyword">
+				(a.categoryname like '%$keyword$%' or
+				a.emulsionname like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<!-- 插入切削液种类 -->
+	<insert id="saveCategory" parameterClass="dto">
+		INSERT INTO category (categoryid, categoryname, emulsionname, remark)
+		VALUES (#categoryid#, #categoryname#, #emulsionname#, #remark#)
+	</insert>
+
+	<!-- 更新切削液种类  -->
+	<update id="updateCategory" parameterClass="map" >
+		UPDATE Category set
+
+
+	         categoryname = #categoryname#,
+
+
+	         emulsionname = #emulsionname#,
+
+
+	         remark = #remark#
+
+
+	        WHERE categoryid = #categoryid#
+	</update>
+
+	<!-- 删除切削液种类  -->
+	<delete id="deleteCategory" parameterClass="map" >
+		DELETE FROM Category
+		      WHERE categoryid = #categoryid#
+	</delete>
+
+	<!-- 更新切削液种类  -->
+	<update id="updateMachinetool4Category" parameterClass="map" >
+		update Machinetool set categoryid = null WHERE categoryid = #categoryid#
+	</update>
+
+	<!-- 删除切削液种类  -->
+	<delete id="deleteMachinetoolholder4Machinetool4Category" parameterClass="map" >
+		DELETE FROM Machinetoolholder
+		WHERE Machinetoolid in (select machinetoolid from machinetool where categoryid = #categoryid#)
+	</delete>
+</sqlMap>

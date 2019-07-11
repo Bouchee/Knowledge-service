@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 知识库系统 -->
+<sqlMap namespace="Material">
+	<typeAlias alias="dto" type="org.xianwu.core.metatype.impl.BaseDto" />
+
+
+	<select id="queryTree" parameterClass="map" resultClass="dto">
+		SELECT
+		<!-- knowledgebasesystem.id, -->
+		knowledgebasesystem.text
+		<!-- knowledgebasesystem.leaf,
+		knowledgebasesystem.`value` -->
+		FROM
+		knowledgebasesystem
+	</select>
+</sqlMap>

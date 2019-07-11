@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 槽型编号 -->
+<sqlMap namespace="Groove">
+	<typeAlias alias="dto" type="org.xianwu.core.metatype.impl.BaseDto"/>
+
+	<!-- 查询槽型编号 -->
+	<select id="queryGroove4Manage" parameterClass="map" resultClass="dto">
+		 SELECT grooveid,name,accuracyid,(select name from accuracy where accuracyid = a.accuracyid) as accuracyname,
+		 figure,brandid, (select name from brand where brandid = a.brandid)as brandname,apmax,apmin,fnmax,fnmin,remark
+		 FROM groove a WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="name">
+									a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="accuracyid">
+									a.accuracyid = #accuracyid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure">
+									a.figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandid">
+									a.brandid = #brandid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="apmax">
+									a.apmax = #apmax#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="apmin">
+									a.apmin = #apmin#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="fnmax">
+									a.fnmax = #fnmax#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="fnmin">
+									a.fnmin = #fnmin#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+									a.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="keyword">
+				(a.name like '%$keyword$%' or a.remark like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+		order by a.grooveid desc
+	</select>
+
+	<select id="queryGroove4Manage4PageCount" parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		FROM groove a WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="name">
+									a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="accuracyid">
+									a.accuracyid = #accuracyid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure">
+									a.figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandid">
+									a.brandid = #brandid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="apmax">
+									a.apmax = #apmax#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="apmin">
+									a.apmin = #apmin#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="fnmax">
+									a.fnmax = #fnmax#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="fnmin">
+									a.fnmin = #fnmin#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+									a.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="keyword">
+				(a.name like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<!-- 插入槽型编号 -->
+	<insert id="saveGroove" parameterClass="dto">
+		INSERT INTO groove (grooveid,name,accuracyid,figure,brandid,apmax,apmin,fnmax,fnmin,remark)
+		VALUES (#grooveid#,#name#,#accuracyid#,#figure#,#brandid#,#apmax#,#apmin#,#fnmax#,#fnmin#,#remark#)
+	</insert>
+
+	<!-- 更新槽型编号  -->
+	<update id="updateGroove" parameterClass="map" >
+		UPDATE Groove a set
+
+
+									a.name = #name#,
+
+
+									a.accuracyid = #accuracyid#,
+
+
+			
+
+
+									a.brandid = #brandid#,
+
+
+									a.apmax = #apmax#,
+
+
+									a.apmin = #apmin#,
+
+
+									a.fnmax = #fnmax#,
+
+
+									a.fnmin = #fnmin#,
+
+
+									a.remark = #remark#
+	<dynamic>
+<isNotEmpty prepend=","   property="figure">
+	a.figure = #figure#
+</isNotEmpty>
+
+	</dynamic>
+
+	        WHERE a.grooveid = #grooveid#
+	</update>
+
+	<!-- 删除槽型编号  -->
+	<delete id="deleteGroove" parameterClass="map" >
+		DELETE FROM Groove
+		      WHERE grooveid = #grooveid#
+	</delete>
+
+	<!-- 更新槽型编号  -->
+	<update id="updateBlade4Groove" parameterClass="map" >
+		update Blade set grooveid = null where grooveid = #grooveid#
+	</update>
+
+	<!-- 删除槽型编号  -->
+	<delete id="deleteBladetoolholder4Blade4Groove" parameterClass="map" >
+		DELETE FROM bladetoolholder
+		      WHERE bladeid in (select bladeid from blade where grooveid = #grooveid#)
+	</delete>
+
+	<!-- 查询加工精度  -->
+	<select id="queryAccuracy4Groove" parameterClass="map" resultClass="dto">
+		 SELECT accuracyid as value, name as text
+		 FROM accuracy
+	</select>
+
+	<!-- 查询刀片槽型品牌  -->
+	<select id="queryBrand4Groove" parameterClass="map" resultClass="dto">
+		 SELECT brandid as value, name as text
+		 FROM brand
+	</select>
+
+	<!-- 根据刀片槽型名称和刀片槽型品牌判定是否存在刀片槽型  -->
+	<select id="checkNameAndgGroovebrand4Groove" parameterClass="map" resultClass="dto">
+		 SELECT count(grooveid) as count
+		 FROM groove where name = #name# and groovebrand = #groovebrand#
+ 	</select>
+
+ 	<!-- 根据ID查询图片位置  -->
+	<select id="queryFigure4Delete4Groove" parameterClass="map" resultClass="dto">
+		 SELECT figure
+		 FROM groove where grooveid = #grooveid#
+ 	</select>
+
+</sqlMap>

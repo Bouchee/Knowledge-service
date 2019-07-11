@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Hd_toolholder_reaming_clamp">
+	<typeAlias alias="dto" type="org.xianwu.core.metatype.impl.BaseDto"></typeAlias>
+
+	<!-- 查询机夹式铰刀刀体 -->
+	<select id="queryHd_toolholder_reaming_clamp4Manage"
+		parameterClass="map" resultClass="dto">
+		SELECT
+		a.toolholderid,
+		a.sapcode,
+		a.`name`,
+		a.type,
+		a.figure,
+		a.figure2,
+		a.brandid,
+		a.cuttype,
+		a.typeid,
+		a.hdtooltype,
+		a.description,
+		a.remark,
+		a.k1,
+		b.hdtrcid,
+		b.nominaldiameter,
+		b.accuracy,
+		b.materialid,
+		b.toothnumber,
+		b.groovedirection,
+		b.portsize,
+		b.coolingtype
+		FROM
+		hd_holedrilling AS a
+		LEFT JOIN hd_toolholder_reaming_clamp AS b ON a.typeid = b.hdtrcid
+		WHERE
+		a.`name` like "%铰%" and (a.typeid IS NOT NULL AND b.hdtrcid IS NOT NULL)
+
+		<dynamic>
+			<isNotEmpty prepend="AND" property="toolholderid">
+				a.toolholderid =
+				#toolholderid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="sapcode">
+				a.sapcode = #sapcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+				a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="type">
+				a.type = #type#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandid">
+				a.brandid = #brandid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure">
+				a.figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure2">
+				a.figure2 = #figure2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="cuttype">
+				a.cuttype = #cuttype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="typeid">
+				a.typeid = #typeid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="hdtooltype">
+				a.hdtooltype =
+				#hdtooltype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="nominaldiameter">
+				trc.nominaldiameter =
+				#nominaldiameter#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="accuracy">
+				trc.accuracy =
+				#accuracy#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="materialid">
+				trc.materialid =
+				#materialid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="toothnumber">
+				trc.toothnumber =
+				#toothnumber#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="groovedirection">
+				trc.groovedirection =
+				#groovedirection#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="portsize">
+				trc.portsize =
+				#portsize#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="coolingtype">
+				trc.coolingtype =
+				#coolingtype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="k1">
+				a.k1 = #k1#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="description">
+				a.description =
+				#description#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+				a.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="keyword">
+				(a.name like
+				'%$keyword$%' or a.hdtooltype like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<select id="queryHd_toolholder_reaming_clamp4Manage4PageCount"
+		parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+	FROM
+		hd_holedrilling AS a
+		LEFT JOIN hd_toolholder_reaming_clamp AS b ON a.typeid = b.hdtrcid
+		WHERE
+		a.`name` like "%铰%" and (a.typeid IS NOT NULL AND b.hdtrcid IS NOT NULL)
+
+		<dynamic>
+			<isNotEmpty prepend="AND" property="toolholderid">
+				a.toolholderid =
+				#toolholderid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="sapcode">
+				a.sapcode = #sapcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+				a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="type">
+				a.type = #type#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandid">
+				a.brandid = #brandid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure">
+				a.figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure2">
+				a.figure2 = #figure2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="cuttype">
+				a.cuttype = #cuttype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="typeid">
+				a.typeid = #typeid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="hdtooltype">
+				a.hdtooltype =
+				#hdtooltype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="nominaldiameter">
+				trc.nominaldiameter =
+				#nominaldiameter#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="accuracy">
+				trc.accuracy =
+				#accuracy#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="materialid">
+				trc.materialid =
+				#materialid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="toothnumber">
+				trc.toothnumber =
+				#toothnumber#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="groovedirection">
+				trc.groovedirection =
+				#groovedirection#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="portsize">
+				trc.portsize =
+				#portsize#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="coolingtype">
+				trc.coolingtype =
+				#coolingtype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="k1">
+				a.k1 = #k1#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="description">
+				a.description =
+				#description#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+				a.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="keyword">
+				(a.name like
+				'%$keyword$%' or a.hdtooltype like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+
+	<select id="queryTypeid4Delete" parameterClass="map"
+		resultClass="dto">
+		SELECT typeid
+		FROM hd_holedrilling where toolholderid =
+		#toolholderid#
+	</select>
+
+	<select id="queryTypeid4Update" parameterClass="map"
+		resultClass="dto">
+
+		SELECT typeid
+		FROM hd_holedrilling where toolholderid =
+		#toolholderid#
+	</select>
+
+	<insert id="saveHd_toolholder_reaming_clamp" parameterClass="dto">
+		INSERT INTO Hd_toolholder_reaming_clamp (hdtrcid, nominaldiameter,
+		accuracy, materialid, toothnumber, groovedirection, portsize,
+		coolingtype)
+		VALUES (#hdtrcid#, #nominaldiameter#, #accuracy#,
+		#materialid#,
+		#toothnumber#,#groovedirection#, #portsize#,
+		#coolingtype#)
+	</insert>
+
+
+	<!-- 更新机夹式铰刀刀体 -->
+	<update id="updateHd_holedrilling" parameterClass="map">
+		UPDATE Hd_holedrilling set
+		sapcode = #sapcode#,
+		name = #name#,
+		type =
+		#type#,
+		brandid = #brandid#,
+		cuttype = #cuttype#,
+		hdtooltype =
+		#hdtooltype#,
+		description = #description#,
+		k1 = #k1#,
+		remark = #remark#
+		<dynamic>
+			<isNotEmpty prepend="," property="figure">
+				figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="figure2">
+				figure2 = #figure2#
+			</isNotEmpty>
+		</dynamic>
+
+		WHERE toolholderid = #toolholderid#
+	</update>
+
+	<update id="updateHd_toolholder_reaming_clamp" parameterClass="map">
+		UPDATE Hd_toolholder_reaming_clamp set
+		nominaldiameter =
+		#nominaldiameter#,
+		accuracy = #accuracy#,
+		materialid = #materialid#,
+		toothnumber = #toothnumber#,
+		groovedirection = #groovedirection#,
+		portsize = #portsize#,
+		coolingtype = #coolingtype#
+		WHERE hdtrcid =
+		#typeid#
+	</update>
+
+	<!-- 删除机夹式铰刀刀体 -->
+	<delete id="deleteHd_toolholder_reaming_clamp" parameterClass="map">
+		DELETE FROM Hd_toolholder_reaming_clamp
+		WHERE hdtrcid =
+		#hdtrcid#
+	</delete>
+
+	<delete id="deleteHd_holedrilling" parameterClass="map">
+		DELETE
+		FROM
+		Hd_holedrilling
+		WHERE toolholderid = #toolholderid#
+	</delete>
+
+	<!-- 插入机夹式铰刀刀体 -->
+	<insert id="saveHd_holedrilling" parameterClass="dto">
+		INSERT INTO
+		Hd_holedrilling
+		(toolholderid,sapcode,name,type,figure,figure2,brandid,cuttype,typeid,hdtooltype,description,remark,k1)
+		VALUES
+		(#toolholderid#,#sapcode#,#name#,#type#,#figure#,#figure2#,#brandid#,#cuttype#,#typeid#,#hdtooltype#,#description#,#remark#,#k1#)
+	</insert>
+	<!-- 根据ID查询图片位置 -->
+	<select id="queryFigure4Delete4Hd_toolholder_reaming_clamp"
+		parameterClass="map" resultClass="dto">
+		SELECT figure, figure2
+		FROM
+		hd_holedrilling where toolholderid = #toolholderid#
+	</select>
+
+	<!-- 查询刀体品牌 -->
+	<select id="queryBrand4Hd_toolholder_reaming_clamp"
+		parameterClass="map" resultClass="dto">
+		SELECT brandid as value, name as
+		text
+		FROM brand
+	</select>
+
+</sqlMap>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 刀片刀体匹配关系 -->
+<sqlMap namespace="Bladetoolholder">
+	<typeAlias alias="dto" type="org.xianwu.core.metatype.impl.BaseDto"/>
+	
+	<!-- 查询刀片刀体匹配关系 -->
+	<select id="queryBladetoolholder4Manage" parameterClass="map" resultClass="dto">
+SELECT
+	c.bladeid AS bladeid,
+	c.toolholderid AS toolholderid,
+	c.remark AS bladetoolholderremark,
+	b.erpcode AS bladeerpcode,
+	b.name AS bladename,
+	b.bladetype AS bladetype,
+	b.figure AS bladefigure,
+	b.turningtype AS bladeturningtype,
+	b.bladematerialid AS bladematerialid,
+	b.grooveid AS grooveid,
+	(
+		SELECT
+			groove.name
+		FROM
+			groove
+		WHERE
+			(
+				groove.grooveid = b.grooveid
+			)
+	) AS groovename,
+	b.brandid AS bladebrandid,
+	(
+		SELECT
+			brand.name
+		FROM
+			brand
+		WHERE
+			(
+				brand.brandid = b.brandid
+			)
+	) AS bladebrandname,
+	b.reliefangle AS reliefangle,
+	b.shape AS bladeshape,
+	b.celength AS celength,
+	b.noseradius AS noseradius,
+	b.pitch AS pitch,
+	b.thread AS thread,
+	b.blademold AS blademold,
+	b.bladesize AS bladesize,
+	b.thickness AS thickness,
+	b.bladehand AS bladehand,
+	b.description AS description,
+	b.featurecode AS bladefeaturecode,
+	b.apmax AS apmax,
+	b.apmin AS apmin,
+	b.fnmax AS fnmax,
+	b.fnmin AS fnmin,
+	b.remark AS bladeremark,
+	t.erpcode AS toolholdererpcode,
+	t.name AS toolholdername,
+	t.toolholdertype AS toolholdertype,
+	t.brandid AS toolholderbrandid,
+	(
+		SELECT
+			brand.name
+		FROM
+			brand
+		WHERE
+			(
+				brand.brandid = t.brandid
+			)
+	) AS toolholderbrandname,
+	t.turningtype AS toolholderturningtype,
+	t.portsize AS portsize,
+	t.handoftool AS handoftool,
+	t.figure AS toolholderfigure,
+	t.featurecode AS toolholderfeaturecode,
+	t.cseries AS cseries,
+	t.length AS length,
+	t.width AS width,
+	t.thheadangle AS thheadangle,
+	t.aname1 AS aname1,
+	t.atype1 AS atype1,
+	t.aname2 AS aname2,
+	t.atype2 AS atype2,
+	t.aname3 AS aname3,
+	t.atype3 AS atype3,
+	t.aname4 AS aname4,
+	t.atype4 AS atype4,
+	t.aname5 AS aname5,
+	t.atype5 AS atype5,
+	t.remark AS toolholderremark
+FROM
+	(
+		(
+			bladetoolholder c
+			LEFT JOIN blade b ON (
+				(
+					b.bladeid = c.bladeid
+				)
+			)
+		)
+		LEFT JOIN toolholder t ON (
+			(
+				t.toolholderid = c.toolholderid
+			)
+		)
+	)
+ WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="keyword">
+				(b.name like '%$keyword$%' or t.name like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<select id="queryBladetoolholder4Manage4PageCount" parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		FROM
+	(
+		(
+			bladetoolholder c
+			LEFT JOIN blade b ON (
+				(
+					b.bladeid = c.bladeid
+				)
+			)
+		)
+		LEFT JOIN toolholder t ON (
+			(
+				t.toolholderid = c.toolholderid
+			)
+		)
+	)
+ WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="keyword">
+				(b.name like '%$keyword$%' or t.name like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<!-- 插入刀片刀体匹配关系 -->
+	<insert id="saveBladetoolholder" parameterClass="dto">
+		INSERT INTO Bladetoolholder (bladeid, toolholderid, remark) 
+		VALUES (#bladeid#, #toolholderid#, #remark#)
+	</insert>
+	
+	<!-- 更新刀片刀体匹配关系  -->
+	<update id="updateBladetoolholder" parameterClass="map" >
+		UPDATE Bladetoolholder
+		<dynamic prepend="SET"> 
+			<isNotEmpty prepend="," property="bladeid">
+	         bladeid = #bladeid#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="toolholderid">
+	         toolholderid = #toolholderid#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="remark">
+	         remark = #remark#
+			</isNotEmpty>							
+		</dynamic> 
+	        WHERE promethodid = #promethodid#    
+	</update>
+	
+	<!-- 删除刀片刀体匹配关系  -->
+	<delete id="deleteBladetoolholder" parameterClass="map" >
+		DELETE FROM Bladetoolholder
+		      WHERE bladeid = #bladeid# and toolholderid = #toolholderid#
+	</delete>
+	
+	<!-- 查询刀片 -->
+	<select id="queryBlade4Bladetoolholder" parameterClass="map" resultClass="dto">
+		 SELECT bladeid as value, bladetype as text
+		 FROM blade
+	</select>
+	
+	<!-- 查询刀体 -->
+	<select id="queryToolholder4Bladetoolholder" parameterClass="map" resultClass="dto">
+		 SELECT toolholderid as value, toolholdertype as text
+		 FROM toolholder
+	</select>
+	
+	<!-- 查询数量 -->
+	<select id="queryBladetoolholderNumber" parameterClass="map"
+		resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		FROM
+		Bladetoolholder WHERE bladeid = #bladeid# and toolholderid = #toolholderid#
+	</select>
+	
+</sqlMap>

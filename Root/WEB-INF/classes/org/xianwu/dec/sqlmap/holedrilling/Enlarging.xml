@@ -1,0 +1,639 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 扩孔 -->
+<sqlMap namespace="Enlarging">
+	<typeAlias alias="dto" type="org.xianwu.core.metatype.impl.BaseDto" />
+
+
+	<!-- 查询扩孔刀具 -->
+	<select id="queryHd_holedrilling4Manage" parameterClass="map"
+		resultClass="dto">
+	
+		SELECT
+	DISTINCT hd.toolholderid AS toolholderid,
+
+	hd.sapcode AS sapcode,
+	hd. NAME AS NAME,
+	hd.type AS type,
+	hd.figure AS figure,
+	hd.figure2 AS figure2,
+	(
+		SELECT
+			brand. NAME
+		FROM
+			brand
+		WHERE
+			(brand.brandid = hd.brandid)
+	) AS brandid,
+	hd.cuttype AS cuttype,
+	hd.typeid AS typeid,
+	hd.hdtooltype AS hdtooltype,
+	hd.description AS description,
+	hd.remark AS remark,
+	hd.k1 AS k1,
+	hd.featurecode AS featurecode,
+	a.nominaldiameter,
+(select name
+		from hd_material where materialid =
+		a.materialid ) AS materialid,
+	a.toothnumber,
+	a.length,
+	a.portsize,
+	a.porediamete,
+	a.coolingtype,
+	hthi.pointangle,
+	hthi.depth,
+	htcs.porediamete,
+	hthi.groovelength
+FROM
+	hd_holedrilling AS hd
+LEFT JOIN (
+	SELECT
+		nominaldiameter,
+		materialid,
+		toothnumber,
+		length,
+		porediamete,
+		portsize,
+		coolingtype,
+		hdthilid AS id
+	FROM
+		hd_toolholder_holedrilling_integral AS hthi
+	UNION ALL
+		SELECT
+			nominaldiameter,
+			materialid,
+			toothnumber,
+			length,
+			porediamete,
+			portsize,
+			coolingtype,
+			hdtcsid AS id
+		FROM
+			hd_toolholder_coredrilling_shell AS htcs
+) AS a ON (hd.typeid = a.id)
+LEFT JOIN hd_toolholder_holedrilling_integral AS hthi ON (hd.typeid = hthi.hdthilid)
+LEFT JOIN hd_toolholder_coredrilling_shell AS htcs ON (hd.typeid = htcs.hdtcsid)
+		where
+		(hd.`cuttype` LIKE '%扩孔%' )
+		<dynamic>
+			<isNotEmpty prepend="AND" property="toolholderid">
+				hd.toolholderid =
+				#toolholderid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="sapcode">
+				hd.sapcode = #sapcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+				hd.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="type">
+				hd.type = #type#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure">
+				hd.figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure2">
+				hd.figure2 = #figure2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandid">
+				hd.brandid = #brandid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="cuttype">
+				hd.cuttype = #cuttype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="typeid">
+				hd.typeid = #typeid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="hdtooltype">
+				hd.hdtooltype =
+				#hdtooltype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="description">
+				hd.description =
+				#description#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+				hd.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="k1">
+				hd.k1 = #k1#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="nominaldiameter">
+				hd.typeid IN(
+				SELECT
+				hdtcsid FROM hd_toolholder_coredrilling_shell WHERE nominaldiameter
+				= #nominaldiameter#
+				UNION
+				SELECT hdthilid FROM
+				hd_toolholder_holedrilling_integral WHERE nominaldiameter =
+				#nominaldiameter#
+				)
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="depth">
+				(hd.typeid in (SELECT hdthilid FROM
+				hd_toolholder_holedrilling_integral WHERE (<![CDATA[depth >= #depth# ]]>))
+				or
+				hd.typeid in (SELECT hdtcsid FROM hd_toolholder_coredrilling_shell
+				where (portsize in (SELECT mcc FROM hd_module_coredrilling_shell
+				WHERE (<![CDATA[depth >= #depth# ]]>)))))
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="porediamete">
+				a.porediamete=#porediamete#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="workpieceisotype">
+				(a.materialid IN (
+				SELECT
+				materialid
+				FROM
+				hd_material
+				WHERE
+				isotype LIKE CONCAT(
+				"%",
+				(
+				SELECT
+				isotype
+				FROM
+				workpiecematerial
+				WHERE
+				workpiecematerial.workpiecematerialid = #workpieceisotype#
+				),
+				"%"
+				))
+				OR
+				a.materialid IN (
+				SELECT
+				materialid
+				FROM
+				hd_material
+				WHERE
+				isotype LIKE
+				CONCAT(
+				"%",
+				(
+				SELECT
+				isotype
+				FROM
+				workpiecematerial
+				WHERE
+				workpiecematerial.workpiecematerialid = #workpieceisotype#
+				),
+				"%"
+				)
+				))
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+
+	<select id="queryHd_holedrilling4Manage4PageCount"
+		parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		FROM
+	hd_holedrilling AS hd
+LEFT JOIN (
+	SELECT
+		nominaldiameter,
+		materialid,
+		toothnumber,
+		length,
+		porediamete,
+		portsize,
+		coolingtype,
+		hdthilid AS id
+	FROM
+		hd_toolholder_holedrilling_integral AS hthi
+	UNION ALL
+		SELECT
+			nominaldiameter,
+			materialid,
+			toothnumber,
+			length,
+			porediamete,
+			portsize,
+			coolingtype,
+			hdtcsid AS id
+		FROM
+			hd_toolholder_coredrilling_shell AS htcs
+) AS a ON (hd.typeid = a.id)
+LEFT JOIN hd_toolholder_holedrilling_integral AS hthi ON (hd.typeid = hthi.hdthilid)
+LEFT JOIN hd_toolholder_coredrilling_shell AS htcs ON (hd.typeid = htcs.hdtcsid)
+		where
+		(hd.`cuttype` LIKE '%扩孔%' )
+		<dynamic>
+			<isNotEmpty prepend="AND" property="toolholderid">
+				hd.toolholderid =
+				#toolholderid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="sapcode">
+				hd.sapcode = #sapcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+				hd.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="type">
+				hd.type = #type#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure">
+				hd.figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure2">
+				hd.figure2 = #figure2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandid">
+				hd.brandid = #brandid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="cuttype">
+				hd.cuttype = #cuttype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="typeid">
+				hd.typeid = #typeid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="hdtooltype">
+				hd.hdtooltype =
+				#hdtooltype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="description">
+				hd.description =
+				#description#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+				hd.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="k1">
+				hd.k1 = #k1#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="nominaldiameter">
+				hd.typeid IN(
+				SELECT
+				hdtcsid FROM hd_toolholder_coredrilling_shell WHERE nominaldiameter
+				= #nominaldiameter#
+				UNION
+				SELECT hdthilid FROM
+				hd_toolholder_holedrilling_integral WHERE nominaldiameter =
+				#nominaldiameter#
+				)
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="depth">
+				(hd.typeid in (SELECT hdthilid FROM
+				hd_toolholder_holedrilling_integral WHERE (<![CDATA[depth >= #depth# ]]>))
+				or
+				hd.typeid in (SELECT hdtcsid FROM hd_toolholder_coredrilling_shell
+				where (portsize in (SELECT mcc FROM hd_module_coredrilling_shell
+				WHERE (<![CDATA[depth >= #depth# ]]>)))))
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="porediamete">
+				a.porediamete=#porediamete#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="workpieceisotype">
+				(a.materialid IN (
+				SELECT
+				materialid
+				FROM
+				hd_material
+				WHERE
+				isotype LIKE CONCAT(
+				"%",
+				(
+				SELECT
+				isotype
+				FROM
+				workpiecematerial
+				WHERE
+				workpiecematerial.workpiecematerialid = #workpieceisotype#
+				),
+				"%"
+				))
+				OR
+				a.materialid IN (
+				SELECT
+				materialid
+				FROM
+				hd_material
+				WHERE
+				isotype LIKE
+				CONCAT(
+				"%",
+				(
+				SELECT
+				isotype
+				FROM
+				workpiecematerial
+				WHERE
+				workpiecematerial.workpiecematerialid = #workpieceisotype#
+				),
+				"%"
+				)
+				))
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<!-- 查询公称直径 -->
+	<select id="queryNominaldiameter" parameterClass="map"
+		resultClass="dto">
+		SELECT
+
+		VALUE
+
+		FROM
+		(
+		SELECT
+		nominaldiameter AS
+		VALUE
+
+		FROM
+		hd_toolholder_coredrilling_shell
+		UNION
+		SELECT
+		nominaldiameter AS
+		VALUE
+
+		FROM
+		hd_toolholder_holedrilling_integral
+		) AS
+		VALUE
+
+		GROUP BY
+
+		VALUE
+
+	</select>
+
+	<!-- 查询深度 -->
+	<select id="queryDepth" parameterClass="map" resultClass="dto">
+		SELECT
+
+		VALUE
+
+		FROM
+		(
+		SELECT
+		depth AS
+		VALUE
+
+		FROM
+		hd_toolholder_holedrilling_integral
+		UNION
+		SELECT
+		depth AS
+		VALUE
+
+		FROM
+		hd_module_coredrilling_shell
+		) AS
+		VALUE  where VALUE is not null
+
+		GROUP BY
+
+		VALUE
+	</select>
+
+	<!-- 查询底孔径 -->
+	<select id="queryPorediamete" parameterClass="map" resultClass="dto">
+		SELECT
+		DISTINCT porediamete as value
+		FROM
+		hd_toolholder_coredrilling_shell  
+UNION ALL
+SELECT
+		DISTINCT porediamete as value
+		FROM
+		hd_toolholder_holedrilling_integral GROUP BY
+		value
+
+	</select>
+
+	<!--刀具类型 -->
+	<select id="queryTooltypeInhd_holedrilling" parameterClass="map"
+		resultClass="dto">
+		SELECT
+		`name` as value FROM
+		hd_holedrilling hd WHERE `name`
+		is not NULL and
+		(hd.`name` LIKE '%扩孔钻%' OR hd.`name` LIKE '%麻花钻%')
+		GROUP BY
+		`name`
+	</select>
+	<!-- 查询工件材料状态 -->
+	<select id="queryWorkpiecematerial" parameterClass="map"
+		resultClass="dto">
+		SELECT workpiecematerialid, name, mark, wmtype, heattreat, hardness,
+		concat(name, '-', mark) as name2 FROM workpiecematerial a
+		WHERE 1 = 1
+
+		<!-- <dynamic> <isNotEmpty prepend="AND" property="keyword"> (a.name like 
+			'%$keyword$%' or a.mark like '%$keyword$%') </isNotEmpty> </dynamic> -->
+		order by a.name
+	</select>
+
+
+	
+	
+	<!-- 查询切削参数 -->
+	<select id="queryEparameter" parameterClass="map" resultClass="dto">
+
+	SELECT DISTINCT
+	a.wmcode,
+    a.workpiecematerialid,
+	a.k1,
+	a.k2,
+	a.vc,
+CASE 
+CONCAT(LENGTH(REPLACE(a.vc,'-','--'))-LENGTH(a.vc),LENGTH(REPLACE(b.nominaldiameter,'-','--'))-LENGTH(b.nominaldiameter))
+WHEN ('00')THEN
+(
+FORMAT(((1000*a.vc)/(3.14*b.nominaldiameter)),0)
+)
+WHEN ('01')THEN
+(
+(
+CONCAT(
+		FORMAT(((1000*a.vc/(3.14*LEFT(b.nominaldiameter,LOCATE("-",b.nominaldiameter))))),0) ,"-",
+    FORMAT(((1000*a.vc/(3.14*RIGHT(b.nominaldiameter,LENGTH(b.nominaldiameter)-LOCATE("-",b.nominaldiameter))))),0))
+)
+)
+WHEN ('10')THEN
+(
+CONCAT(
+		FORMAT(((1000*LEFT(a.vc,LOCATE("-",a.vc)))/(3.14*b.nominaldiameter)),0) ,"-",
+    FORMAT(((1000*RIGHT(a.vc,LENGTH(a.vc)-LOCATE("-",a.vc)))/(3.14*b.nominaldiameter)),0))
+)
+WHEN ('11')THEN
+(
+(
+CONCAT(
+		FORMAT(((1000*LEFT(a.vc,LOCATE("-",a.vc))/(3.14*LEFT(b.nominaldiameter,LOCATE("-",b.nominaldiameter))))),0) ,"-",
+    FORMAT(((1000*RIGHT(a.vc,LENGTH(a.vc)-LOCATE("-",a.vc))/(3.14*RIGHT(b.nominaldiameter,LENGTH(b.nominaldiameter)-LOCATE("-",b.nominaldiameter))))),0))
+)
+)
+END as s,
+	
+CASE
+CONCAT(LENGTH(REPLACE(a.vc,'-','--'))-LENGTH(a.vc),LENGTH(REPLACE(b.nominaldiameter,'-','--'))-LENGTH(b.nominaldiameter),LENGTH(REPLACE(a.fn,'-','--'))-LENGTH(a.fn)) 
+WHEN ('000')THEN
+(
+FORMAT((1000*a.vc)/(3.14*b.nominaldiameter)*a.fn*b.toothnumber,0)
+)
+WHEN ('001')THEN
+(
+CONCAT(FORMAT((1000*a.vc)/(3.14*b.nominaldiameter)*b.toothnumber*LEFT(a.fn,LOCATE("-",a.fn)),0) ,"-",FORMAT((1000*a.vc)/(3.14*b.nominaldiameter)*b.toothnumber*RIGHT(a.fn,LENGTH(a.fn)-LOCATE("-",a.fn)),0))
+)
+WHEN ('010')THEN
+(
+(
+CONCAT(
+		FORMAT(1000*a.vc/(3.14*LEFT(b.nominaldiameter,LOCATE("-",b.nominaldiameter)))*b.toothnumber*a.fn,0) ,"-",
+    FORMAT(1000*a.vc/(3.14*RIGHT(b.nominaldiameter,LENGTH(b.nominaldiameter)-LOCATE("-",b.nominaldiameter)))*b.toothnumber*a.fn,0))
+)
+)
+WHEN ('011')THEN
+(
+(
+CONCAT(
+		FORMAT(1000*a.vc/(3.14*LEFT(b.nominaldiameter,LOCATE("-",b.nominaldiameter)))*b.toothnumber*LEFT(a.fn,LOCATE("-",a.fn)),0) ,"-",
+    FORMAT(1000*a.vc/(3.14*RIGHT(b.nominaldiameter,LENGTH(b.nominaldiameter)-LOCATE("-",b.nominaldiameter)))*b.toothnumber*RIGHT(a.fn,LENGTH(a.fn)-LOCATE("-",a.fn)),0))
+)
+)
+WHEN ('100')THEN
+(
+CONCAT(
+		FORMAT(((1000*LEFT(a.vc,LOCATE("-",a.vc)))/(3.14*b.nominaldiameter)*b.toothnumber*a.fn),0) ,"-",
+    FORMAT(((1000*RIGHT(a.vc,LENGTH(a.vc)-LOCATE("-",a.vc)))/(3.14*b.nominaldiameter)*b.toothnumber*a.fn),0))
+)
+WHEN ('101')THEN
+(
+CONCAT(
+		FORMAT(((1000*LEFT(a.vc,LOCATE("-",a.vc)))/(3.14*b.nominaldiameter)*b.toothnumber*LEFT(a.fn,LOCATE("-",a.fn))),0) ,"-",
+    FORMAT(((1000*RIGHT(a.vc,LENGTH(a.vc)-LOCATE("-",a.vc)))/(3.14*b.nominaldiameter)*b.toothnumber*RIGHT(a.fn,LENGTH(a.fn)-LOCATE("-",a.fn))),0))
+)
+WHEN ('110')THEN
+(
+CONCAT(
+		FORMAT(((1000*LEFT(a.vc,LOCATE("-",a.vc))/(3.14*LEFT(b.nominaldiameter,LOCATE("-",b.nominaldiameter)))*b.toothnumber*a.fn)),0) ,"-",
+    FORMAT(((1000*RIGHT(a.vc,LENGTH(a.vc)-LOCATE("-",a.vc))/(3.14*RIGHT(b.nominaldiameter,LENGTH(b.nominaldiameter)-LOCATE("-",b.nominaldiameter)))*b.toothnumber*a.fn)),0))
+
+)
+WHEN ('111')THEN
+(
+CONCAT(
+		FORMAT(((1000*LEFT(a.vc,LOCATE("-",a.vc))/(3.14*LEFT(b.nominaldiameter,LOCATE("-",b.nominaldiameter)))*b.toothnumber*LEFT(a.fn,LOCATE("-",a.fn)))),0) ,"-",
+    FORMAT(((1000*RIGHT(a.vc,LENGTH(a.vc)-LOCATE("-",a.vc))/(3.14*RIGHT(b.nominaldiameter,LENGTH(b.nominaldiameter)-LOCATE("-",b.nominaldiameter)))*b.toothnumber*RIGHT(a.fn,LENGTH(a.fn)-LOCATE("-",a.fn)))),0))
+
+)
+END as f,
+
+	a.fn,
+	a.shape,
+	a.removalrates,
+	a.power
+	FROM hd_holedrilling_parmeter as a
+LEFT JOIN (
+	SELECT hthi.nominaldiameter as nominaldiameter,hd.k1 AS k1,hthi.toothnumber as toothnumber	FROM hd_holedrilling as hd LEFT JOIN hd_toolholder_holedrilling_integral AS hthi ON(hd.typeid = hthi.hdthilid)where
+		(hd.`name` LIKE '%扩孔钻%' OR hd.`name` LIKE '%麻花钻%')
+	UNION ALL
+  SELECT htcs.nominaldiameter as nominaldiameter,hd.k1 AS k1,htcs.toothnumber	as toothnumber FROM hd_holedrilling as hd LEFT JOIN hd_toolholder_coredrilling_shell AS htcs ON(hd.typeid = htcs.hdtcsid)	where
+		(hd.`name` LIKE '%扩孔钻%' OR hd.`name` LIKE '%麻花钻%')
+) AS b ON (a.k1 = b.k1)
+	WHERE 1
+	= 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="workpiecematerialid">
+				
+				
+				(workpiecematerialid = #workpiecematerialid#
+				OR a.wmcode IN
+				(SELECT wpm2.wmcode FROM workpiecematerial AS wpm2
+				WHERE
+				wpm2.workpiecematerialid = #workpiecematerialid# ))
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="k1">
+				a.k1 =#k1#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="nominaldiameter">
+				b.nominaldiameter =#nominaldiameter#
+			</isNotEmpty>
+			
+		</dynamic>
+	</select>
+	
+
+	<!-- 查询套式扩孔钻模块 -->
+	<select id="queryHd_module_coredrilling_shell4Manage"
+		parameterClass="map" resultClass="dto">
+
+		SELECT
+		t1.toolholderid,
+		t1.sapcode,
+		t1.name,
+		t1.type,
+		t1.figure,
+		t1.figure2,
+		t1.brandid,
+		t1.cuttype,
+		t1.length,
+		t1.depth,
+		t1.portsize,
+		t1.mcc,
+		t1.porediamete,
+		t1.coolingtype,
+		t1.description,
+		t1.remark,
+		t1.aname
+
+		FROM hd_module_coredrilling_shell AS t1 LEFT JOIN
+		hd_toolholder_coredrilling_shell AS t2 ON(t1.mcc=t2.portsize) WHERE 1
+		= 1 <!-- t1.mcc = #portsize# -->
+		<dynamic>
+			<isNotEmpty prepend="AND" property="portsize">
+				t1.mcc in
+				<iterate property="portsize" open="(" close=")" conjunction=",">
+					#portsize[]#</iterate>
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<select id="queryHd_module_coredrilling_shell4Manage4PageCount"
+		parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		FROM hd_module_coredrilling_shell AS t1 LEFT
+		JOIN
+		hd_toolholder_coredrilling_shell AS t2 ON(t1.mcc=t2.portsize)
+		WHERE
+		t1.mcc = #portsize#
+
+		<!-- <dynamic> <isNotEmpty prepend="AND" property="portsize"> t1.mcc in 
+			<iterate property="portsize" open="(" close=")" conjunction=",">#portsize[]#</iterate> 
+			</isNotEmpty> </dynamic> -->
+	</select>
+
+<!-- 查询刀体报表图片地址figure2 -->
+	<select id="queryfigure2integer" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT figure2 FROM  hd_holedrilling a
+		WHERE 1 = 1
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="sapcode">
+				a.sapcode = #sapcode#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>
+<!-- 查询工件材料名称 -->
+	<select id="querycailiaonanme2" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT name FROM workpiecematerial a
+		WHERE 1
+		= 1
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="workpieceisotype">
+				a.workpiecematerialid = #workpieceisotype#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+
+
+</sqlMap>

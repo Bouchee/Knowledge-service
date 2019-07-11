@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 机床 -->
+<sqlMap namespace="Gear">
+	<typeAlias alias="dto" type="org.xianwu.core.metatype.impl.BaseDto"/>
+
+	<!-- 查询齿轮 -->
+	<select id="queryGear4Manage" parameterClass="map" resultClass="dto">
+		SELECT gearid, name, remark 
+		FROM gear a WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="gearid">
+									a.gearid = #gearid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+									a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+									a.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="keyword">
+				(a.name like '%$keyword$%' or a.remark like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<select id="queryGear4Manage4PageCount" parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		FROM gear a WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="gearid">
+									a.gearid = #gearid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+									a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+									a.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="keyword">
+				(a.name like '%$keyword$%' or a.remark like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<!-- 插入齿轮 -->
+	<insert id="saveGear" parameterClass="dto">
+		INSERT INTO gear (gearid, name, remark)
+		VALUES (#gearid#, #name#, #remark#)
+	</insert>
+
+	<!-- 更新齿轮  -->
+	<update id="updateGear" parameterClass="map" >
+		UPDATE gear
+		<dynamic prepend="SET">
+			<isNotEmpty prepend="," property="gearid">
+									gearid = #gearid#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="name">
+									name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="remark">
+									remark = #remark#
+			</isNotEmpty>
+		</dynamic>
+			WHERE gearid = #gearid#
+	</update>
+
+	<!-- 删除齿轮  -->
+	<delete id="deleteGear" parameterClass="map" >
+		DELETE FROM gear
+			  WHERE gearid = #gearid#
+	</delete>
+
+</sqlMap>

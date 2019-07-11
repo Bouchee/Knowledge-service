@@ -1,0 +1,1272 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 刀片 -->
+<sqlMap namespace="Generalturning">
+	<typeAlias alias="dto" type="org.xianwu.core.metatype.impl.BaseDto" />
+
+	<!-- 查询刀片 -->
+	<select id="queryBlade4Manage" parameterClass="map" resultClass="dto">
+		SELECT
+		a.bladeid AS bladeid,
+		a.sapcode AS sapcode,
+		a.name AS name,
+		a.bladetype AS bladetype,
+		a.figure AS figure,
+		a.figure2 AS figure2,
+		a.turningtype AS turningtype,
+		a.bladematerialid AS bladematerialid,
+		b.name AS bladematerialname,
+		b.priority AS priority,
+		a.featurecode AS
+		featurecode,
+		a.grooveid AS grooveid,
+		(
+		SELECT
+		groove.name
+		FROM
+		groove
+		WHERE
+		(
+		groove.grooveid = a.grooveid
+		)
+		) AS groovename,
+		a.brandid AS brandid,
+		(
+		SELECT
+		brand.name
+		FROM
+		brand
+		WHERE
+		(
+		brand.brandid = a.brandid
+		)
+		) AS
+		bladebrandname,
+		(select codedesc from code where a.reliefangle =codedic and fieldname='刀片后角')  AS reliefangle,
+		a.shape AS shape,
+		(select codedesc from code where a.celength =codedic and fieldname='刀片尺寸') AS celength,
+		(select codedesc from code where a.noseradius =codedic and fieldname='刀尖圆弧半径') AS noseradius,
+		a.thickness AS
+		thickness,
+		a.description AS description,
+		a.apmax AS apmax,
+		a.apmin AS
+		apmin,
+		a.fnmax AS fnmax,
+		a.fnmin AS fnmin,
+		a.remark AS remark
+		FROM
+		(
+		blade a
+		LEFT JOIN bladematerial b ON
+		(
+		a.bladematerialid = b.bladematerialid
+		)
+		)
+		WHERE (1 = 1) 
+		<dynamic>
+			<isNotEmpty prepend="AND" property="bladeid">
+				a.bladeid = #bladeid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="sapcode">
+				a.sapcode = #sapcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+				a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladetype">
+				a.bladetype =
+				#bladetype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure">
+				a.figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure2">
+				a.figure2 = #figure2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="turningtype">
+				a.turningtype =
+				#turningtype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladematerialid">
+				a.bladematerialid =
+				#bladematerialid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="grooveid">
+				a.grooveid = #grooveid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandid">
+				a.brandid = #brandid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="reliefangle">
+				a.reliefangle =
+				#reliefangle#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="shape">
+				a.shape = #shape#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="celength">
+				a.celength = #celength#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="noseradius">
+				a.noseradius =
+				#noseradius#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="thickness">
+				a.thickness =
+				#thickness#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="description">
+				a.description =
+				#description#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="apmax">
+				a.apmax = #apmax#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="apmin">
+				a.apmin = #apmin#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="fnmax">
+				a.fnmax = #fnmax#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="fnmin">
+				a.fnmin = #fnmin#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="workpieceisotype">
+				a.bladematerialid in
+				(select bladematerialid from bladematerial
+				where isotype like
+				CONCAT("%", (select isotype from workpiecematerial
+				where
+				workpiecematerial.workpiecematerialid = #workpieceisotype#), "%"))
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="accuracyid">
+				a.grooveid in (select
+				grooveid from groove where accuracyid = #accuracyid# )
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode in
+				<iterate property="featurecode" open="(" close=")"
+					conjunction=",">#featurecode[]#</iterate>
+			</isNotEmpty>
+		</dynamic>
+	order by b.priority  , b.name , a.bladetype
+	</select>
+
+	<select id="queryBlade4Manage4PageCount" parameterClass="map"
+		resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		FROM
+		(
+		blade a
+		LEFT JOIN bladematerial b ON
+		(
+		a.bladematerialid = b.bladematerialid
+		)
+		)
+		WHERE (1 = 1) 
+		<dynamic>
+			<isNotEmpty prepend="AND" property="bladeid">
+				a.bladeid = #bladeid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="sapcode">
+				a.sapcode = #sapcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+				a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladetype">
+				a.bladetype =
+				#bladetype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure">
+				a.figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure2">
+				a.figure2 = #figure2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="turningtype">
+				a.turningtype =
+				#turningtype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladematerialid">
+				a.bladematerialid =
+				#bladematerialid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="grooveid">
+				a.grooveid = #grooveid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandid">
+				a.brandid = #brandid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="reliefangle">
+				a.reliefangle =
+				#reliefangle#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="shape">
+				a.shape = #shape#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="celength">
+				a.celength = #celength#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="noseradius">
+				a.noseradius =
+				#noseradius#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="thickness">
+				a.thickness =
+				#thickness#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="description">
+				a.description =
+				#description#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="apmax">
+				a.apmax = #apmax#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="apmin">
+				a.apmin = #apmin#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="fnmax">
+				a.fnmax = #fnmax#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="fnmin">
+				a.fnmin = #fnmin#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="workpieceisotype">
+				a.bladematerialid in
+				(select bladematerialid from bladematerial
+				where isotype like
+				CONCAT("%", (select isotype from workpiecematerial
+				where
+				workpiecematerial.workpiecematerialid = #workpieceisotype#), "%"))
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="accuracyid">
+				a.grooveid in (select
+				grooveid from groove where accuracyid = #accuracyid# )
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode in
+				<iterate property="featurecode" open="(" close=")"
+					conjunction=",">#featurecode[]#</iterate>
+			</isNotEmpty>
+		</dynamic>
+	order by b.priority  , b.name , a.bladetype
+	</select>
+
+	<!-- 查询工件材料状态 <select id="queryWorkpiecematerial" parameterClass="map" resultClass="dto"> 
+		SELECT name as value, CONCAT_WS("\t", RPAD(name, 25, " "), RPAD(mark, 15, 
+		" "), RPAD(wmtype, 30, " "), RPAD(heattreat, 5, " "), RPAD(hardness, 15, 
+		" ")) as text FROM workpiecematerial order by workpiecematerialid </select> -->
+
+	<!-- 查询工件材料状态 -->
+	<select id="queryWorkpiecematerial" parameterClass="map"
+		resultClass="dto">
+		SELECT workpiecematerialid, name, mark, wmtype, heattreat, hardness,
+		concat(name, '-', mark) as name2 FROM workpiecematerial a
+		WHERE 1 = 1
+      <dynamic>
+     <isNotEmpty prepend="AND" property="featurecode">
+			workpiecematerialid in  (select workpiecematerialid from workpiecematerial where (LOCATE(isotype,(
+				 select group_concat(isotype)isotype from bladematerial where bladematerialid in (select bladematerialid from blade where featurecode = #featurecode# ))
+			)>0)
+		)      
+				
+			</isNotEmpty>
+			 </dynamic>
+		order by a.name
+	</select>
+
+	<!-- 查询加工精度 -->
+	<select id="queryAccuracy4Blade" parameterClass="map"
+		resultClass="dto">
+		select accuracyid as value, name as text
+		from accuracy where 1=1
+		   <dynamic>
+			<isNotEmpty prepend="AND" property="workpiecematerialid">
+			accuracyid in (
+				SELECT accuracyid FROM groove WHERE grooveid IN (
+		            SELECT grooveid FROM blade WHERE bladematerialid IN (
+				        SELECT bladematerialid FROM bladematerial WHERE isotype LIKE CONCAT(
+						     "%",
+						     (
+							     SELECT isotype FROM workpiecematerial WHERE workpiecematerial.workpiecematerialid = #workpiecematerialid#
+						     ),
+						     "%"
+					     )
+			         )
+	            )
+			) 	
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featurecode">
+				accuracyid in (select accuracyid from groove where grooveid in (select grooveid from blade where featurecode =#featurecode#))
+				
+			</isNotEmpty>
+		</dynamic>
+		order by accuracyid
+	</select>
+
+	<!-- 查询刀片形状 -->
+	<select id="queryShapeInBlade" parameterClass="map" resultClass="dto">
+		SELECT shape as text ,shape as value  FROM blade a WHERE  1=1 <!-- codedic in (select shape from blade where shape != "" ) and fieldname = "刀片形状" --> 
+		
+		  <dynamic>
+			<isNotEmpty prepend="AND" property="workpiecematerialid">
+			 a.bladematerialid IN (
+				        SELECT b.bladematerialid FROM bladematerial b WHERE b.isotype LIKE CONCAT(
+						     "%",
+						     (
+							     SELECT c.isotype FROM workpiecematerial c WHERE c.workpiecematerialid = #workpiecematerialid#
+						     ),
+						     "%"
+					     )
+			         )
+			
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="AND" property="accuracyid">
+		
+		          
+	                         a.grooveid IN ( SELECT grooveid FROM groove WHERE accuracyid = #accuracyid#)
+
+			
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode =#featurecode#
+				
+			</isNotEmpty>
+			
+		</dynamic>
+		
+		GROUP BY shape
+	</select>
+
+	<!-- 查询刀片后角 -->
+	<select id="queryReliefangleInBlade" parameterClass="map"
+		resultClass="dto">
+		select reliefangle as value,reliefangle as text from blade a where reliefangle != ""
+		<dynamic>
+			<isNotEmpty prepend="AND" property="workpiecematerialid">
+			 a.bladematerialid IN (
+				        SELECT b.bladematerialid FROM bladematerial b WHERE b.isotype LIKE CONCAT(
+						     "%",
+						     (
+							     SELECT c.isotype FROM workpiecematerial c WHERE c.workpiecematerialid = #workpiecematerialid#
+						     ),
+						     "%"
+					     )
+			         )
+			
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="AND" property="accuracyid">
+		
+		          
+	                         a.grooveid IN ( SELECT grooveid FROM groove WHERE accuracyid = #accuracyid#)
+
+			
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="shape">
+		
+		          
+	                         a.shape  = #shape#
+
+			
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode =#featurecode#
+				
+			</isNotEmpty>
+		</dynamic>
+		
+		GROUP BY reliefangle
+	</select>
+
+	<!-- 查询刀片尺寸 -->
+	<select id="queryCelengthInBlade" parameterClass="map"
+		resultClass="dto">	
+		select
+          b.codedic ,
+          b.codedesc as text,
+          a.celength as value 
+          from code  as b 
+
+           LEFT JOIN blade as a ON (b.codedic=a.celength)
+             where field ='CELENGTH'  AND codedic IN (select celength from blade) 
+			<dynamic>
+			<isNotEmpty prepend="AND" property="workpiecematerialid">
+			 a.bladematerialid IN (
+				        SELECT b.bladematerialid FROM bladematerial b WHERE b.isotype LIKE CONCAT(
+						     "%",
+						     (
+							     SELECT c.isotype FROM workpiecematerial c WHERE c.workpiecematerialid = #workpiecematerialid#
+						     ),
+						     "%"
+					     )
+			         )
+			
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="AND" property="accuracyid">
+	                         a.grooveid IN ( SELECT grooveid FROM groove WHERE accuracyid = #accuracyid#)
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="shape">
+	                         a.shape  = #shape#
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="AND" property="reliefangle">
+		                     a.reliefangle  = #reliefangle#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode =#featurecode#
+				
+			</isNotEmpty>
+			</dynamic>
+             GROUP BY sortno
+	</select>
+
+<!-- 查询品牌信息 -->
+	<select id="querybrand" parameterClass="map"
+		resultClass="dto">
+		SELECT * FROM brand b
+		WHERE 1
+		= 1
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="name">
+				name = #name#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+
+<!-- 查询槽型信息 -->
+	<select id="querygroove" parameterClass="map"
+		resultClass="dto">
+		SELECT 
+
+
+grooveid,
+name,
+(SELECT `name` from accuracy WHERE accuracy.accuracyid=a.accuracyid )AS accuracyid,
+application,
+figure,
+(SELECT `name` from brand WHERE brand.brandid=a.brandid )AS brandid,
+apmax,
+apmin,
+fnmax,
+fnmin,
+remark
+
+FROM groove a
+		WHERE 1
+		= 1
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="name">
+				name = #name#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+<!-- 查询材质信息 -->
+	<select id="querymaterail" parameterClass="map"
+		resultClass="dto">
+		SELECT name,isotype,(SELECT
+		brand.name
+		FROM
+		brand
+		WHERE
+		
+		brand.brandid = bladematerial.brandid
+		) as brandid,coatingtype,coating,priority,application,remark  FROM bladematerial 
+		WHERE 1
+		= 1
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="name">
+				name = #name#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>	
+	
+	<!-- 查询刀尖圆弧半径 -->
+	<select id="queryNoseradiusInBlade" parameterClass="map"
+		resultClass="dto">
+		select
+          b.codedic ,
+          b.codedesc as text,
+          a.noseradius as value 
+          from code  as b 
+
+           LEFT JOIN blade as a ON (b.codedic=a.noseradius)
+             
+             where field ='NOSERADIUS'  AND codedic IN (select noseradius from blade) 
+             <dynamic>
+			<isNotEmpty prepend="AND" property="workpiecematerialid">
+			 a.bladematerialid IN (
+				        SELECT b.bladematerialid FROM bladematerial b WHERE b.isotype LIKE CONCAT(
+						     "%",
+						     (
+							     SELECT c.isotype FROM workpiecematerial c WHERE c.workpiecematerialid = #workpiecematerialid#
+						     ),
+						     "%"
+					     )
+			         )
+			
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="AND" property="accuracyid">
+	                         a.grooveid IN ( SELECT grooveid FROM groove WHERE accuracyid = #accuracyid#)
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="shape">
+	                         a.shape  = #shape#
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="AND" property="reliefangle">
+		                     a.reliefangle  = #reliefangle#
+			</isNotEmpty>
+			
+			<isNotEmpty prepend="AND" property="celength">
+		                     a.celength  = #celength#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode =#featurecode#
+				
+			</isNotEmpty>
+			</dynamic>
+		
+		GROUP BY noseradius+'0'
+	</select>
+
+
+	<!-- 查询刀体 -->
+	<select id="queryToolholder4Manage" parameterClass="map"
+		resultClass="dto">
+		SELECT toolholderid, sapcode, name, toolholdertype, brandid,
+		(select
+		name from brand where brandid = a.brandid) as toolholderbrandname,
+		(select codedesc from code where turningtype=codedic and fieldname='车削类型') as turningtype,
+		(select codedesc from code where portsize=codedic and field='PORTSIZE') as portsize, (select codedesc from code where handoftool=codedic and fieldname='刀具方向') as handoftool, figure, figure2, featurecode,
+		(select codedesc from code where cseries =codedic and fieldname='刀片夹紧方式')  AS cseries, length, width, bore,
+		thheadangle, aname1, atype1, aname2,
+		atype2, aname3, atype3,
+		aname4, atype4,
+		aname5, atype5, remark
+		FROM
+		toolholder a WHERE 1 = 1 
+		<dynamic>
+			<isNotEmpty prepend="AND" property="toolholderid">
+				a.toolholderid =
+				#toolholderid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="sapcode">
+				a.sapcode = #sapcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+				a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="toolholdertype">
+				a.toolholdertype =
+				#toolholdertype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandid">
+				a.brandid = #brandid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="turningtype">
+             INSTR(a.turningtype,#turningtype#)
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="portsize">
+				a.portsize = #portsize#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="handoftool">
+				a.handoftool =
+				#handoftool#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure">
+				a.figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure2">
+				a.figure2 = #figure2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="cseries">
+				a.cseries = #cseries#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="length">
+				a.length = #length#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="width">
+				a.width = #width#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bore">
+				(a.bore <![CDATA[ <= ]]>
+				#bore# )
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="thheadangle">
+				a.thheadangle =
+				#thheadangle#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname1">
+				a.aname1 = #aname1#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype1">
+				a.atype1 = #atype1#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname2">
+				a.aname2 = #aname2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype2">
+				a.atype2 = #atype2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname3">
+				a.aname3 = #aname3#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype3">
+				a.atype3 = #atype3#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname4">
+				a.aname4 = #aname4#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype4">
+				a.atype4 = #atype4#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname5">
+				a.aname5 = #aname5#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype5">
+				a.atype5 = #atype5#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+				a.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="shapeblade">
+				mid(a.featurecode,1,1)
+				= #shapeblade#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="reliefangleblade">
+				mid(a.featurecode,2,1)
+				= #reliefangleblade#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode in
+				<iterate property="featurecode" open="(" close=")"
+					conjunction=",">#featurecode[]#</iterate>
+			</isNotEmpty>
+		</dynamic>
+		order by a.name, a.bore, a.toolholderid desc
+	</select>
+
+	<select id="queryToolholder4Manage4PageCount" parameterClass="map"
+		resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		FROM
+		toolholder a WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="toolholderid">
+				a.toolholderid =
+				#toolholderid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="sapcode">
+				a.sapcode = #sapcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+				a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="toolholdertype">
+				a.toolholdertype =
+				#toolholdertype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandid">
+				a.brandid = #brandid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="turningtype">
+				a.turningtype =
+				#turningtype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="portsize">
+				a.portsize = #portsize#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="handoftool">
+				a.handoftool =
+				#handoftool#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure">
+				a.figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure2">
+				a.figure2 = #figure2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="cseries">
+				a.cseries = #cseries#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="length">
+				a.length = #length#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="width">
+				a.width = #width#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bore">
+				(a.bore <![CDATA[ <= ]]>
+				#bore# )
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="thheadangle">
+				a.thheadangle =
+				#thheadangle#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname1">
+				a.aname1 = #aname1#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype1">
+				a.atype1 = #atype1#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname2">
+				a.aname2 = #aname2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype2">
+				a.atype2 = #atype2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname3">
+				a.aname3 = #aname3#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype3">
+				a.atype3 = #atype3#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname4">
+				a.aname4 = #aname4#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype4">
+				a.atype4 = #atype4#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname5">
+				a.aname5 = #aname5#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype5">
+				a.atype5 = #atype5#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+				a.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="shapeblade">
+				mid(a.featurecode,1,1)
+				= #shapeblade#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="reliefangleblade">
+				mid(a.featurecode,2,1)
+				= #reliefangleblade#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode in
+				<iterate property="featurecode" open="(" close=")"
+					conjunction=",">#featurecode[]#</iterate>
+			</isNotEmpty>
+		</dynamic>
+		order by a.name, a.bore, a.toolholderid desc
+	</select>
+
+	<!-- 查询头部形式 -->
+	<select id="queryThheadangleInToolholder" parameterClass="map"
+		resultClass="dto">
+		select
+          b.codedic ,
+          b.codedesc as text,
+          a.thheadangle as value 
+          from code  as b 
+
+           LEFT JOIN toolholder as a ON (b.codedic=a.thheadangle)
+             
+             where field ='THHEADANGLE'  AND codedic IN (select thheadangle from toolholder) 
+		
+		  <dynamic>
+			<isNotEmpty prepend="AND" property="turningtype">
+		                     a.turningtype  = #turningtype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode =#featurecode#
+				
+			</isNotEmpty>
+			</dynamic>
+		GROUP BY thheadangle
+	</select>
+
+	<!-- 查询刀具方向 -->
+	<select id="queryHandoftoolInToolholder" parameterClass="map"
+		resultClass="dto">
+	select
+          b.codedic ,
+          b.codedesc as text,
+          a.handoftool as value 
+          from code  as b 
+
+           LEFT JOIN toolholder as a ON (b.codedic=a.handoftool)
+             
+             where field ='HANDOFTOOL'  AND codedic IN (select handoftool from toolholder) 
+             
+         <dynamic>
+			<isNotEmpty prepend="AND" property="turningtype">
+		                     a.turningtype  = #turningtype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="thheadangle">
+		                     a.thheadangle  = #thheadangle#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode =#featurecode#
+				
+			</isNotEmpty>
+		</dynamic>
+             
+             
+GROUP BY
+		handoftool
+	</select>
+
+    <!-- 查询刀片形状 -->
+	<select id="queryShapeInToolholder" parameterClass="map" resultClass="dto">
+		select
+          b.codedic as value,
+          b.codedesc as text,
+          a.featurecode  
+          from code  as b 
+
+           LEFT JOIN toolholder as a ON (b.codedic IN (select LEFT(a.featurecode,1) FROM toolholder))
+             
+             where fieldname ='刀片形状'  AND codedic IN (select LEFT(a.featurecode,1) FROM toolholder)
+             <dynamic>
+			<isNotEmpty prepend="AND" property="turningtype">
+		                     a.turningtype  = #turningtype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="thheadangle">
+		                     a.thheadangle  = #thheadangle#
+			</isNotEmpty>
+				<isNotEmpty prepend="AND" property="handoftool">
+		                     a.handoftool  = #handoftool#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode =#featurecode#
+				
+			</isNotEmpty>
+		</dynamic>
+             
+GROUP BY
+		codedesc
+		
+		  
+	</select>
+	
+	<!-- 查询刀片后角 -->
+	<select id="queryReliefangleInToolholder" parameterClass="map" resultClass="dto">
+		select
+          b.codedic as value,
+          b.codedesc as text,
+          a.featurecode  
+          from code  as b 
+
+           LEFT JOIN toolholder as a ON (b.codedic IN (select RIGHT(LEFT(a.featurecode,2),1) FROM toolholder))
+             
+             where fieldname ='刀片后角'  AND codedic IN (select RIGHT(LEFT(a.featurecode,2),1) FROM toolholder)
+
+
+             <dynamic>
+			<isNotEmpty prepend="AND" property="turningtype">
+		                     a.turningtype  = #turningtype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="thheadangle">
+		                     a.thheadangle  = #thheadangle#
+			</isNotEmpty>
+				<isNotEmpty prepend="AND" property="handoftool">
+		                     a.handoftool  = #handoftool#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="shape2">
+		                     LEFT(a.featurecode,1)  = #shape2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode =#featurecode#
+				
+			</isNotEmpty>
+		</dynamic>
+             
+     GROUP BY codedic  
+	</select>
+	
+	
+	<!-- 查询接口规格 -->
+	<select id="queryPortsizeInToolholder" parameterClass="map"
+		resultClass="dto">
+		select
+          b.codedic as value,
+          b.codedesc as text,
+          a.portsize  
+          from code  as b 
+
+           LEFT JOIN toolholder as a ON (b.codedic IN (select portsize FROM toolholder))
+             
+             where field ='PORTSIZE'  AND b.codedic IN (select a.portsize FROM toolholder)
+
+   <dynamic>
+			<isNotEmpty prepend="AND" property="turningtype">
+		                     a.turningtype  = #turningtype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="thheadangle">
+		                     a.thheadangle  = #thheadangle#
+			</isNotEmpty>
+				<isNotEmpty prepend="AND" property="handoftool">
+		                     a.handoftool  = #handoftool#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="shape2">
+		                     LEFT(a.featurecode,1)  = #shape2#
+			</isNotEmpty>
+				<isNotEmpty prepend="AND" property="reliefangle">
+		                     RIGHT(LEFT(a.featurecode,2),1)  = #reliefangle#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode =#featurecode#
+				
+			</isNotEmpty>
+		</dynamic>
+
+GROUP BY codedic
+
+	</select>
+
+	<!-- 查询刀片夹紧方式 -->
+	<select id="queryCseriesInToolholder" parameterClass="map"
+		resultClass="dto">
+		SELECT 
+		   b.codedic AS VALUE, 
+		   b.codedesc AS text, 
+		   a.cseries 
+		       FROM CODE AS b LEFT JOIN toolholder AS a 
+		           ON ( b.codedic IN ( SELECT cseries FROM toolholder )) 
+		WHERE field = 'CSERIES' AND b.codedic IN ( SELECT a.cseries FROM toolholder ) 
+		
+		<dynamic>
+			<isNotEmpty prepend="AND" property="turningtype">
+		                     a.turningtype  = #turningtype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="thheadangle">
+		                     a.thheadangle  = #thheadangle#
+			</isNotEmpty>
+				<isNotEmpty prepend="AND" property="handoftool">
+		                     a.handoftool  = #handoftool#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="shape2">
+		                     LEFT(a.featurecode,1)  = #shape2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="reliefangle">
+		                     RIGHT(LEFT(a.featurecode,2),1)  = #reliefangle#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="portsize">
+		                     a.portsize  = #portsize#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode =#featurecode#
+				
+			</isNotEmpty>
+		</dynamic>
+		
+		GROUP BY codedic
+	</select>
+
+<!-- 查询镗孔直径 -->
+	<select id="queryBoreInToolholder" parameterClass="map"
+		resultClass="dto">
+		SELECT 
+		   b.codedic AS VALUE, 
+		   b.codedesc AS text
+		  
+		       FROM code b ,toolholder a WHERE field = 'BORE'
+		       AND  b.codedic >= (select MIN(a.bore) from toolholder a where 1 = 1
+		<dynamic> 
+		                    <isNotEmpty prepend="AND" property="cseries">
+		                    a.cseries = #cseries#
+		                     </isNotEmpty>
+		                    <isNotEmpty prepend="AND" property="turningtype">
+		                     a.turningtype  = #turningtype#
+			                </isNotEmpty>
+			                <isNotEmpty prepend="AND" property="thheadangle">
+		                     a.thheadangle  = #thheadangle#
+			                </isNotEmpty>
+				            <isNotEmpty prepend="AND" property="handoftool">
+		                     a.handoftool  = #handoftool#
+			                </isNotEmpty>
+			                <isNotEmpty prepend="AND" property="shape2">
+		                     LEFT(a.featurecode,1)  = #shape2#
+			                </isNotEmpty>
+			                <isNotEmpty prepend="AND" property="reliefangle">
+		                     RIGHT(LEFT(a.featurecode,2),1)  = #reliefangle#
+			                </isNotEmpty>
+			                <isNotEmpty prepend="AND" property="portsize">
+		                     a.portsize  = #portsize#
+			                </isNotEmpty>
+		</dynamic>
+		)
+		GROUP BY codedic
+	</select>
+
+	<!-- 查询切削参数 -->
+	<select id="queryCtparameter" parameterClass="map" resultClass="dto">
+		<!-- SELECT wpm.name AS workpiecematerialname, bm.name AS bladematerialname, 
+			ctp.vcmax, ctp.vcmin, b.apmin, b.apmax, b.fnmax, b.fnmin FROM gtparameter 
+			AS ctp LEFT JOIN workpiecematerial AS wpm ON ctp.workpiecematerialid = wpm.workpiecematerialid 
+			LEFT JOIN bladematerial AS bm ON ctp.bladematerialid = bm.bladematerialid 
+			LEFT JOIN blade AS b on ctp.bladematerialid=b.bladematerialid -->
+		SELECT DISTINCT
+		ctp.vcmax AS vcmax, ctp.vcmin AS vcmin,
+		IF( b.apmax is NOT NULL, b.apmax, g.apmax) AS apmax,
+		IF( b.apmin is NOT NULL, b.apmin, g.apmin) AS apmin,
+		IF( b.fnmax is NOT NULL, b.fnmax, g.fnmax) AS fnmax,
+		IF( b.fnmin is NOT NULL, b.fnmin, g.fnmin) AS fnmin
+		FROM
+		blade AS b
+		LEFT JOIN
+		gtparameter AS ctp
+		on b.bladematerialid = ctp.bladematerialid
+		LEFT JOIN
+		groove AS g on
+		b.grooveid = g.grooveid
+		WHERE 1
+		= 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="workpiecematerialid">
+				(ctp.workpiecematerialid = #workpiecematerialid#
+				OR ctp.wmcode IN
+				(SELECT wpm2.wmcode FROM workpiecematerial AS wpm2
+				WHERE
+				wpm2.workpiecematerialid = #workpiecematerialid# ))
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladematerialid">
+				ctp.bladematerialid =
+				#bladematerialid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="grooveid">
+				(g.grooveid = #grooveid# OR b.grooveid = #grooveid#)
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladetype">
+				b.bladetype =
+				#bladetype#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+
+
+	<!-- 查询库存信息 -->
+	<select id="querySapinformation" parameterClass="map"
+		resultClass="dto">
+		SELECT * FROM sapinformation a
+		WHERE 1
+		= 1
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="sapcode">
+				a.sapcode = #sapcode#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<!-- 查询车削类型名称 -->
+	<select id="queryturningtypename" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT codedesc FROM code a
+		WHERE a.remark = '普通车削'
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="turningtype">
+				a.codedic = #turningtype#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	<!-- 查询头部形式名称 -->
+	<select id="querythheadanglename" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT codedesc FROM code a
+		WHERE a.field = 'THHEADANGLE'
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="thheadangle">
+				a.codedic = #thheadangle#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	<!-- 查询刀具方向名称 -->
+	<select id="queryhandoftoolname" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT codedesc FROM code a
+		WHERE a.field = 'HANDOFTOOL'
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="handoftool">
+				a.codedic = #handoftool#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	<!-- 查询材料牌号名称 -->
+	<select id="querycailiaonanme" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT name FROM workpiecematerial a
+		WHERE 1
+		= 1
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="workpieceisotype">
+				a.workpiecematerialid = #workpieceisotype#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<!-- 查询刀片后角名称 -->
+	<select id="queryreliefanglename" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT codedesc FROM code a
+		WHERE a.field = 'RELIEFANGLE'
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="reliefangle">
+				a.codedic = #reliefangle#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	<!-- 查询接口规格名称 -->
+	<select id="queryportsizename" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT codedesc FROM code a
+		WHERE a.field = 'portsize'
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="portsize">
+				a.codedic = #portsize#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	<!-- 查询夹紧形式名称 -->
+	<select id="querycseriesname" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT codedesc FROM code a
+		WHERE a.field = 'CSERIES'
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="cseries">
+				a.codedic = #cseries#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	<!-- 查询加工类型 -->
+	<select id="queryjiagongleixing" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT name FROM  accuracy a
+		WHERE 1
+		= 1
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="accuracyid">
+				a.accuracyid = #accuracyid#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	
+	<!-- 查询刀片报表图片地址figure2 -->
+	<select id="queryfigure2" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT figure2 FROM  blade a
+		WHERE 1
+		= 1
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="sapcode">
+				a.sapcode = #sapcode#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	<!-- 查询刀体报表图片地址figure2 -->
+	<select id="queryfigure2toolholder" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT figure2 FROM  toolholder a
+		WHERE 1
+		= 1
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="sapcode">
+				a.sapcode = #sapcode#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<!-- 查询热处理方式 -->
+	<select id="queryheattreat" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT heattreat FROM workpiecematerial a
+		WHERE 1
+		= 1
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="workpieceisotype">
+				a.workpiecematerialid = #workpieceisotype#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+<!-- 查询车削类型 -->
+	<select id="queryturningtypeInToolholder" parameterClass="map"
+		resultClass="dto">
+	select
+
+          b.codedic as value,
+          b.codedesc as text,
+          a.turningtype  
+          from code  as b 
+
+           LEFT JOIN toolholder as a ON (b.codedic=a.turningtype)
+             
+             where b.remark ='普通车削'
+           <dynamic>
+             <isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode =#featurecode#
+				
+			</isNotEmpty>
+			</dynamic>
+             GROUP BY codedic+0
+		
+		
+	</select>
+<!-- 查询刀片尺寸 -->
+	<select id="querycelength" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT codedesc FROM  code a
+		WHERE a.fieldname = '刀片尺寸'
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="celength">
+				a.codedic = #celength#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>
+<!-- 查询刀尖圆弧半径 -->
+	<select id="querynoseradius" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT codedesc FROM  code a
+		WHERE a.fieldname = '刀尖圆弧半径'
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="noseradius">
+				a.codedic = #noseradius#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>
+</sqlMap>

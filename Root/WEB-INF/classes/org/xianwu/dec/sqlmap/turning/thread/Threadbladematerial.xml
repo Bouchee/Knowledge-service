@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 刀片材质 -->
+<sqlMap namespace="Threadbladematerial">
+	<typeAlias alias="dto" type="org.xianwu.core.metatype.impl.BaseDto"/>
+
+	<!-- 查询刀片材质 -->
+	<select id="queryThreadbladematerial4Manage" parameterClass="map" resultClass="dto">
+		 SELECT bladematerialid,name,isotype,brandid,(select name from brand where brandid = a.brandid) as brandname,
+		 coatingtype,coating,priority,application,remark
+		 FROM threadbladematerial a WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="name">
+									a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="isotype">
+									a.isotype = #isotype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandid">
+									a.brandid = #brandid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="coatingtype">
+									a.coatingtype = #coatingtype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="coating">
+									a.coating = #coating#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="priority">
+									a.priority = #priority#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="application">
+									a.application = #application#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+									a.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="keyword">
+				(a.name like '%$keyword$%' or a.application like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+		
+	</select>
+
+	<select id="queryThreadbladematerial4Manage4PageCount" parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		FROM threadbladematerial a WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="bladematerialid">
+									a.bladematerialid = #bladematerialid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+									a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="isotype">
+									a.isotype = #isotype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandid">
+									a.brandid = #brandid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="coatingtype">
+									a.coatingtype = #coatingtype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="coating">
+									a.coating = #coating#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="priority">
+									a.priority = #priority#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="application">
+									a.application = #application#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+									a.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="keyword">
+				(a.name like '%$keyword$%' or a.application like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<!-- 插入刀片材质 -->
+	<insert id="saveThreadbladematerial" parameterClass="dto">
+		INSERT INTO threadbladematerial (bladematerialid,name,isotype,brandid,coatingtype,coating,priority,application,remark)
+		VALUES (#bladematerialid#,#name#,#isotype#,#brandid#,#coatingtype#,#coating#,#priority#,#application#,#remark#)
+	</insert>
+
+	<!-- 更新刀片材质  -->
+	<update id="updateThreadbladematerial" parameterClass="map" >
+		UPDATE threadbladematerial a set
+
+
+									a.name = #name#,
+
+
+									a.isotype = #isotype#,
+
+
+									a.isotype = #isotype#,
+
+
+									a.brandid = #brandid#,
+
+
+									a.coatingtype = #coatingtype#,
+
+
+									a.coating = #coating#,
+
+
+									a.priority = #priority#,
+
+
+									a.application = #application#,
+
+
+									a.remark = #remark#
+
+
+	        WHERE a.bladematerialid = #bladematerialid#
+	</update>
+
+	<!-- 删除刀片材质  -->
+	<delete id="deleteThreadbladematerial" parameterClass="map" >
+		DELETE FROM threadbladematerial
+		      WHERE bladematerialid = #bladematerialid#
+	</delete>
+
+	<!-- 更新刀片材质  -->
+	<update id="updateThreadblade4Threadbladematerial" parameterClass="map" >
+		update threadblade set bladematerialid = null WHERE bladematerialid = #bladematerialid#
+	</update>
+
+	<!-- 更新刀片材质  -->
+	<update id="updateCtparameter4Threadbladematerial" parameterClass="map" >
+		update Ctparameter set bladematerialid = null WHERE bladematerialid = #bladematerialid#
+	</update>
+	
+	<!-- 删除刀片材质  -->
+	<delete id="deleteCtparameter4Threadbladematerial" parameterClass="map" >
+		DELETE FROM Ctparameter
+		      WHERE bladematerialid = #bladematerialid#
+	</delete>
+
+	<!-- 更新刀片材质  -->
+	<update id="updateWorkpiecethreadblade4Threadbladematerial" parameterClass="map" >
+		update workpiecethreadblade set bladematerialid = null WHERE bladematerialid = #bladematerialid#
+	</update>
+
+	<!-- 查询刀片材质品牌  -->
+	<select id="queryBrand4Threadbladematerial" parameterClass="map" resultClass="dto">
+		 SELECT brandid as value, name as text
+		 FROM brand
+	</select>
+
+	<!-- 删除刀片刀体匹配关系  -->
+	<delete id="deleteThreadbladetoolholder4Threadblade4Threadbladematerial" parameterClass="map" >
+		DELETE FROM Threadbladetoolholder
+		      WHERE threadbladeid in  (select threadbladeid from threadblade where bladematerialid = #bladematerialid#)
+	</delete>
+
+</sqlMap>
