@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 业务系统 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<!-- 品牌 -->
+	<bean id="brandService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean class="org.xianwu.dec.admin.service.impl.BrandServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 刀片 -->
+	<bean id="bladeService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean class="org.xianwu.dec.admin.service.impl.BladeServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 刀片材料 -->
+	<bean id="bladematerialService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean class="org.xianwu.dec.admin.service.impl.BladematerialServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 刀片刀体匹配 -->
+	<bean id="bladetoolholderService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean class="org.xianwu.dec.admin.service.impl.BladetoolholderServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 切削液 -->
+	<bean id="categoryService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean class="org.xianwu.dec.admin.service.impl.CategoryServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 机床 -->
+	<bean id="machinetoolService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean class="org.xianwu.dec.admin.service.impl.MachinetoolServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 机床刀体匹配 -->
+	<bean id="machinetoolholderService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.MachinetoolholderServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 刀体 -->
+	<bean id="toolholderService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean class="org.xianwu.dec.admin.service.impl.ToolholderServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 工件材料刀片材料匹配 -->
+	<bean id="workpiecebladeService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean class="org.xianwu.dec.admin.service.impl.WorkpiecebladeServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 工件材料 -->
+	<bean id="workpiecematerialService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.WorkpiecematerialServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 槽形 -->
+	<bean id="grooveService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean class="org.xianwu.dec.admin.service.impl.GrooveServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 螺纹刀片 -->
+	<bean id="threadbladeService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean class="org.xianwu.dec.admin.service.impl.ThreadbladeServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 螺纹刀体 -->
+	<bean id="threadtoolholderService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean class="org.xianwu.dec.admin.service.impl.ThreadtoolholderServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 螺纹刀片材质 -->
+	<bean id="threadbladematerialService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.ThreadbladematerialServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 切断切槽刀片 -->
+	<bean id="cutbladeService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean class="org.xianwu.dec.admin.service.impl.CutbladeServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 切断切槽刀体 -->
+	<bean id="cuttoolholderService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean class="org.xianwu.dec.admin.service.impl.CuttoolholderServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 切断切槽刀片槽型 -->
+	<bean id="cutgrooveService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.CutgrooveServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 切断切槽刀片材质 -->
+	<bean id="cutbladematerialService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.CutbladematerialServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 齿轮 
+	<bean id="gearService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.GearServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+	-->
+	<!-- <bean id="ctparameterService" parent="baseTransactionProxyG4"> <property 
+		name="target"> <bean class="org.xianwu.dec.admin.service.impl.CtparameterServiceImpl"> 
+		<property name="g4Dao" ref="g4Dao" /> </bean> </property> </bean> <bean id="mtinterfaceService" 
+		parent="baseTransactionProxyG4"> <property name="target"> <bean class="org.xianwu.dec.admin.service.impl.MtinterfaceServiceImpl"> 
+		<property name="g4Dao" ref="g4Dao" /> </bean> </property> </bean> <bean id="promethodService" 
+		parent="baseTransactionProxyG4"> <property name="target"> <bean class="org.xianwu.dec.admin.service.impl.PromethodServiceImpl"> 
+		<property name="g4Dao" ref="g4Dao" /> </bean> </property> </bean> <bean id="accuracyService" 
+		parent="baseTransactionProxyG4"> <property name="target"> <bean class="org.xianwu.dec.admin.service.impl.AccuracyServiceImpl"> 
+		<property name="g4Dao" ref="g4Dao" /> </bean> </property> </bean> -->
+
+    <!-- 整体刀具 -->
+	<bean id="milling_integralService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.Milling_integralServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+	
+	 <!-- 机夹刀具刀体 -->
+	<bean id="milling_toolholder_clampService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.Milling_toolholder_clampServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+
+<!-- 机夹刀具刀片 -->
+	<bean id="milling_blade_clampService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.Milling_blade_clampServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 镗削刀体 -->
+	<bean id="hd_toolholder_boringService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.Hd_toolholder_boringServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 镗削刀片 -->
+	<bean id="hd_blade_boringService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.Hd_blade_boringServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+	<!-- 镗削模块-->
+	<bean id="hd_toolholder_boring_moduleService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.Hd_toolholder_boring_moduleServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+	
+	
+	<!-- 整体式铰刀 -->
+	<bean id="hd_toolholder_reaming_integralService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.Hd_toolholder_reaming_integralServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 机夹式铰刀刀体 -->
+	<bean id="hd_toolholder_reaming_clampService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.Hd_toolholder_reaming_clampServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 机夹式铰刀模块 -->
+	<bean id="hd_module_reaming_clampService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.Hd_module_reaming_clampServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 丝锥模块 -->
+	<bean id="hd_toolholder_tappingService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.Hd_toolholder_tappingServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 复合钻刀体 -->
+	<bean id="hd_toolholder_combineddrillingService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.Hd_toolholder_combineddrillingServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 复合钻刀片 -->
+	 <bean id="hd_blade_combineddrillingService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.Hd_blade_combineddrillingServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 复合钻中心钻 -->
+	 <bean id="hd_blade_combined_centredrillingService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.Hd_blade_combined_centredrillingServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 复合钻钻杆 -->
+	<bean id="hd_cutterbar_combineddrillingService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.Hd_cutterbar_combineddrillingServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+	<!-- 浅孔钻刀体模块 -->
+	<bean id="hd_toolholder_poledrillingService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.Hd_toolholder_poledrillingServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+	
+	
+	<!-- 中心钻 -->
+	<bean id="hd_centredrillingService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.Hd_centredrillingServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+	
+	
+	<!-- 浅孔钻刀片模块 -->
+	<bean id="hd_blade_poledrillingService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.Hd_blade_poledrillingServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 麻花钻模块 -->
+	<bean id="hd_toolholder_holedrilling_integralService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.Hd_toolholder_holedrilling_integralServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+	
+		<!-- 单刀片机夹钻刀体 -->
+	<bean id="hd_toolholder_singledrilling_clampService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.Hd_toolholder_singledrilling_clampServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 单刀片机夹钻刀片 -->
+	<bean id="hd_blade_singledrilling_clampService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.Hd_blade_singledrilling_clampServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 套式扩孔钻模块 -->
+
+	<bean id="hd_module_coredrilling_shellService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.Hd_module_coredrilling_shellServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 套式扩孔钻 -->
+
+	<bean id="hd_toolholder_coredrilling_shellService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.Hd_toolholder_coredrilling_shellServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 刀肩铣 
+	<bean id="squareshouldermillService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.SquareshouldermillServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+	-->
+	<!-- 仿形铣 
+	<bean id="shapemillService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.ShapemillServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+	-->
+	<!-- 槽铣 
+	<bean id="groovemillService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.GroovemillServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+	-->
+	<!-- 倒角铣 
+	<bean id="chamfermillService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.ChamfermillServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+	-->
+	<!-- 螺纹铣 
+	<bean id="screwmillService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.ScrewmillServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+	-->
+	<!-- 成型铣 
+	<bean id="formingmillService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.FormingmillServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+	-->	
+	<!-- 专用铣 
+	<bean id="specialmillService" parent="baseTransactionProxyG4">
+		<property name="target">
+			<bean
+				class="org.xianwu.dec.admin.service.impl.SpecialmillServiceImpl">
+				<property name="g4Dao" ref="g4Dao" />
+			</bean>
+		</property>
+	</bean>
+	-->
+
+</beans>

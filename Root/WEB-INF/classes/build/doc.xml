@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/2002/xmlspec/dtd/2.10/xmlspec.dtd">
+<project name="dec" default="startup" basedir="../../">
+	
+	<!-- 初始化 -->
+	<target name="init">
+		<property name="name" value="ExtjsStudio" />
+		<property name="src" value="${basedir}/Source" />
+		<property name="lib" value="${basedir}/Library" />
+		<property name="packages" value="org.*"/>
+		
+		<property name="temp.src" value="${basedir}/Build/src" />
+		<property name="build" value="${basedir}/Build/ExtjsStudio" />
+		<property name="build.bin" value="${basedir}/Build/ExtjsStudio/WEB-INF/classes" />
+		<property name="build.javadoc" value="${basedir}/Build/javadoc"/> 
+
+		<path id="classpath">
+			<fileset dir="${lib}">
+				<include name="**/*.jar" />
+			</fileset>
+		</path>
+	</target>
+
+	<!-- 准备临时资源 -->
+	<target name="prepare" depends="init">
+		<echo message="正在创建目录, 并复制相关资源, 请稍候..." />
+		<mkdir dir="${temp.src}" />
+		<mkdir dir="${build.bin}" />
+		<copy todir="${temp.src}">
+	    <fileset dir="${src}" />
+		</copy>
+	</target>
+
+	<!-- 编译源文件 -->
+	<target name="build" depends="prepare">
+		<echo message="正在编译源文件, 请稍候..." />
+		<javac srcdir="${temp.src}" destdir="${build.bin}" encoding="utf-8" includeantruntime="false">
+			<classpath refid="classpath" />
+		</javac>
+	</target>
+	
+	<!-- 生成JavaDoc文档 -->
+    <target name="javadoc" depends="build">  
+    	<echo message="正在生成JavaDoc, 请稍候..." />
+        <mkdir dir="${build.javadoc}"/>  
+        <javadoc packagenames="${packages}" sourcepath="${temp.src}" encoding="utf-8" charset="utf-8" destdir="${build.javadoc}" author="true" version="true" use="true" splitindex="true" windowtitle="${name} API" doctitle="${name}">  
+            <classpath refid="classpath"/>  
+        </javadoc>  
+    </target> 
+	
+	<!-- 清除临时资源 -->
+    <target name="clean" depends="javadoc">   
+    	<echo message="正在清除缓存资源, 请稍候..." />
+    	<delete dir="${temp.src}"/>  
+    	<delete dir="${build}"/>  
+    </target>
+	
+	<!-- 启动 -->
+	<target name="startup" depends="clean">
+
+	</target>
+</project>
+
+ <!--   
+        =============================================================================  
+        打包成jar   
+        =============================================================================  
+    
+    <target name="jar" depends="compile" description="make .jar file">  
+        <delete dir="${doc.home}" />  
+        <mkdir dir="${doc.home}" />  
+        <jar destfile="${doc.home}/${project.name}.jar" basedir="${build.class}">  
+            <manifest>  
+                <attribute name="Specification-Title" value="${project.name}-${doc.title}" />  
+                <attribute name="Created-By" value="吴移风" />  
+                <attribute name="Specification-Version" value="${app.version}" />  
+                <attribute name="Specification-Vendor" value="${doc.vendor}" />  
+            </manifest>  
+        </jar>  
+    </target>  -->  
+    
+     <!--  
+        =============================================================================  
+        输出并打包api文档成rar   
+        =============================================================================  
+     
+    <target name="doc" depends="jar,compile" description="create api doc">  
+        <echo message="Running API Doc ..." />  
+        <tstamp>  
+            <format property="current.year" pattern="yyyy" />  
+        </tstamp>  
+        <javadoc sourcepath="${src.home}" destdir="${doc.home}/${project.name}" author="true" version="true" use="true" doctitle="&lt;h1&gt;${project.name}-${doc.title}-${app.version}&lt;/h1&gt;" windowtitle="${project.name}-${doc.title}-${app.version}" bottom="Copyright &amp;copy; 1998-${current.year} - ${doc.vendor}">  
+            <classpath refid="compile.classpath" />  
+        </javadoc>  
+        <echo message="Compressing API Doc ..." />  
+        <zip destfile="${doc.home}/${project.name}-api.rar">  
+            <zipfileset dir="${doc.home}" prefix="${doc.name}" />  
+        </zip>   
+        <echo message="Deleting classes ..." />  
+        <echo message="Deleting API Doc ..." />  
+    </target> 
+    --> 
+    
+    
+    
+    

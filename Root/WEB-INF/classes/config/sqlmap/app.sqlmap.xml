@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+	<settings useStatementNamespaces="true" />
+	
+	<sqlMap resource="org/xianwu/dec/sqlmap/general/Machinetool.xml" />
+	<sqlMap resource="org/xianwu/dec/sqlmap/general/Category.xml" />
+	<sqlMap resource="org/xianwu/dec/sqlmap/general/Brand.xml" />
+	<sqlMap resource="org/xianwu/dec/sqlmap/general/Workpiecematerial.xml" />
+	
+	
+	<sqlMap resource="org/xianwu/dec/sqlmap/turning/general/Blade.xml" />
+	<sqlMap resource="org/xianwu/dec/sqlmap/turning/general/Bladematerial.xml" />
+	<sqlMap resource="org/xianwu/dec/sqlmap/turning/general/Toolholder.xml" />
+	<sqlMap resource="org/xianwu/dec/sqlmap/turning/general/Groove.xml" />
+	
+	<sqlMap resource="org/xianwu/dec/sqlmap/turning/thread/Threadblade.xml" />
+	<sqlMap resource="org/xianwu/dec/sqlmap/turning/thread/Threadbladematerial.xml" />
+	<sqlMap resource="org/xianwu/dec/sqlmap/turning/thread/Threadtoolholder.xml" />
+
+	<sqlMap resource="org/xianwu/dec/sqlmap/turning/cut/Cutblade.xml" />
+	<sqlMap resource="org/xianwu/dec/sqlmap/turning/cut/Cuttoolholder.xml" />
+	<sqlMap resource="org/xianwu/dec/sqlmap/turning/cut/Cutbladematerial.xml" />
+	<sqlMap resource="org/xianwu/dec/sqlmap/turning/cut/Cutgroove.xml" />
+	
+	<sqlMap resource="org/xianwu/dec/sqlmap/turning/Cut.xml" />
+	<sqlMap resource="org/xianwu/dec/sqlmap/turning/Generalturning.xml" />
+	<sqlMap resource="org/xianwu/dec/sqlmap/turning/Screwcutting.xml" />
+	
+
+	<sqlMap resource="org/xianwu/dec/sqlmap/milling/Surfacemilling.xml" />
+	<sqlMap resource="org/xianwu/dec/sqlmap/milling/Shouldermilling.xml" />
+	<sqlMap resource="org/xianwu/dec/sqlmap/milling/Templetmilling.xml" />
+	<sqlMap resource="org/xianwu/dec/sqlmap/milling/Groovemilling.xml" />
+	
+	<sqlMap resource="org/xianwu/dec/sqlmap/milling/general/Milling_integral.xml" />
+	<sqlMap resource="org/xianwu/dec/sqlmap/milling/general/Milling_toolholder_clamp.xml" />
+	<sqlMap resource="org/xianwu/dec/sqlmap/milling/general/Milling_blade_clamp.xml" />
+	
+	
+	<!--孔加工-->
+	<sqlMap resource="org/xianwu/dec/sqlmap/holedrilling/Drilling.xml" />
+	<sqlMap resource="org/xianwu/dec/sqlmap/holedrilling/Tapping.xml" />
+	<sqlMap resource="org/xianwu/dec/sqlmap/holedrilling/Enlarging.xml" />
+	<sqlMap resource="org/xianwu/dec/sqlmap/holedrilling/Reaming.xml" />
+	<sqlMap resource="org/xianwu/dec/sqlmap/holedrilling/Boring.xml" />
+	
+	<sqlMap resource="org/xianwu/dec/sqlmap/holedrilling/boring/Hd_toolholder_boring.xml" />
+	<sqlMap resource="org/xianwu/dec/sqlmap/holedrilling/boring/Hd_blade_boring.xml" />
+	
+	<sqlMap resource="org/xianwu/dec/sqlmap/holedrilling/tapping/Hd_toolholder_tapping.xml" />
+	
+	<sqlMap resource="org/xianwu/dec/sqlmap/holedrilling/reaming/Hd_toolholder_reaming_integral.xml" />
+	<sqlMap resource="org/xianwu/dec/sqlmap/holedrilling/reaming/Hd_module_reaming_clamp.xml" />
+	<sqlMap resource="org/xianwu/dec/sqlmap/holedrilling/reaming/Hd_toolholder_reaming_clamp.xml" />
+	
+	<sqlMap resource="org/xianwu/dec/sqlmap/holedrilling/drilling/Hd_toolholder_combineddrilling.xml" />
+	<sqlMap resource="org/xianwu/dec/sqlmap/holedrilling/drilling/Hd_toolholder_holedrilling_integral.xml" />
+	<sqlMap resource="org/xianwu/dec/sqlmap/holedrilling/drilling/Hd_blade_combineddrilling.xml" />
+	<sqlMap resource="org/xianwu/dec/sqlmap/holedrilling/drilling/Hd_blade_combined_centredrilling.xml" />
+	<sqlMap resource="org/xianwu/dec/sqlmap/holedrilling/drilling/Hd_cutterbar_combineddrilling.xml" />
+	<sqlMap resource="org/xianwu/dec/sqlmap/holedrilling/drilling/Hd_blade_singledrilling_clamp.xml" />
+	<sqlMap resource="org/xianwu/dec/sqlmap/holedrilling/drilling/Hd_toolholder_singledrilling_clamp.xml" />
+	
+	<sqlMap resource="org/xianwu/dec/sqlmap/holedrilling/poledrilling/Hd_toolholder_poledrilling.xml" />
+	<sqlMap resource="org/xianwu/dec/sqlmap/holedrilling/poledrilling/Hd_blade_poledrilling.xml" />
+	
+	<sqlMap resource="org/xianwu/dec/sqlmap/holedrilling/enlarging/Hd_module_coredrilling_shell.xml" />
+	<sqlMap resource="org/xianwu/dec/sqlmap/holedrilling/enlarging/Hd_toolholder_coredrilling_shell.xml" />
+
+    <sqlMap resource="org/xianwu/dec/sqlmap/holedrilling/boring/Hd_toolholder_boring_module.xml" />
+    <sqlMap resource="org/xianwu/dec/sqlmap/holedrilling/Centredrilling.xml" />
+    
+    <sqlMap resource="org/xianwu/dec/sqlmap/holedrilling/centredrilling/Hd_centredrilling.xml" />
+    
+     <!--创新策略-->
+     <sqlMap resource="org/xianwu/dec/sqlmap/knowledgebasesystem/Expan.xml" />
+       <sqlMap resource="org/xianwu/dec/sqlmap/knowledgebasesystem/Triz.xml" />
+        <sqlMap resource="org/xianwu/dec/sqlmap/knowledgebasesystem/Fbs.xml" />
+         <sqlMap resource="org/xianwu/dec/sqlmap/knowledgebasesystem/Netbrainstorm.xml" />
+     <!--知识库-->
+     
+     <!--材料-->
+     
+     <sqlMap resource="org/xianwu/dec/sqlmap/knowledgebasesystem/Material.xml" />
+     <!--
+    <sqlMap resource="org/xianwu/dec/sqlmap/knowledgebasesystem/Invention_principle.xml" />
+    -->
+</sqlMapConfig>

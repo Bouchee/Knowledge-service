@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="dec" default="delete" basedir="../../">
+	<target name="delete">
+		<delete>
+		    <fileset dir="${basedir}" includes="**/*.bak"/>
+		</delete>
+	</target> 
+</project>

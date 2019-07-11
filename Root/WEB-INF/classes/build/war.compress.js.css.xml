@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="dec" default="startup" basedir="../../../">
+	<!-- 初始化 -->
+	<target name="init">
+		<echo message="正在进行初始化,请稍候..." />
+		<property file="${basedir}/dec/Source/build.properties" />
+		<!-- 属性文件位置 -->
+		<property environment="env" />
+		<property name="java.home" value="S{env.JAVA_HOME}" />
+		<property name="ant.home" value="S{env.ANT_HOME}" />
+		<property name="sourcefolder" value="${basedir}/${app.name}/${src.home}" />
+		<property name="appfolder" value="${basedir}/${build.home}/${app.name}" />
+		<property name="libfolder" value="${appfolder}/WEB-INF/lib" />
+		<property name="classfolder" value="${appfolder}/WEB-INF/classes" />
+
+		<path id="classpath">
+			<fileset dir="${basedir}/${app.name}/${src.lib}/">
+				<include name="**/*.jar" />
+			</fileset>
+		</path>
+
+		<tstamp>
+			<format property="NOW" pattern="yyyy-MM-dd_HH-mm-ss" locale="cn"/>
+		</tstamp>
+
+		<property name="warname" value="${app.name}_${NOW}.war" />
+
+		<path id="yui-compressor-path">
+			<fileset dir="${basedir}/${app.name}/${src.lib}">
+				<include name="yuicompressor-2.4.7.jar" />
+				<include name="yuiant-0.1.jar" />
+			</fileset>
+		</path>
+
+		<path id="closure-compiler-compressor">
+			<fileset dir="${basedir}/${app.name}/${src.lib}">
+				<include name="closure-compiler.jar" />
+			</fileset>
+		</path>
+
+		<path id="jar-depandency-path">
+			<fileset dir="${basedir}/${app.name}/${src.lib}">
+				<include name="javassist.jar" />
+				<include name="tattletale.jar" />
+				<include name="tattletale-ant.jar" />
+			</fileset>
+		</path>
+
+		<taskdef name="report" classname="org.jboss.tattletale.ant.ReportTask" >
+			<classpath>
+				<path refid="jar-depandency-path" />
+			</classpath>
+		</taskdef>
+
+		<path id="tomcat-ant">
+			<fileset dir="${basedir}/${app.name}/${src.lib}">
+				<include name="catalina-ant.jar" />
+			</fileset>
+		</path>
+
+		<taskdef name="yuicompress" classname="com.yahoo.platform.yui.compressor.YUICompressTask">
+			<classpath>
+				<path refid="yui-compressor-path" />
+			</classpath>
+		</taskdef>
+
+		<taskdef name="reload" classname="org.apache.catalina.ant.ReloadTask">
+			<classpath>
+				<path refid="tomcat-ant" />
+			</classpath>
+		</taskdef>
+
+		<taskdef name="list" classname="org.apache.catalina.ant.ListTask">
+			<classpath>
+				<path refid="tomcat-ant" />
+			</classpath>
+		</taskdef>
+		<taskdef name="tomcatstart" classname="org.apache.catalina.ant.StartTask">
+			<classpath>
+				<path refid="tomcat-ant" />
+			</classpath>
+		</taskdef>
+		<taskdef name="tomcatstop" classname="org.apache.catalina.ant.StopTask">
+			<classpath>
+				<path refid="tomcat-ant" />
+			</classpath>
+		</taskdef>
+
+		<!--
+		<taskdef name="jscomp" classname="com.google.javascript.jscomp.ant.CompileTask">
+			<classpath>
+				<path refid="closure-compiler-compressor" />
+			</classpath>
+		</taskdef>
+		-->
+
+	</target>
+
+	<target name="deletebak" depends="init">
+		<echo message="正在删除bak文件,请稍候..." />
+		<delete>
+			<fileset dir="${basedir}" includes="**/*.bak"/>
+		</delete>
+	</target>
+
+	<!-- 准备打包资源 -->
+	<target name="prepare" depends="deletebak">
+		<echo message="正在创建目录,并复制相关资源,请稍候..." />
+		<mkdir dir="${sourcefolder}" />
+		<mkdir dir="${appfolder}" />
+
+		<!-- 复制源文件
+		<copy todir="${sourcefolder}">
+			<fileset dir="${basedir}/${app.name}/${src.home}" />
+		</copy>
+		-->
+
+		<copy todir="${appfolder}">
+			<fileset dir="${basedir}/${app.name}/${src.webroot}">
+				<exclude name="**/*.js" />
+				<exclude name="**/*.css" />
+				<exclude name="**/*.bak" />
+				<exclude name="demo/**"/>
+				<exclude name="**/0000/**"/>
+				<exclude name="**/*.jrxml"/>
+				<exclude name="**/Temp/*.xls"/>
+				<exclude name="File/*.xls"/>
+				<exclude name="File/*.xlsx"/>
+				<exclude name="**/extjs3.4.rar"/>
+				<exclude name="**/extjs3.1.rar"/>
+				<exclude name="resource/image/banner/*.psd"/>
+			</fileset>
+		</copy>
+
+		<!-- 复制JAR文件 -->
+		<copy todir="${libfolder}">
+			<fileset dir="${basedir}/${app.name}/${src.lib}">
+				<exclude name="server-*.jar" />
+				<exclude name="jetty-*.jar" />
+				<exclude name="poi-3.8.jar" />
+				<exclude name="commons-codec-1.6.jar" />
+				<exclude name="rhino-1.7.jar" />
+				<exclude name="sqljdbc.jar" />
+				<exclude name="yuiant-0.1.jar" />
+				<exclude name="yuicompressor-2.4.7.jar" />
+				<exclude name="javassist.jar" />
+				<exclude name="tattletale.jar" />
+				<exclude name="tattletale-ant.jar" />
+				<exclude name="geronimo-servlet_3.0_spec-1.0.jar" />
+				<exclude name="abdera-extensions-json-1.1.2.jar" />
+				<exclude name="abdera-parser-1.1.2.jar" />
+				<exclude name="aopalliance-alpha1.jar" />
+				<exclude name="asm-commons-3.3.jar" />
+				<exclude name="asm-util-3.2.jar" />
+				<exclude name="catalina-ant.jar" />
+				<exclude name="cxf-2.6.1.jar" />
+				<exclude name="cxf-xjc-boolean-2.6.1.jar" />
+				<exclude name="cxf-xjc-bug671-2.6.1.jar" />
+				<exclude name="cxf-xjc-dv-2.6.1.jar" />
+				<exclude name="cxf-xjc-ts-2.6.1.jar" />
+				<exclude name="fdsapi-1.2.jar" />
+				<exclude name="jra-1.0-alpha-4.jar" />
+				<!--exclude name="json-2.4.jar" / -->
+				<!--exclude name="mysql-connector-java-5.1.22.jar" / -->
+				<exclude name="png-encoder-1.5.jar" />
+				<!-- exclude name="report-applet-fuxianwu.jar" / -->
+				<!--exclude name="struts-20110831.jar" / -->
+				<!--exclude name="urlrewritefilter-4.0.3.jar" / -->
+			</fileset>
+		</copy>
+	</target>
+
+	<!-- 编译源文件 -->
+	<target name="build" depends="prepare">
+		<delete dir="${classfolder}" />
+		<mkdir dir="${classfolder}" />
+		<echo message="正在编译源文件,请稍候..."/>
+		<javac srcdir="${sourcefolder}" destdir="${classfolder}" encoding="${compile.encoding}" debug="${compile.debug}" includeantruntime="${compile.includeantruntime}" nowarn="${compile.nowarn}" deprecation="${compile.deprecation}" optimize="${compile.optimize}">
+			<classpath refid="classpath" />
+		</javac>
+		<echo message="正在复制配置文件,请稍候..."/>
+		<copy todir="${classfolder}">
+			<fileset dir="${sourcefolder}">
+				<include name="**/*.properties" />
+				<exclude name="build/*.xml"/>
+				<include name="**/*.xml" />
+				<include name="**/*.tpl" />
+				<include name="**/*.dtd" />
+			</fileset>
+		</copy>
+	</target>
+
+	<!-- CSS文件 -->
+	<target name="yuicompress" description="压缩js css文件" depends="build">
+		<echo message="正在进行CSS文件的压缩,请稍候..."/>
+		<yuicompress linebreak="9000000" warn="false" munge="yes" preserveallsemicolons="true" outputfolder="${appfolder}">
+			<fileset dir="${basedir}/${app.name}/${src.webroot}">
+				<include name="**/*.css" />
+				<include name="**/*.js"/>
+			</fileset>
+		</yuicompress>
+	</target>
+
+	<!-- 压缩和加密JS文件
+	<target name="jscomp" description="压缩js文件" depends="yuicompress">
+		<echo message="正在进行JS文件的压缩和加密,请稍候..."/>
+		<for param="filename" keepgoing="true">
+			<path>
+				<fileset dir="${basedir}/${app.name}/${src.webroot}" casesensitive="yes">
+					<include name="**/*.js"/>
+				</fileset>
+			</path>
+			<sequential>
+				<basename property="file.@{filename}" file="@{filename}"/>
+				<propertyregex property="directory.@{filename}" input="@{filename}" regexp="^(.+)\\([^\\]+)$" select="\1" casesensitive="false" />
+				<echo message="Compressing file ${file.@{filename}} in ${directory.@{filename}}" />
+				<jscomp compilationLevel="advanced" warning="info" debug="false" output="${directory.@{filename}}\${file.@{filename}}" forceRecompile="true">
+					<sources dir="${directory.@{filename}}">
+						<file name="${file.@{filename}}"/>
+					</sources>
+				</jscomp>
+			</sequential>
+		</for>
+	</target>
+	-->
+
+	<!-- 停止Tomcat
+	<target name="tomcatstop" description="停止Tomcat" depends="yuicompress">
+		<echo message="正停止Tomcat以便进行发布,请稍候..."/>
+		<stop url="${tomcat.manager.url}" username="${tomcat.manager.username}" password="${tomcat.manager.password}" path="/${app.name}" />
+	</target>
+	-->
+
+	<!-- 发布到Tomcat
+	<target name="deploy" depends="yuicompress">
+		<echo message="正在将发布的网站拷贝到Tomcat中,请稍候..."/>
+		<delete dir="${tomcat.home}/webapps/${app.name}" />
+		<delete dir="${tomcat.cache}/${app.name}" />
+		<copy todir="${tomcat.home}/webapps/${app.name}">
+			<fileset dir="${appfolder}" />
+		</copy>
+	</target>
+	-->
+
+	<!-- 启动Tomcat
+	<target name="tomcatstart" description="启动Tomcat" depends="deploy">
+		<echo message="正在打开Tomcat,请稍候..."/>
+		<start url="${tomcat.manager.url}" username="${tomcat.manager.username}" password="${tomcat.manager.password}" path="/${app.name}" />
+	</target>
+	-->
+
+	<!-- 打包生成WAR -->
+	<target name="deploy" depends="yuicompress">
+		<echo message="正在进行WAR打包,请稍候..." />
+		<war warfile="${basedir}/${build.home}/${warname}" webxml="${appfolder}/WEB-INF/web.xml">
+			<fileset dir="${appfolder}" />
+		</war>
+	</target>
+
+	<!-- 分析jar依赖关系 -->
+	<target name="report" description="分析jar依赖关系" depends="deploy">
+		<report source="${appfolder}" destination="${basedir}/${build.home}/report_${NOW}/">
+		</report>
+	</target>
+
+	<!--  这也是一种打war包的方式
+	<target name="jar" depends="compile">
+		<jar jarfile="${deploy.path}/${project.name}.war" basedir="${build.home}" />
+	</target>
+	-->
+
+	<!-- 拷贝生成的war文件
+	<target name="copyfile" depends="deploy">
+		<echo message="正在拷贝WAR到Tomcat和项目文件目录,请稍候..." />
+		<copy todir="${tomcat.home}/webapps">
+			<fileset file="${basedir}/${warname}"/>
+		</copy>
+	</target>
+	-->
+
+	<!-- 清除临时资源 -->
+	<target name="clean" depends="deploy">
+		<echo message="正在清除缓存资源,请稍候..." />
+		<delete dir="${appfolder}" />
+	</target>
+
+	<!--
+		<target name="install" description="install the application in Tomcat">
+			<install url="${tomcat.manager.url}" username="${tomcat.manager.username}" password="${tomcat.manager.password}" path="${project.name}" war="${project.name}" />
+		</target>
+
+		<target name="reload" description="reload the application in Tomcat">
+			<reload url="${tomcat.manager.url}" username="${tomcat.manager.username}" password="${tomcat.manager.password}" path="${project.name}" />
+		</target>
+		<target name="list" description="list All the application in Tomcat">
+			<list url="${tomcat.manager.url}" username="${tomcat.manager.username}" password="${tomcat.manager.password}" />
+		</target>
+
+		<target name="start" description="启动Tomcat">
+			<start url="${tomcat.manager.url}" username="${tomcat.manager.username}" password="${tomcat.manager.password}" path="/${app.name}" />
+		</target>
+
+		<target name="stop" description="停止Tomcat">
+			<stop url="${tomcat.manager.url}" username="${tomcat.manager.username}" password="${tomcat.manager.password}" path="/${app.name}" />
+		</target>
+
+		<target name="start-tomcat">
+			<exec executable="cmd" dir="${tomcat.home}/bin">
+				<arg value="/c" />
+				<arg value="Tomcat7.exe" />
+			</exec>
+		</target>
+
+		<target name="stop-tomcat">
+			<exec executable="cmd " dir="${tomcat.home}/bin" spawn="true">
+				<arg value="/c" />
+				<arg value="shutdown.bat" />
+			</exec>
+		</target>
+		-->
+
+	<!-- 启动 -->
+	<target name="startup" depends="clean">
+
+	</target>
+
+	<!--
+	<taskdef name="install" classname="org.apache.catalina.ant.InstallTask">
+		<classpath>
+			<path location="${home}/${src.lib}/catalina-ant.jar" />
+		</classpath>
+	</taskdef>
+	-->
+</project>
