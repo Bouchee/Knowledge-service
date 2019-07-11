@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 工件材料 -->
+<sqlMap namespace="Workpiecematerial">
+	<typeAlias alias="dto" type="org.xianwu.core.metatype.impl.BaseDto"/>
+
+	<!-- 查询工件材料 -->
+	<select id="queryWorkpiecematerial4Manage" parameterClass="map" resultClass="dto">
+		 SELECT workpiecematerialid,name,heattreatcode,wmtype,isotype,heattreat,blanktype,hardness,mark,remark,application
+		 FROM workpiecematerial a WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="name">
+									a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="heattreatcode">
+									a.heattreatcode = #heattreatcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wmtype">
+									a.wmtype = #wmtype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="isotype">
+									a.isotype = #isotype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="heattreat">
+									a.heattreat = #heattreat#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="blanktype">
+									a.blanktype = #blanktype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="hardness">
+									a.hardness = #hardness#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="mark">
+									a.mark = #mark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+									a.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="application">
+									a.application = #application#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="keyword">
+				(a.name like '%$keyword$%' or a.wmtype like '%$keyword$%' or
+				a.heattreat like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+		order by a.workpiecematerialid desc
+	</select>
+
+	<select id="queryWorkpiecematerial4Manage4PageCount" parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		 FROM workpiecematerial a WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="name">
+									a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="heattreatcode">
+									a.heattreatcode = #heattreatcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wmtype">
+									a.wmtype = #wmtype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="isotype">
+									a.isotype = #isotype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="heattreat">
+									a.heattreat = #heattreat#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="blanktype">
+									a.blanktype = #blanktype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="hardness">
+									a.hardness = #hardness#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="mark">
+									a.mark = #mark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+									a.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="application">
+									a.application = #application#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="keyword">
+				(a.name like '%$keyword$%' or a.wmtype like '%$keyword$%' or
+				a.heattreat like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<!-- 插入工件材料 -->
+	<insert id="saveWorkpiecematerial" parameterClass="dto">
+		INSERT INTO Workpiecematerial (workpiecematerialid,name,heattreatcode,wmtype,isotype,heattreat,blanktype,hardness,mark,remark,application)
+		VALUES (#workpiecematerialid#,#name#,#heattreatcode#,#wmtype#,#isotype#,#heattreat#,#blanktype#,#hardness#,#mark#,#remark#,#application#)
+	</insert>
+
+	<!-- 更新工件材料  -->
+	<update id="updateWorkpiecematerial" parameterClass="map" >
+		UPDATE Workpiecematerial set
+
+
+									name = #name#,
+
+
+									heattreatcode = #heattreatcode#,
+
+
+									wmtype = #wmtype#,
+
+
+									isotype = #isotype#,
+
+
+									heattreat = #heattreat#,
+
+
+									blanktype = #blanktype#,
+
+
+									hardness = #hardness#,
+
+
+									mark = #mark#,
+
+
+									remark = #remark#,
+
+
+									application = #application#
+
+
+	        WHERE workpiecematerialid = #workpiecematerialid#
+	</update>
+
+	<!-- 删除工件材料  -->
+	<delete id="deleteWorkpiecematerial" parameterClass="map" >
+		DELETE FROM Workpiecematerial
+		      WHERE workpiecematerialid = #workpiecematerialid#
+	</delete>
+
+	<!-- 更新工件材料  -->
+	<update id="updateWorkpieceblade4Workpiecematerial" parameterClass="map" >
+		update Workpieceblade set workpiecematerialid = null WHERE workpiecematerialid = #workpiecematerialid#
+	</update>
+
+	<!-- 根据工件材料牌号、热处理状态和毛胚状态判定是否存在工件材料  -->
+	<select id="checkNameAndHeattreatAndBlanktype4Workpiecematerial" parameterClass="map" resultClass="dto">
+		 SELECT count(workpiecematerialid) as count
+		 FROM workpiecematerial where name = #name# and heattreat = #heattreat# and blanktype = #blanktype#
+ 	</select>
+</sqlMap>

@@ -1,0 +1,582 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 铰孔 -->
+<sqlMap namespace="Reaming">
+	<typeAlias alias="dto" type="org.xianwu.core.metatype.impl.BaseDto" />
+
+	<!-- 查询铰孔刀具 -->
+	<select id="queryHd_holedrilling4Manage" parameterClass="map"
+		resultClass="dto">
+		<!-- SELECT
+		a.toolholderid,
+		a.sapcode,
+		a.`name`,
+		a.type,
+		a.figure,
+		a.figure2,
+		(
+		SELECT
+		brand.name
+		FROM
+		brand
+		WHERE
+		(
+		brand.brandid = a.brandid
+		)
+		) AS
+		brandid,
+		a.cuttype,
+		a.typeid,
+		(select codedesc from code where field='HDTOOLTYPE' and a.hdtooltype=codedic) as hdtooltype
+		,
+		a.description,
+		a.remark,
+		a.k1,
+		b.hdtriid,
+		(select name from accuracy where accuracyid =
+		b.accuracy) as accuracy1,
+		b.materialid,
+		b.toothnumber,
+		b.groovedirection,
+		b.length,
+		b.depth,
+		b.groovelength,
+		b.coolingtype,
+		b.nominaldiameter,
+		c.hdtrcid,
+		c.nominaldiameter,
+		(select
+		name from accuracy where accuracyid =
+		b.accuracy) as accuracy2,
+		c.materialid,
+		c.toothnumber,
+		c.groovedirection,
+		c.portsize,
+		c.coolingtype
+		FROM
+		hd_holedrilling AS a
+		LEFT JOIN
+		hd_toolholder_reaming_integral AS b
+		ON a.typeid = b.hdtriid
+		LEFT JOIN
+		hd_toolholder_reaming_clamp AS c ON
+		a.typeid = c.hdtrcid
+		WHERE
+		a.cuttype like '%铰孔%' -->
+		
+SELECT
+		a.toolholderid,
+		a.sapcode,
+		a.`name`,
+		a.type,
+		a.figure,
+		a.figure2,
+		(
+		SELECT
+		brand.name
+		FROM
+		brand
+		WHERE
+		(
+		brand.brandid = a.brandid
+		)
+		) AS
+		brandid,
+		a.cuttype,
+		a.typeid,
+		(select codedesc from code where field='HDTOOLTYPE' and a.hdtooltype=codedic) as hdtooltype
+		,
+		a.description,
+		a.remark,
+		a.k1,
+		a.featurecode,
+b.length,
+b.depth,
+b.groovelength,
+c.accuracy,
+c.coolingtype,
+c.groovedirection,
+(select name
+		from hd_material where materialid =
+		c.materialid ) AS materialid,
+c.nominaldiameter,
+c.portsize,
+c.toothnumber
+		FROM
+		hd_holedrilling AS a
+		LEFT JOIN
+		hd_toolholder_reaming_integral AS b
+		ON a.typeid = b.hdtriid
+LEFT JOIN (
+	SELECT
+hdtriid AS id,
+accuracy,
+materialid,
+toothnumber,
+groovedirection,
+portsize,
+coolingtype,
+nominaldiameter
+	FROM
+		hd_toolholder_reaming_integral AS htri
+	UNION ALL
+		SELECT
+			hdtrcid AS id,
+accuracy,
+materialid,
+toothnumber,
+groovedirection,
+portsize,
+coolingtype,
+nominaldiameter
+		FROM
+			hd_toolholder_reaming_clamp AS htrc
+) AS c ON
+		a.typeid = c.id
+		WHERE
+		a.cuttype like '%铰孔%'
+		<dynamic>
+			<isNotEmpty prepend="AND" property="toolholderid">
+				a.toolholderid =
+				#toolholderid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="sapcode">
+				a.sapcode = #sapcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+				a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="type">
+				a.type = #type#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure">
+				a.figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure2">
+				a.figure2 = #figure2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandid">
+				a.brandid = #brandid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="cuttype">
+				a.cuttype = #cuttype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="typeid">
+				a.typeid = #typeid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="hdtooltype">
+				a.hdtooltype =
+				#hdtooltype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="description">
+				a.description =
+				#description#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+				a.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="k1">
+				a.k1 = #k1#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="nominaldiameter">
+				c.nominaldiameter = #nominaldiameter#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="depth">
+				<!--a.typeid in (SELECT hdtriid FROM hd_toolholder_reaming_integral WHERE 
+					depth = #depth#) -->
+				(b.depth <![CDATA[>= #depth# ]]>
+				or c.portsize in(select mcc from hd_module_reaming_clamp d where
+				d.depth	<![CDATA[>= #depth# ]]>))
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="accuracy">
+				 c.accuracy = #accuracy#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="workpieceisotype">
+				c.materialid in
+				(select materialid from hd_material
+				where isotype like
+				CONCAT("%",
+				(select isotype from workpiecematerial
+				where
+				workpiecematerial.workpiecematerialid = #workpieceisotype#), "%"))
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="tooltype">
+				a.name = #tooltype#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<select id="queryHd_holedrilling4Manage4PageCount"
+		parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		FROM
+		hd_holedrilling AS a
+		LEFT JOIN
+		hd_toolholder_reaming_integral AS b
+		ON a.typeid = b.hdtriid
+LEFT JOIN (
+	SELECT
+hdtriid AS id,
+accuracy,
+materialid,
+toothnumber,
+groovedirection,
+portsize,
+coolingtype,
+nominaldiameter
+	FROM
+		hd_toolholder_reaming_integral AS htri
+	UNION ALL
+		SELECT
+			hdtrcid AS id,
+accuracy,
+materialid,
+toothnumber,
+groovedirection,
+portsize,
+coolingtype,
+nominaldiameter
+		FROM
+			hd_toolholder_reaming_clamp AS htrc
+) AS c ON
+		a.typeid = c.id
+		WHERE
+		a.cuttype like '%铰孔%'
+		<dynamic>
+			<isNotEmpty prepend="AND" property="toolholderid">
+				a.toolholderid =
+				#toolholderid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="sapcode">
+				a.sapcode = #sapcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+				a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="type">
+				a.type = #type#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure">
+				a.figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure2">
+				a.figure2 = #figure2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandid">
+				a.brandid = #brandid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="cuttype">
+				a.cuttype = #cuttype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="typeid">
+				a.typeid = #typeid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="hdtooltype">
+				a.hdtooltype =
+				#hdtooltype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="description">
+				a.description =
+				#description#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+				a.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="k1">
+				a.k1 = #k1#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="nominaldiameter">
+				c.nominaldiameter = #nominaldiameter#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="depth">
+				<!--a.typeid in (SELECT hdtriid FROM hd_toolholder_reaming_integral WHERE 
+					depth = #depth#) -->
+				(b.depth <![CDATA[>= #depth# ]]>
+				or c.portsize in(select mcc from hd_module_reaming_clamp d where
+				d.depth	<![CDATA[>= #depth# ]]>))
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="accuracy">
+				 c.accuracy = #accuracy#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="workpieceisotype">
+				c.materialid in
+				(select materialid from hd_material
+				where isotype like
+				CONCAT("%",
+				(select isotype from workpiecematerial
+				where
+				workpiecematerial.workpiecematerialid = #workpieceisotype#), "%"))
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="tooltype">
+				a.name = #tooltype#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<!-- 查询整体铰刀 -->
+	<!-- <select id="queryHd_toolholder_reaming_integral4Manage" parameterClass="map" 
+		resultClass="dto"> SELECT hd.toolholderid AS toolholderid, hd.sapcode AS 
+		sapcode, hd.name AS name, hd.type AS type, hd.figure AS figure, hd.figure2 
+		AS figure2, (select name from brand where brandid = hd.brandid ) AS brandid, 
+		hd.cuttype AS cuttype, hd.typeid AS typeid, hd.hdtooltype AS hdtooltype, 
+		hd.description AS description, hd.remark AS remark, hd.k1 AS k1, tri.nominaldiameter 
+		AS nominaldiameter, tri.accuracy AS accuracy, tri.materialid AS materialid, 
+		tri.toothnumber AS toothnumber, tri.groovedirection AS groovedirection, tri.length 
+		AS length, tri.depth AS depth, tri.groovelength AS groovelength, tri.portsize 
+		AS portsize, tri.coolingtype AS coolingtype FROM hd_holedrilling AS hd, hd_toolholder_reaming_integral 
+		AS tri WHERE hd.typeid = tri.hdtriid </select> -->
+
+	<!-- 查询机夹式铰刀刀体 -->
+	<!-- <select id="queryHd_toolholder_reaming_clamp4Manage" parameterClass="map" 
+		resultClass="dto"> SELECT hd.toolholderid AS toolholderid, hd.sapcode AS 
+		sapcode, hd.name AS name, hd.type AS type, hd.figure AS figure, hd.figure2 
+		AS figure2, (select name from brand where brandid = hd.brandid ) AS brandid, 
+		hd.cuttype AS cuttype, hd.typeid AS typeid, hd.hdtooltype AS hdtooltype, 
+		hd.description AS description, hd.remark AS remark, hd.k1 AS k1, trc.nominaldiameter 
+		AS nominaldiameter, trc.accuracy AS accuracy, trc.materialid AS materialid, 
+		trc.toothnumber AS toothnumber, trc.groovedirection AS groovedirection, trc.portsize 
+		AS portsize, trc.coolingtype AS coolingtype FROM hd_holedrilling AS hd, hd_toolholder_reaming_clamp 
+		AS trc WHERE hd.typeid = trc.hdtrcid </select> -->
+
+	<!-- 查询机夹式铰刀模块 -->
+	<select id="queryHd_module_reaming_clamp4Manage" parameterClass="map"
+		resultClass="dto">
+		SELECT
+		mrc.toolholderid AS toolholderid,
+		mrc.sapcode AS
+		sapcode,
+		mrc.name
+		AS name,
+		mrc.type AS type,
+		mrc.figure AS figure,
+		mrc.figure2 AS figure2,
+		(select name from brand where brandid =
+		mrc.brandid ) AS brandid,
+		mrc.cuttype AS cuttype,
+		mrc.diameterrange AS
+		diameterrange,
+		mrc.length AS
+		length,
+		mrc.depth AS depth,
+		mrc.groovelength AS groovelength,
+		mrc.portsize AS portsize,
+		mrc.mcc AS
+		mcc,
+		mrc.coolingtype AS coolingtype,
+		mrc.description AS description,
+		mrc.remark AS remark,
+		mrc.aname AS aname
+		FROM hd_module_reaming_clamp AS mrc WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="portsize">
+				mrc.mcc in
+				<iterate property="portsize" open="(" close=")" conjunction=",">
+					#portsize[]#
+				</iterate>
+			</isNotEmpty>
+		</dynamic>
+
+	</select>
+
+	<!-- 查询工件材料状态 -->
+	<select id="queryWorkpiecematerial" parameterClass="map"
+		resultClass="dto">
+		SELECT workpiecematerialid, name, mark, wmtype, heattreat, hardness,
+		concat(name, '-', mark) as name2 FROM workpiecematerial a
+		WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="keyword">
+				(a.name like '%$keyword$%' or a.mark like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+		order by a.workpiecematerialid
+	</select>
+
+	<!-- 查询直径 -->
+	<select id="queryNominaldiameterInReaming" parameterClass="map"
+		resultClass="dto">
+		SELECT trc.nominaldiameter AS value
+		FROM
+		hd_toolholder_reaming_clamp AS trc where trc.nominaldiameter IS NOT
+		NULL group by trc.nominaldiameter
+		UNION
+		SELECT tri.nominaldiameter AS
+		value
+		FROM hd_toolholder_reaming_integral AS tri where
+		tri.nominaldiameter IS NOT NULL group by tri.nominaldiameter
+	</select>
+
+	<!-- 查询深度 -->
+	<select id="queryDepthInReaming" parameterClass="map"
+		resultClass="dto">
+		SELECT VALUE FROM (SELECT tri.depth AS value
+		FROM
+		hd_toolholder_reaming_integral AS tri where tri.depth !="" group by
+		tri.depth
+		UNION
+		SELECT mrc.depth AS value
+		FROM hd_module_reaming_clamp AS
+		mrc where mrc.depth
+		!="" group by mrc.depth) as VALUE order by value
+	</select>
+
+	<!-- 查询铰孔精度 -->
+	<select id="queryAccuracyInHd_toolholder_reaming_clamp" parameterClass="map"
+		resultClass="dto">
+		SELECT DISTINCT accuracy as VALUE  FROM `hd_toolholder_reaming_clamp` a WHERE a.accuracy!=''
+	</select>
+	
+	
+	<!-- 查询切削参数 -->
+<select id="queryRParameter" parameterClass="map" resultClass="dto">
+		SELECT DISTINCT
+		a.vc as vc,
+		a.fn as fn,
+		a.removalrates as removalrates,
+		a.power as power,
+CASE 
+CONCAT(LENGTH(REPLACE(a.vc,'-','--'))-LENGTH(a.vc),LENGTH(REPLACE(b.nominaldiameter,'-','--'))-LENGTH(b.nominaldiameter))
+WHEN ('00')THEN
+(
+FORMAT(((1000*a.vc)/(3.14*b.nominaldiameter)),0)
+)
+WHEN ('01')THEN
+(
+(
+CONCAT(
+		FORMAT(((1000*a.vc/(3.14*LEFT(b.nominaldiameter,LOCATE("-",b.nominaldiameter))))),0) ,"-",
+    FORMAT(((1000*a.vc/(3.14*RIGHT(b.nominaldiameter,LENGTH(b.nominaldiameter)-LOCATE("-",b.nominaldiameter))))),0))
+)
+)
+WHEN ('10')THEN
+(
+CONCAT(
+		FORMAT(((1000*LEFT(a.vc,LOCATE("-",a.vc)))/(3.14*b.nominaldiameter)),0) ,"-",
+    FORMAT(((1000*RIGHT(a.vc,LENGTH(a.vc)-LOCATE("-",a.vc)))/(3.14*b.nominaldiameter)),0))
+)
+WHEN ('11')THEN
+(
+(
+CONCAT(
+		FORMAT(((1000*LEFT(a.vc,LOCATE("-",a.vc))/(3.14*LEFT(b.nominaldiameter,LOCATE("-",b.nominaldiameter))))),0) ,"-",
+    FORMAT(((1000*RIGHT(a.vc,LENGTH(a.vc)-LOCATE("-",a.vc))/(3.14*RIGHT(b.nominaldiameter,LENGTH(b.nominaldiameter)-LOCATE("-",b.nominaldiameter))))),0))
+)
+)
+END as s,
+	
+CASE
+CONCAT(LENGTH(REPLACE(a.vc,'-','--'))-LENGTH(a.vc),LENGTH(REPLACE(b.nominaldiameter,'-','--'))-LENGTH(b.nominaldiameter),LENGTH(REPLACE(a.fn,'-','--'))-LENGTH(a.fn)) 
+WHEN ('000')THEN
+(
+FORMAT((1000*a.vc)/(3.14*b.nominaldiameter)*a.fn*b.toothnumber,0)
+)
+WHEN ('001')THEN
+(
+CONCAT(FORMAT((1000*a.vc)/(3.14*b.nominaldiameter)*b.toothnumber*LEFT(a.fn,LOCATE("-",a.fn)),0) ,"-",FORMAT((1000*a.vc)/(3.14*b.nominaldiameter)*b.toothnumber*RIGHT(a.fn,LENGTH(a.fn)-LOCATE("-",a.fn)),0))
+)
+WHEN ('010')THEN
+(
+(
+CONCAT(
+		FORMAT(1000*a.vc/(3.14*LEFT(b.nominaldiameter,LOCATE("-",b.nominaldiameter)))*b.toothnumber*a.fn,0) ,"-",
+    FORMAT(1000*a.vc/(3.14*RIGHT(b.nominaldiameter,LENGTH(b.nominaldiameter)-LOCATE("-",b.nominaldiameter)))*b.toothnumber*a.fn,0))
+)
+)
+WHEN ('011')THEN
+(
+(
+CONCAT(
+		FORMAT(1000*a.vc/(3.14*LEFT(b.nominaldiameter,LOCATE("-",b.nominaldiameter)))*b.toothnumber*LEFT(a.fn,LOCATE("-",a.fn)),0) ,"-",
+    FORMAT(1000*a.vc/(3.14*RIGHT(b.nominaldiameter,LENGTH(b.nominaldiameter)-LOCATE("-",b.nominaldiameter)))*b.toothnumber*RIGHT(a.fn,LENGTH(a.fn)-LOCATE("-",a.fn)),0))
+)
+)
+WHEN ('100')THEN
+(
+CONCAT(
+		FORMAT(((1000*LEFT(a.vc,LOCATE("-",a.vc)))/(3.14*b.nominaldiameter)*b.toothnumber*a.fn),0) ,"-",
+    FORMAT(((1000*RIGHT(a.vc,LENGTH(a.vc)-LOCATE("-",a.vc)))/(3.14*b.nominaldiameter)*b.toothnumber*a.fn),0))
+)
+WHEN ('101')THEN
+(
+CONCAT(
+		FORMAT(((1000*LEFT(a.vc,LOCATE("-",a.vc)))/(3.14*b.nominaldiameter)*b.toothnumber*LEFT(a.fn,LOCATE("-",a.fn))),0) ,"-",
+    FORMAT(((1000*RIGHT(a.vc,LENGTH(a.vc)-LOCATE("-",a.vc)))/(3.14*b.nominaldiameter)*b.toothnumber*RIGHT(a.fn,LENGTH(a.fn)-LOCATE("-",a.fn))),0))
+)
+WHEN ('110')THEN
+(
+CONCAT(
+		FORMAT(((1000*LEFT(a.vc,LOCATE("-",a.vc))/(3.14*LEFT(b.nominaldiameter,LOCATE("-",b.nominaldiameter)))*b.toothnumber*a.fn)),0) ,"-",
+    FORMAT(((1000*RIGHT(a.vc,LENGTH(a.vc)-LOCATE("-",a.vc))/(3.14*RIGHT(b.nominaldiameter,LENGTH(b.nominaldiameter)-LOCATE("-",b.nominaldiameter)))*b.toothnumber*a.fn)),0))
+
+)
+WHEN ('111')THEN
+(
+CONCAT(
+		FORMAT(((1000*LEFT(a.vc,LOCATE("-",a.vc))/(3.14*LEFT(b.nominaldiameter,LOCATE("-",b.nominaldiameter)))*b.toothnumber*LEFT(a.fn,LOCATE("-",a.fn)))),0) ,"-",
+    FORMAT(((1000*RIGHT(a.vc,LENGTH(a.vc)-LOCATE("-",a.vc))/(3.14*RIGHT(b.nominaldiameter,LENGTH(b.nominaldiameter)-LOCATE("-",b.nominaldiameter)))*b.toothnumber*RIGHT(a.fn,LENGTH(a.fn)-LOCATE("-",a.fn)))),0))
+
+)
+END as f,
+
+		a.shape as shape
+   
+		FROM
+		hd_holedrilling_parmeter AS a
+    LEFT JOIN
+    ( SELECT  htri.toothnumber as toothnumber,htri.nominaldiameter as nominaldiameter,hh.k1 as k1 FROM hd_toolholder_reaming_integral AS htri LEFT JOIN hd_holedrilling as hh ON(hh.typeid=htri.hdtriid)
+		UNION ALL
+		SELECT  htrc.toothnumber as toothnumber,htrc.nominaldiameter as nominaldiameter,hh.k1 as k1 FROM 	hd_toolholder_reaming_clamp AS htrc LEFT JOIN hd_holedrilling as hh ON(hh.typeid=htrc.hdtrcid)
+   		) as b ON(a.k1=b.k1)
+		WHERE 1 = 1  group by a.vc
+		<dynamic>
+			<isNotEmpty prepend="AND" property="nominaldiameter">
+				b.nominaldiameter = #nominaldiameter#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="k1">
+				a.k1 = #k1#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="workpiecematerialid">
+				a.wmcode = (SELECT
+				wmcode FROM workpiecematerial AS d WHERE
+				d.workpiecematerialid=#workpiecematerialid#)
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<!-- 查询刀具类型 -->
+	<select id="queryTooltypeInReaming" parameterClass="map"
+		resultClass="dto">
+		SELECT name AS value
+		FROM hd_holedrilling hd where name IS
+		NOT NULL AND hd.hdtooltype=07
+		group by name
+	</select>
+<!-- 查询刀体报表图片地址figure2 -->
+	<select id="queryfigure2integer" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT figure2 FROM  hd_holedrilling a
+		WHERE 1 = 1
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="sapcode">
+				a.sapcode = #sapcode#
+
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	
+	<!-- 查询工件材料名称 -->
+	<select id="querycailiaonanme2" parameterClass="map"
+		resultClass="java.lang.String">
+		SELECT name FROM workpiecematerial a
+		WHERE 1
+		= 1
+		<dynamic>
+
+			<isNotEmpty prepend="AND" property="workpieceisotype">
+				a.workpiecematerialid = #workpieceisotype#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+</sqlMap>

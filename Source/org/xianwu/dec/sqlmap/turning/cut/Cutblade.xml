@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 刀片 -->
+<sqlMap namespace="Cutblade">
+	<typeAlias alias="dto" type="org.xianwu.core.metatype.impl.BaseDto" />
+
+	<!-- 查询刀片 -->
+	<select id="queryCutblade4Manage" parameterClass="map"
+		resultClass="dto">
+	
+
+
+SELECT
+	cutbladeid,
+	sapcode,
+	name,
+	bladetype,
+	figure,
+	figure2,
+	turningtype,
+	bladematerialid, ( SELECT name FROM cutbladematerial WHERE bladematerialid =
+	a.bladematerialid ) AS bladematerialname,
+	grooveid,(select name from cutgroove where grooveid = a.grooveid) as groovename,
+	brandid, (
+	SELECT name FROM brand WHERE brandid = a.brandid ) AS brandname,
+  (SELECT codedesc FROM `code` WHERE codedic=a.cuttinghand AND field='HANDOFTOOL') AS cuttinghand,
+	cuttingedge,
+	bladewidth,
+	mainangle,
+	reliefangle,
+	sidereliefangle,
+	cuttingdepth,
+	cuttingradius,
+	description,
+	featurecode,
+	priority,
+  apmax,
+	apmin,
+	fnxmax,
+	fnxmin,
+	fnzmax,
+	fnzmin,
+	remark
+	FROM cutblade a WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="cutbladeid">
+				a.cutbladeid = #cutbladeid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="sapcode">
+				a.sapcode = #sapcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+				a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladetype">
+				a.bladetype = #bladetype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure">
+				a.figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure2">
+				a.figure2 = #figure2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="turningtype">
+				a.turningtype = #turningtype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladematerialid">
+				a.bladematerialid = #bladematerialid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="grooveid">
+				a.grooveid = #grooveid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandid">
+				a.brandid = #brandid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="cuttinghand">
+				a.cuttinghand = #cuttinghand#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="cuttingedge">
+				a.cuttingedge = #cuttingedge#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladewidth">
+				a.bladewidth = #bladewidth#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="mainangle">
+				a.mainangle = #mainangle#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="reliefangle">
+				a.reliefangle = #reliefangle#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="sidereliefangle">
+				a.sidereliefangle = #sidereliefangle#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="cuttingdepth">
+				a.cuttingdepth = #cuttingdepth#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="cuttingradius">
+				a.cuttingradius = #cuttingradius#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="description">
+				a.description = #description#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode = #featurecode#
+			</isNotEmpty>
+			<!-- <isNotEmpty prepend="AND" property="priority">
+				a.priority = #priority#
+			</isNotEmpty> -->
+			<isNotEmpty prepend="AND" property="apmax">
+				a.apmax = #apmax#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="apmin">
+				a.apmin = #apmin#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="fnxmax">
+				a.fnxmax = #fnxmax#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="fnxmin">
+				a.fnxmin = #fnxmin#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="fnzmax">
+				a.fnzmax = #fnzmax#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="fnzmin">
+				a.fnzmin = #fnzmin#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+ 				a.remark = #remark#
+ 			</isNotEmpty>
+ 			<isNotEmpty prepend="AND" property="keyword">
+				(a.name like '%$keyword$%' or a.bladetype like '%$keyword$%' or
+				a.description like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+		order by a.Cutbladeid
+	</select>
+
+	<select id="queryCutblade4Manage4PageCount" parameterClass="map"
+		resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		FROM cutblade a WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="cutbladeid">
+				a.cutbladeid = #cutbladeid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="sapcode">
+				a.sapcode = #sapcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+				a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladetype">
+				a.bladetype = #bladetype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure">
+				a.figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure2">
+				a.figure2 = #figure2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="turningtype">
+				a.turningtype = #turningtype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladematerialid">
+				a.bladematerialid = #bladematerialid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="grooveid">
+				a.grooveid = #grooveid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandid">
+				a.brandid = #brandid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="cuttinghand">
+				a.cuttinghand = #cuttinghand#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="cuttingedge">
+				a.cuttingedge = #cuttingedge#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladewidth">
+				a.bladewidth = #bladewidth#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="mainangle">
+				a.mainangle = #mainangle#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="reliefangle">
+				a.reliefangle = #reliefangle#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="sidereliefangle">
+				a.sidereliefangle = #sidereliefangle#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="cuttingdepth">
+				a.cuttingdepth = #cuttingdepth#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="cuttingradius">
+				a.cuttingradius = #cuttingradius#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="description">
+				a.description = #description#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode = #featurecode#
+			</isNotEmpty>
+			<!-- <isNotEmpty prepend="AND" property="priority">
+				a.priority = #priority#
+			</isNotEmpty> -->
+			<isNotEmpty prepend="AND" property="apmax">
+				a.apmax = #apmax#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="apmin">
+				a.apmin = #apmin#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="fnxmax">
+				a.fnxmax = #fnxmax#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="fnxmin">
+				a.fnxmin = #fnxmin#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="fnzmax">
+				a.fnzmax = #fnzmax#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="fnzmin">
+				a.fnzmin = #fnzmin#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+ 				a.remark = #remark#
+ 			</isNotEmpty>
+ 			<isNotEmpty prepend="AND" property="keyword">
+				(a.name like '%$keyword$%' or a.bladetype like '%$keyword$%' or
+				a.description like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<!-- 插入刀片 -->
+	<insert id="saveCutblade" parameterClass="dto">
+		INSERT INTO
+		cutblade (cutbladeid, sapcode, name, bladetype, figure, figure2,turningtype, 
+			bladematerialid, grooveid, brandid, cuttinghand, cuttingedge, bladewidth, 
+			mainangle, reliefangle, sidereliefangle, cuttingdepth, cuttingradius, 
+			description, featurecode, <!-- priority,  -->apmax, apmin, fnxmax, fnxmin, fnzmax, fnzmin, remark)
+		VALUES (#cutbladeid#, #sapcode#, #name#, #bladetype#, #figure#, #figure2#, 
+			#turningtype#, #bladematerialid#, #grooveid#, #brandid#, #cuttinghand#, 
+			#cuttingedge#, #bladewidth#, #mainangle#, #reliefangle#, #sidereliefangle#, 
+			#cuttingdepth#, #cuttingradius#, #description#, #featurecode#, <!-- #priority#,  -->
+			#apmax#, #apmin#, #fnxmax#, #fnxmin#, #fnzmax#, #fnzmin#, #remark#)
+	</insert>
+
+	<!-- 更新刀片 -->
+	<update id="updateCutblade" parameterClass="map">
+		UPDATE cutblade a set
+
+
+				a.cutbladeid = #cutbladeid#,
+
+
+				a.sapcode = #sapcode#,
+
+
+				a.name = #name#,
+
+
+				a.bladetype = #bladetype#,
+
+
+
+				a.turningtype = #turningtype#,
+
+
+				a.bladematerialid = #bladematerialid#,
+
+
+				a.grooveid = #grooveid#,
+
+
+				a.brandid = #brandid#,
+
+
+				a.cuttinghand = #cuttinghand#,
+
+
+				a.cuttingedge = #cuttingedge#,
+
+
+				a.bladewidth = #bladewidth#,
+
+
+				a.mainangle = #mainangle#,
+
+
+				a.reliefangle = #reliefangle#,
+
+
+				a.sidereliefangle = #sidereliefangle#,
+
+
+				a.cuttingdepth = #cuttingdepth#,
+
+
+				a.cuttingradius = #cuttingradius#,
+
+
+				a.description = #description#,
+
+
+				a.featurecode = #featurecode#,
+				
+				
+					a.priority = #priority#,
+
+
+				a.apmax = #apmax#,
+
+
+				a.apmin = #apmin#,
+
+
+				a.fnxmax = #fnxmax#,
+
+
+				a.fnxmin = #fnxmin#,
+				a.fnzmax = #fnzmax#,
+
+
+				a.fnzmin = #fnzmin#,
+
+
+ 				a.remark = #remark#
+
+			<dynamic>
+<isNotEmpty prepend=","   property="figure">
+	figure = #figure#
+</isNotEmpty>
+<isNotEmpty prepend=","  property="figure2">
+	figure2 = #figure2#
+</isNotEmpty>
+	</dynamic>
+
+		WHERE cutbladeid = #cutbladeid#
+	</update>
+
+	<!-- 删除刀片 -->
+	<delete id="deleteCutblade" parameterClass="map">
+		DELETE FROM cutblade
+		WHERE cutbladeid = #cutbladeid#
+	</delete>
+
+	<!-- 更新刀片 -->
+	<!-- <update id="updateCutbladetoolholder4Cutblade"
+		parameterClass="map">
+		update Cutbladetoolholder set Cutbladeid =
+		null
+		where cutbladeid = #cutbladeid#
+	</update> -->
+
+	<!-- 查询刀片材质 -->
+	<select id="queryCutbladematerial4Cutblade"
+		parameterClass="map" resultClass="dto">
+		SELECT bladematerialid as value, name
+		as text
+		FROM cutbladematerial
+	</select>
+	
+	<!-- 查询槽形  -->
+	<select id="queryGroove4Cutblade" parameterClass="map"
+		resultClass="dto">
+		 SELECT grooveid as value, name as text
+		 FROM cutgroove GROUP BY grooveid
+	</select>
+    <!-- 查询槽形  -->
+	<select id="queryPriority4Cutblade" parameterClass="map"
+		resultClass="dto">
+		 SELECT priority as value
+		 FROM cutblade GROUP BY priority
+	</select>
+
+	<!-- 查询刀片品牌 -->
+	<select id="queryBrand4Cutblade" parameterClass="map"
+		resultClass="dto">
+		SELECT brandid as value, name as text
+		FROM brand GROUP BY brandid
+	</select>
+
+	<!-- 根据刀片型号和刀片品牌判定是否存在刀片 -->
+	<!-- <select id="checkBladetypeAndBladebrand4Cutblade"
+		parameterClass="map" resultClass="dto">
+		SELECT count(cutbladeid) as count
+		FROM cutblade where bladetype = #bladetype# and brandid = #brandid#
+	</select> -->
+
+	<!-- 根据ID查询图片位置 -->
+	<select id="queryFigure4Delete4Cutblade" parameterClass="map"
+		resultClass="dto">
+		SELECT figure, figure2
+		FROM cutblade where cutbladeid
+		= #cutbladeid#
+	</select>
+</sqlMap>

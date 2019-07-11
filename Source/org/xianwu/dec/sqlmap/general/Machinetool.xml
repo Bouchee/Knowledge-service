@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 机床 -->
+<sqlMap namespace="Machinetool">
+	<typeAlias alias="dto" type="org.xianwu.core.metatype.impl.BaseDto"/>
+
+	<!-- 查询机床 -->
+	<select id="queryMachinetool4Manage" parameterClass="map" resultClass="dto">
+		SELECT machinetoolid, assetscode, mtmodel, name, figure,
+		categoryid, (select emulsionname from category where categoryid =  a.categoryid) as emulsionname,
+		manufacturer, position, mtinterface, mainshaftpower, maxspeed, mtperformance, remark
+		FROM machinetool a WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="assetscode">
+									a.assetscode = #assetscode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="mtmodel">
+									a.mtmodel = #mtmodel#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+									a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure">
+									a.figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="categoryid">
+									a.categoryid = #categoryid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="position">
+									a.position = #position#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="mtinterface">
+									a.mtinterface = #mtinterface#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="mainshaftpower">
+									a.mainshaftpower = #mainshaftpower#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="maxspeed">
+									a.maxspeed = #maxspeed#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="mtperformance">
+									a.mtperformance = #mtperformance#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+									a.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="keyword">
+				(a.mtmodel like '%$keyword$%' or a.name like '%$keyword$%' or
+				a.position like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<select id="queryMachinetool4Manage4PageCount" parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		FROM machinetool a WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="assetscode">
+									a.assetscode = #assetscode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="mtmodel">
+									a.mtmodel = #mtmodel#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+									a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure">
+									a.figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="categoryid">
+									a.categoryid = #categoryid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="position">
+									a.position = #position#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="mtinterface">
+									a.mtinterface = #mtinterface#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="mainshaftpower">
+									a.mainshaftpower = #mainshaftpower#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="maxspeed">
+									a.maxspeed = #maxspeed#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="mtperformance">
+									a.mtperformance = #mtperformance#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+									a.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="keyword">
+				(a.mtmodel like '%$keyword$%' or a.name like '%$keyword$%' or
+				a.position like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<!-- 插入机床 -->
+	<insert id="saveMachinetool" parameterClass="dto">
+		INSERT INTO machinetool (machinetoolid, assetscode, mtmodel, name, figure, categoryid,
+		manufacturer, position, mtinterface, mainshaftpower, maxspeed, mtperformance, remark)
+		VALUES (#machinetoolid#, #assetscode#, #mtmodel#, #name#, #figure#, #categoryid#,
+		#manufacturer#, #position#, #mtinterface#, #mainshaftpower#, #maxspeed#, #mtperformance#, #remark#)
+	</insert>
+
+	<!-- 更新机床  -->
+	<update id="updateMachinetool" parameterClass="map" >
+		UPDATE Machinetool set
+
+
+									assetscode = #assetscode#,
+
+
+									mtmodel = #mtmodel#,
+
+
+									name = #name#,
+
+
+
+
+									categoryid = #categoryid#,
+
+
+									manufacturer = #manufacturer#,
+
+
+									position = #position#,
+
+
+									mtinterface = #mtinterface#,
+
+
+									mainshaftpower = #mainshaftpower#,
+
+
+									maxspeed = #maxspeed#,
+
+
+
+
+									remark = #remark#
+	<dynamic>
+<isNotEmpty prepend=","   property="figure">
+	figure = #figure#
+</isNotEmpty>
+<isNotEmpty prepend=","  property="mtperformance">
+	mtperformance = #mtperformance#
+</isNotEmpty>
+	</dynamic>
+
+			WHERE machinetoolid = #machinetoolid#
+	</update>
+
+	<!-- 删除机床  -->
+	<delete id="deleteMachinetool" parameterClass="map" >
+		DELETE FROM Machinetool
+			  WHERE machinetoolid = #machinetoolid#
+	</delete>
+
+	<!-- 更新机床  -->
+	<update id="updateMachinetoolholder4Machinetool" parameterClass="map" >
+		update machinetoolholder set machinetoolid = null WHERE machinetoolid = #machinetoolid#
+	</update>
+
+	<!-- 查询切削液 -->
+	<select id="queryCategory4Machinetool" parameterClass="map" resultClass="dto">
+	select categoryid as value, emulsionname as text
+	from category
+	</select>
+
+	<!-- 根据资产号判定是否存在机床  -->
+	<select id="checkAssetscode4Machinetool" parameterClass="map" resultClass="dto">
+		SELECT count(machinetoolid) as count
+		FROM machinetool where assetscode = #assetscode#
+	</select>
+
+	<!-- 根据ID查询图片位置  -->
+	<select id="queryFigureAnd4Delete4Machinetool" parameterClass="map" resultClass="dto">
+		SELECT figure, mtperformance
+		FROM machinetool where machinetoolid = #machinetoolid#
+	</select>
+
+
+	<insert id="saveMainTable" parameterClass="dto">
+		INSERT INTO MainTable (mtmodel) VALUES (#mtmodel#)
+	</insert>
+
+	<insert id="saveSubTable" parameterClass="dto">
+		INSERT INTO SubTable (compressflag) VALUES (#remark#)
+	</insert>
+</sqlMap>

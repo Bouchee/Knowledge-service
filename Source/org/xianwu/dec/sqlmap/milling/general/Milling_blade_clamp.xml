@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 机夹刀具刀片 -->
+<sqlMap namespace="Milling_blade_clamp">
+	<typeAlias alias="dto" type="org.xianwu.core.metatype.impl.BaseDto"/>
+
+	<!-- 查询机夹刀具刀片 -->
+	<select id="queryMilling_blade_clamp4Manage" parameterClass="map" resultClass="dto">
+		SELECT bladeid,sapcode,name,bladetype,
+		(select name from brand where brandid = a.brandid limit 1) AS brandid,
+		figure,figure2,
+		(select name from milling_blade_material where
+		bladematerialid = a.bladematerialid) as
+		bladematerialid,
+		(SELECT name FROM milling_groove WHERE grooveid = a.grooveid ) AS grooveid,
+		shape,reliefangle,celength,turningtime,thichness,noseradius,wiperlength,characteristic,remark
+		FROM milling_blade_clamp a WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="sapcode">
+									a.sapcode = #sapcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+									a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladetype">
+									a.bladetype = #bladetype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandid">
+									a.brandid = #brandid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure">
+									a.figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure2">
+									a.figure2 = #figure2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladematerialid">
+									a.bladematerialid = #bladematerialid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="grooveid">
+									a.grooveid = #grooveid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="shape">
+									a.shape = #shape#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="reliefangle">
+									a.reliefangle = #reliefangle#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="celength">
+									a.celength = #celength#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="turningtime">
+									a.turningtime = #turningtime#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="thichness">
+									a.thichness = #thichness#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="noseradius">
+									a.noseradius = #noseradius#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wiperlength">
+									a.wiperlength = #wiperlength#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="characteristic">
+									a.characteristic = #characteristic#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+									a.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="keyword">
+				 (a.name like '%$keyword$%' or a.bladetype like '%$keyword$%' ) 
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<select id="queryMilling_blade_clamp4Manage4PageCount" parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		FROM milling_blade_clamp a WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="sapcode">
+									a.sapcode = #sapcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+									a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladetype">
+									a.bladetype = #bladetype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandid">
+									a.brandid = #brandid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure">
+									a.figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure2">
+									a.figure2 = #figure2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladematerialid">
+									a.bladematerialid = #bladematerialid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="grooveid">
+									a.grooveid = #grooveid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="shape">
+									a.shape = #shape#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="reliefangle">
+									a.reliefangle = #reliefangle#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="celength">
+									a.celength = #celength#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="turningtime">
+									a.turningtime = #turningtime#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="thichness">
+									a.thichness = #thichness#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="noseradius">
+									a.noseradius = #noseradius#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="wiperlength">
+									a.wiperlength = #wiperlength#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="characteristic">
+									a.characteristic = #characteristic#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+									a.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="keyword">
+				 (a.name like '%$keyword$%' or a.bladetype like '%$keyword$%' ) 
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<!-- 插入机夹刀具刀片 -->
+	<insert id="saveMilling_blade_clamp" parameterClass="dto">
+		INSERT INTO Milling_blade_clamp (bladeid,sapcode,name,bladetype,brandid,
+		figure,figure2,bladematerialid,grooveid,shape,
+		reliefangle,celength,turningtime,thichness,noseradius,wiperlength,characteristic,remark)
+		VALUES (#bladeid#,#sapcode#, #name#, #bladetype#, #brandid#, #figure#, #figure2#, #bladematerialid#, 
+		#grooveid#, #shape#, #reliefangle#, #celength#, #turningtime#, #thichness#, 
+		#noseradius#, #wiperlength#, #characteristic#, #remark#)
+	</insert>
+
+	<!-- 更新机夹刀具刀片  -->
+	<update id="updateMilling_blade_clamp" parameterClass="map" >
+		UPDATE Milling_blade_clamp set
+
+
+				sapcode = #sapcode#,
+
+
+	name = #name#,
+
+
+	bladetype = #bladetype#,
+
+
+	brandid = #brandid#,
+
+
+
+	bladematerialid = #bladematerialid#,
+
+
+	grooveid = #grooveid#,
+
+
+	shape = #shape#,
+
+
+	reliefangle = #reliefangle#,
+
+
+	celength = #celength#,
+
+
+	turningtime = #turningtime#,
+
+
+	thichness = #thichness#,
+
+
+	noseradius = #noseradius#,
+
+
+	wiperlength = #wiperlength#,
+
+
+	characteristic = #characteristic#,
+
+
+	remark = #remark#
+	<dynamic>
+<isNotEmpty prepend=","   property="figure">
+	figure = #figure#
+</isNotEmpty>
+<isNotEmpty prepend=","  property="figure2">
+	figure2 = #figure2#
+</isNotEmpty>
+	</dynamic>
+
+			WHERE bladeid = #bladeid#
+	</update>
+
+	<!-- 删除机夹刀具刀片  -->
+	<delete id="deleteMilling_blade_clamp" parameterClass="map" >
+		DELETE FROM Milling_blade_clamp
+			  WHERE bladeid = #bladeid#
+	</delete>
+
+<!-- 根据ID查询图片位置 -->
+	<select id="queryFigure4Delete4Milling_blade_clamp" parameterClass="map"
+		resultClass="dto">
+		SELECT figure, figure2
+		FROM milling_blade_clamp where bladeid = #bladeid#
+	</select>
+	
+		<!-- 查询刀片品牌 -->
+	<select id="queryBrand4Milling_blade_clamp" parameterClass="map" resultClass="dto">
+		SELECT brandid as value, name as text
+		FROM brand
+	</select>
+	
+</sqlMap>

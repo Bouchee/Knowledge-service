@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 扩大缩小问题 -->
+<sqlMap namespace="Expan">
+	<typeAlias alias="dto" type="org.xianwu.core.metatype.impl.BaseDto" />
+
+
+
+	<!-- 插入扩大问题 -->
+	<insert id="saveExpan" parameterClass="dto">
+		INSERT INTO
+		enlarge_narrow_problem (expanid,enlarge,keyp,reduce,prevent,how,method)
+		VALUES (#expanid#,#enlarge#,#keyp#,#reduce#,#prevent#,#how#,#method#)
+	</insert>
+
+	<!-- 插入核心问题 -->
+	<insert id="saveKeyp" parameterClass="dto">
+		INSERT INTO keyproblem
+		(keyp,keyid) VALUES (#keyp#,#keyid#)
+	</insert>
+
+	<!-- 插入阻止问题 -->
+	<insert id="savePrevent" parameterClass="dto">
+		INSERT INTO
+		preventproblem (prevent,preventid) VALUES (#prevent#,#preventid#)
+	</insert>
+	
+	<!-- 插入为什么解决这个问题 -->
+	<insert id="saveMethod" parameterClass="dto">
+		INSERT INTO
+		method_problem (methodid,method,reason) VALUES (#methodid#,#method#,#reason#)
+	</insert>
+	
+	
+	
+	<!-- 插入缩小问题 -->
+	<insert id="saveReduce" parameterClass="dto">
+		INSERT INTO
+		reduceproblem (reduceid,reduce) VALUES (#reduceid#,#reduce#)
+	</insert>
+</sqlMap>
+
+

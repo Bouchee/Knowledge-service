@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 中心钻 -->
+<sqlMap namespace="Hd_centredrilling">
+	<typeAlias alias="dto" type="org.xianwu.core.metatype.impl.BaseDto" />
+
+	<!-- 查询中心钻 -->
+	<select id="queryHd_centredrilling4Manage" parameterClass="map"
+		resultClass="dto">
+		SELECT
+		hd.toolholderid AS toolholderid,
+		hd.sapcode AS sapcode,
+		hd.name AS name,
+		hd.type AS type,
+		hd.figure AS figure,
+		hd.figure2 AS figure2,
+		(select name from brand where brandid = hd.brandid ) AS brandid,
+		hd.cuttype AS cuttype,
+		hd.typeid AS typeid,
+		hd.hdtooltype AS hdtooltype,
+		hd.description AS description,
+		hd.remark AS remark,
+		hd.k1 AS k1,
+
+		tt.hdtcid AS hdtcid,
+		tt.standard AS standard,
+		tt.nominaldiameter AS nominaldiameter,
+		tt.materialid AS materialid,
+		tt.pointangle AS pointangle,
+		tt.length AS length,
+		tt.portsize AS portsize
+				FROM
+		(
+		hd_holedrilling hd LEFT JOIN hd_toolholder_centredrilling tt ON
+		(
+		tt.hdtcid =
+		hd.typeid
+		)
+		) WHERE  hd.name like '%中心钻%'
+		<dynamic>
+			<isNotEmpty prepend="AND" property="keyword">
+				(hd.name like
+				'%$keyword$%' or hd.type like '%$keyword$%' )
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<select id="queryHd_centredrilling4Manage4PageCount"
+		parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+				FROM
+		(
+		hd_holedrilling hd LEFT JOIN hd_toolholder_centredrilling tt ON
+		(
+		tt.hdtcid =
+		hd.typeid
+		)
+		)  WHERE  hd.name like '%中心钻%'
+		<dynamic>
+			<isNotEmpty prepend="AND" property="toolholderid">
+				hd.toolholderid=
+				#toolholderid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="sapcode">
+				hd.sapcode= #sapcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+				hd.name= #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="type">
+				hd.type= #type#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure">
+				hd.figure= #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure2">
+				hd.figure2= #figure2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandid">
+				hd.brandid= #brandid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="cuttype">
+				hd.cuttype= #cuttype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="typeid">
+				hd.typeid= #typeid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="hdtooltype">
+				hd.hdtooltype=#hdtooltype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="description">
+				hd.description=#description#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+				hd.remark= #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="k1">
+				hd.k1= #k1#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="hdtcid">
+				tt.hdtcid= #hdtcid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="standard">
+				tt.standard in
+				(select codedesc from code where codedic= #standard# )
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="nominaldiameter">
+				tt.nominaldiameter=
+				#nominaldiameter#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="workpieceisotype">
+				tt.materialid in (select materialid from hd_material
+				where isotype like
+				CONCAT("%", (select isotype from workpiecematerial
+				where
+				workpiecematerial.workpiecematerialid = #workpieceisotype#), "%"))
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="pointangle">
+				tt.pointangle=#pointangle#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="length">
+				tt.length= #length#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="portsize">
+				tt.portsize= #portsize#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="keyword">
+				(hd.name like
+				'%$keyword$%' or hd.type like '%$keyword$%' )
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+<select id="queryTypeid4Delete" parameterClass="map" resultClass="dto">
+		SELECT typeid
+		FROM hd_holedrilling where toolholderid = #toolholderid#
+	</select>
+	
+	<select id="queryTypeid4Update" parameterClass="map" resultClass="dto">
+		SELECT typeid
+		FROM hd_holedrilling where toolholderid = #toolholderid#
+	</select>
+
+
+
+	<!-- 插入中心钻主表方法 -->
+	<insert id="saveHd_holedrilling" parameterClass="dto">
+		INSERT INTO hd_holedrilling (toolholderid,sapcode,name,
+		type,figure,figure2,brandid,cuttype,typeid,
+		hdtooltype,description,remark,k1)
+       VALUES (#toolholderid#,#sapcode#,#name#,
+       #type#,#figure#,#figure2#,#brandid#,
+       #cuttype#,#typeid#,#hdtooltype#,
+       #description#,#remark#,#k1#)
+	</insert>
+	
+	
+	<!-- 插入中心钻子表方法 -->
+	<insert id="saveHd_centredrilling" parameterClass="dto">
+		INSERT INTO
+		hd_toolholder_centredrilling (hdtcid,
+                             standard,
+                             nominaldiameter,
+                             materialid,
+                             pointangle,
+                             length,
+                             portsize )
+		             VALUES (#hdtcid#,
+                             #standard#,
+                             #nominaldiameter#,
+                             #materialid#,
+                             #pointangle#,
+                             #length#,
+                             #portsize#
+                            )
+	</insert>
+	<!-- 更新中心钻 主表-->
+	<update id="updateHd_holedrilling" parameterClass="map" >
+		UPDATE Hd_holedrilling  set
+									sapcode = #sapcode#,
+									name = #name#,
+									type = #type#,
+									brandid = #brandid#,
+									cuttype = #cuttype#,
+									typeid = #typeid#,
+									hdtooltype = #hdtooltype#,
+									description = #description#,
+									k1 = #k1#,
+	                               remark = #remark#
+	                               <dynamic>
+			<isNotEmpty prepend=","   property="figure">
+	figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend=","  property="figure2">
+	figure2 = #figure2#
+			</isNotEmpty>
+		</dynamic>
+		WHERE toolholderid = #toolholderid#
+			</update>
+
+	<!-- 更新中心钻子表-->
+	<update id="updateHd_centredrilling" parameterClass="map">
+		UPDATE hd_toolholder_centredrilling set
+standard=#standard#,
+nominaldiameter=#nominaldiameter#,
+materialid=#materialid#,
+
+pointangle=#pointangle#,
+
+length=#length#,
+
+
+
+portsize=#portsize#
+
+
+		<dynamic>
+			<isNotEmpty prepend="," property="figure">
+				figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="figure2">
+				figure2 = #figure2#
+			</isNotEmpty>
+		</dynamic>
+
+			WHERE hdtcid = #typeid#
+	</update>
+	<!-- 删除中心钻主表-->
+		<delete id="deleteHd_holedrilling" parameterClass="map" >
+		DELETE FROM Hd_holedrilling
+			  WHERE toolholderid = #toolholderid#
+	</delete>
+
+	<!-- 删除中心钻子表 -->
+	<delete id="deleteHd_centredrilling" parameterClass="map">
+		DELETE
+		FROM hd_toolholder_centredrilling
+		WHERE  hdtcid = #typeid#
+	</delete>
+
+	<!-- 根据ID查询图片位置 -->
+	<select id="queryFigure4Delete4Hd_centredrilling"
+		parameterClass="map" resultClass="dto">
+		SELECT figure, figure2
+		FROM hd_holedrilling where toolholderid = #toolholderid#
+	</select>
+
+	<!-- 查询中心钻品牌 -->
+	<select id="queryBrand4Hd_centredrilling" parameterClass="map"
+		resultClass="dto">
+		SELECT brandid as value, name as text
+		FROM brand
+	</select>
+
+</sqlMap>

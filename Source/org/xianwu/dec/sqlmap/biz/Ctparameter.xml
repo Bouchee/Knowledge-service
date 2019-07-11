@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 切削参数 -->
+<sqlMap namespace="Ctparameter">
+	<typeAlias alias="dto" type="org.xianwu.core.metatype.impl.BaseDto"/>
+	
+	<!-- 查询切削参数 -->
+	<select id="queryCtparameter4Manage" parameterClass="map" resultClass="dto">
+		 SELECT parameterid, workpiecematerialid, (select name from workpiecematerial where workpiecematerialid = a.workpiecematerialid) as workpiecematerialname,
+		 bladematerialid, (select name from bladematerial where bladematerialid = a.bladematerialid) as bladematerialname, vcmax, vcmin, chip, removalrate, power, remark
+		 FROM ctparameter a WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="workpiecematerialid"> 
+									a.workpiecematerialid = #workpiecematerialid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladematerialid"> 
+									a.bladematerialid = #bladematerialid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="vcmax"> 
+									a.vcmax = #vcmax#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="vcmin"> 
+									a.vcmin = #vcmin#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="chip"> 
+									a.chip = #chip#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="removalrates"> 
+									a.removalrates = #removalrates#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="power"> 
+									a.power = #power#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark"> 
+									a.remark = #remark#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<select id="queryCtparameter4Manage4PageCount" parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		FROM ctparameter a WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="workpiecematerialid"> 
+									a.workpiecematerialid = #workpiecematerialid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladematerialid"> 
+									a.bladematerialid = #bladematerialid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="vcmax"> 
+									a.vcmax = #vcmax#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="vcmin"> 
+									a.vcmin = #vcmin#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="chip"> 
+									a.chip = #chip#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="removalrates"> 
+									a.removalrates = #removalrates#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="power"> 
+									a.power = #power#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark"> 
+									a.remark = #remark#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<!-- 插入切削参数 -->
+	<insert id="saveCtparameter" parameterClass="dto">
+		INSERT INTO ctparameter (parameterid, workpiecematerialid, bladematerialid, vcmax, vcmin, chip, removalrate, power, remark) 
+		VALUES (#parameterid#, #workpiecematerialid#, #bladematerialid#, #vcmax#, #vcmin#, #chip#, #removalrate#, #power#, #remark#)
+	</insert>
+	
+	<!-- 更新切削参数  -->
+	<update id="updateCtparameter" parameterClass="map" >
+		UPDATE Ctparameter
+		<dynamic prepend="SET"> 
+			<isNotEmpty prepend="," property="workpiecematerialid"> 
+									workpiecematerialid = #workpiecematerialid#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="bladematerialid"> 
+									bladematerialid = #bladematerialid#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="vcmax"> 
+									vcmax = #vcmax#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="vcmin"> 
+									vcmin = #vcmin#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="chip"> 
+									chip = #chip#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="removalrates"> 
+									removalrates = #removalrates#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="power"> 
+									power = #power#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="remark"> 
+									remark = #remark#
+			</isNotEmpty>	
+		</dynamic> 
+	        WHERE ctparameterid = #ctparameterid#    
+	</update>
+	
+	<!-- 删除切削参数  -->
+	<delete id="deleteCtparameter" parameterClass="map" >
+		DELETE FROM Ctparameter
+		      WHERE ctparameterid = #ctparameterid#
+	</delete>
+	
+	<!-- 查询刀片材料  -->
+	<select id="queryBladematerial4Ctparameter" parameterClass="map" resultClass="dto">
+		 SELECT bladematerialid as value, name as text
+		 FROM bladematerial
+	</select>
+	
+	<!-- 查询工件材料  -->
+	<select id="queryWorkpiecematerial4Ctparameter" parameterClass="map" resultClass="dto">
+		 SELECT workpiecematerialid as value, name as text
+		 FROM workpiecematerial
+	</select>
+</sqlMap>

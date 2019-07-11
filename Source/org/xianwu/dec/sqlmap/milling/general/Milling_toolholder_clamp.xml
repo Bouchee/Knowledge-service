@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 机夹刀具刀体 -->
+<sqlMap namespace="Milling_toolholder_clamp">
+	<typeAlias alias="dto" type="org.xianwu.core.metatype.impl.BaseDto"/>
+
+	<!-- 查询机夹刀具刀体 -->
+	<select id="queryMilling_toolholder_clamp4Manage" parameterClass="map" resultClass="dto">
+		SELECT toolholderid,sapcode,name,toolholdertype,
+		(select name from brand where brandid = a.brandid ) AS brandid,
+        figure,figure2,cuttype,nominaldiameter,mainangle,toothnumber,effectivetoothnumber,portsize,
+        length,interferencedepth,apmax,aemax,featurecode,
+        toolweight,aname1,atype1,aname2,atype2,aname3,atype3,aname4,atype4,aname5,atype5,aname6,atype6,aname7,
+        atype7,aname8,atype8,aname9,atype9,remark
+
+		FROM milling_toolholder_clamp a WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="sapcode">
+									a.sapcode = #sapcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+									a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="toolholdertype">
+									a.toolholdertype = #toolholdertype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandid">
+									a.brandid = #brandid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure">
+									a.figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure2">
+									a.figure2 = #figure2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="cuttype">
+									a.cuttype = #cuttype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="nominaldiameter">
+									a.nominaldiameter = #nominaldiameter#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="mainangle">
+									a.mainangle = #mainangle#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="toothnumber">
+									a.toothnumber = #toothnumber#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="effectivetoothnumber">
+									a.effectivetoothnumber = #effectivetoothnumber#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="portsize">
+									a.portsize = #portsize#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="length">
+									a.length = #length#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="interferencedepth">
+									a.interferencedepth = #interferencedepth#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="apmax">
+									a.apmax = #apmax#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aemax">
+									a.aemax = #aemax#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featurecode">
+									a.featurecode = #featurecode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="toolweight">
+									a.toolweight = #toolweight#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname1">
+									a.aname1 = #aname1#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype1">
+									a.atype1 = #atype1#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname2">
+									a.aname2 = #aname2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype2">
+									a.atype2 = #atype2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname3">
+									a.aname3 = #aname3#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype3">
+									a.atype3 = #atype3#
+			</isNotEmpty>			
+			<isNotEmpty prepend="AND" property="aname4">
+									a.aname4 = #aname4#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype4">
+									a.atype4 = #atype4#
+			</isNotEmpty>			
+			<isNotEmpty prepend="AND" property="aname5">
+									a.aname5 = #aname5#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype5">
+									a.atype5 = #atype5#
+			</isNotEmpty>			
+			<isNotEmpty prepend="AND" property="aname6">
+									a.aname6 = #aname6#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype6">
+									a.atype6 = #atype6#
+			</isNotEmpty>			
+			<isNotEmpty prepend="AND" property="aname7">
+									a.aname7 = #aname7#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype7">
+									a.atype7 = #atype7#
+			</isNotEmpty>			
+			<isNotEmpty prepend="AND" property="aname8">
+									a.aname8 = #aname8#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype8">
+									a.atype8 = #atype8#
+			</isNotEmpty>			
+			<isNotEmpty prepend="AND" property="aname9">
+									a.aname9 = #aname9#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype9">
+									a.atype9 = #atype9#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+	                               a.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="keyword">
+				(a.name like '%$keyword$%' or a.toolholdertype like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<select id="queryMilling_toolholder_clamp4Manage4PageCount" parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		FROM milling_toolholder_clamp a WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="sapcode">
+									a.sapcode = #sapcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+									a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="toolholdertype">
+									a.toolholdertype = #toolholdertype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandid">
+									a.brandid = #brandid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure">
+									a.figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure2">
+									a.figure2 = #figure2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="cuttype">
+									a.cuttype = #cuttype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="nominaldiameter">
+									a.nominaldiameter = #nominaldiameter#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="mainangle">
+									a.mainangle = #mainangle#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="toothnumber">
+									a.toothnumber = #toothnumber#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="effectivetoothnumber">
+									a.effectivetoothnumber = #effectivetoothnumber#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="portsize">
+									a.portsize = #portsize#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="length">
+									a.length = #length#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="interferencedepth">
+									a.interferencedepth = #interferencedepth#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="apmax">
+									a.apmax = #apmax#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aemax">
+									a.aemax = #aemax#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featurecode">
+									a.featurecode = #featurecode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="toolweight">
+									a.toolweight = #toolweight#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname1">
+									a.aname1 = #aname1#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype1">
+									a.atype1 = #atype1#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname2">
+									a.aname2 = #aname2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype2">
+									a.atype2 = #atype2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="aname3">
+									a.aname3 = #aname3#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype3">
+									a.atype3 = #atype3#
+			</isNotEmpty>			
+			<isNotEmpty prepend="AND" property="aname4">
+									a.aname4 = #aname4#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype4">
+									a.atype4 = #atype4#
+			</isNotEmpty>			
+			<isNotEmpty prepend="AND" property="aname5">
+									a.aname5 = #aname5#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype5">
+									a.atype5 = #atype5#
+			</isNotEmpty>			
+			<isNotEmpty prepend="AND" property="aname6">
+									a.aname6 = #aname6#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype6">
+									a.atype6 = #atype6#
+			</isNotEmpty>			
+			<isNotEmpty prepend="AND" property="aname7">
+									a.aname7 = #aname7#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype7">
+									a.atype7 = #atype7#
+			</isNotEmpty>			
+			<isNotEmpty prepend="AND" property="aname8">
+									a.aname8 = #aname8#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype8">
+									a.atype8 = #atype8#
+			</isNotEmpty>			
+			<isNotEmpty prepend="AND" property="aname9">
+									a.aname9 = #aname9#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="atype9">
+									a.atype9 = #atype9#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+	                               a.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="keyword">
+			 (a.name like '%$keyword$%' or a.toolholdertype like '%$keyword$%' )
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<!-- 插入机夹刀具刀体 -->
+	<insert id="saveMilling_toolholder_clamp" parameterClass="dto">
+		INSERT INTO Milling_toolholder_clamp (toolholderid,sapcode,name,toolholdertype,brandid,
+        figure,figure2,cuttype,nominaldiameter,mainangle,toothnumber,effectivetoothnumber,portsize,
+        length,interferencedepth,apmax,aemax,featurecode,
+        toolweight,aname1,atype1,aname2,atype2,aname3,atype3,aname4,atype4,aname5,atype5,aname6,atype6,aname7,
+        atype7,aname8,atype8,aname9,atype9,remark)
+		VALUES (#toolholderid#,#sapcode#, #name#, #toolholdertype#, #brandid#, #figure#, #figure2#, #cuttype#, 
+		#nominaldiameter#, #mainangle#, #toothnumber#, #effectivetoothnumber#, #portsize#, #length#, 
+		#interferencedepth#, #apmax#, #aemax#,#featurecode#, #toolweight#, 
+		#aname1#, #atype1#,#aname2#, #atype2#, #aname3#, #atype3#, #aname4#, #atype4#, #aname5#, #atype5#, #aname6#, #atype6#, 
+		#aname7#, #atype7#, #aname8#, #atype8#, #aname9#, #atype9#, #remark#)
+	</insert>
+
+	<!-- 更新机夹刀具刀体  -->
+	<update id="updateMilling_toolholder_clamp" parameterClass="map" >
+		UPDATE Milling_toolholder_clamp  set
+
+
+									sapcode = #sapcode#,
+
+
+									name = #name#,
+
+
+									toolholdertype = #toolholdertype#,
+
+
+									brandid = #brandid#,
+
+
+									
+									cuttype = #cuttype#,
+
+
+									nominaldiameter = #nominaldiameter#,
+
+
+									mainangle = #mainangle#,
+
+
+									toothnumber = #toothnumber#,
+
+
+									effectivetoothnumber = #effectivetoothnumber#,
+
+
+									portsize = #portsize#,
+
+
+									length = #length#,
+
+
+									interferencedepth = #interferencedepth#,
+
+
+									apmax = #apmax#,
+
+
+									aemax = #aemax#,
+
+
+									featurecode = #featurecode#,
+
+									toolweight = #toolweight#,
+
+
+									aname1 = #aname1#,
+
+
+									atype1 = #atype1#,
+
+
+									aname2 = #aname2#,
+
+
+									atype2 = #atype2#,
+
+
+									aname3 = #aname3#,
+
+
+									atype3 = #atype3#,
+
+
+									aname4 = #aname4#,
+
+
+									atype4 = #atype4#,
+
+
+									aname5 = #aname5#,
+
+
+									atype5 = #atype5#,
+
+
+									aname6 = #aname6#,
+
+
+									atype6 = #atype6#,
+
+
+									aname7 = #aname7#,
+
+
+									atype7 = #atype7#,
+
+
+									aname8 = #aname8#,
+
+
+									atype8 = #atype8#,
+
+
+									aname9 = #aname9#,
+
+
+									atype9 = #atype9#,
+
+
+	                               remark = #remark#
+	<dynamic>
+<isNotEmpty prepend=","   property="figure">
+	figure = #figure#
+</isNotEmpty>
+<isNotEmpty prepend=","  property="figure2">
+	figure2 = #figure2#
+</isNotEmpty>
+	</dynamic>
+
+			WHERE toolholderid = #toolholderid#
+	</update>
+
+	<!-- 删除机夹刀具刀体  -->
+	<delete id="deleteMilling_toolholder_clamp" parameterClass="map" >
+		DELETE FROM Milling_toolholder_clamp
+			  WHERE toolholderid = #toolholderid#
+	</delete>
+
+    <!-- 根据ID查询图片位置 -->
+	<select id="queryFigure4Delete4Milling_toolholder_clamp" parameterClass="map"
+		resultClass="dto">
+		SELECT figure, figure2
+		FROM milling_toolholder_clamp where toolholderid = #toolholderid#
+	</select>
+	
+		<!-- 查询刀体品牌 -->
+	<select id="queryBrand4Milling_toolholder_clamp" parameterClass="map" resultClass="dto">
+		SELECT brandid as value, name as text
+		FROM brand
+	</select>
+	
+</sqlMap>

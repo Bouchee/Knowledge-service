@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 加工精度类型编号 -->
+<sqlMap namespace="Accuracy">
+	<typeAlias alias="dto" type="org.xianwu.core.metatype.impl.BaseDto"/>
+	
+	<!-- 查询加工精度类型编号 -->
+	<select id="queryAccuracy4Manage" parameterClass="map" resultClass="dto">
+		 SELECT accuracyid,name,remark
+		 FROM accuracy a WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="name"> 
+									a.accuracyname = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark"> 
+									a.turningtype = #remark#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<!-- 查询加工精度类型编号 -->
+	<select id="queryAccuracy4Manage4PageCount" parameterClass="map" resultClass="java.lang.Integer">
+		 SELECT count(1) as count
+		 FROM accuracy a WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="name"> 
+									a.accuracyname = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark"> 
+									a.turningtype = #remark#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<!-- 插入加工精度类型编号 -->
+	<insert id="saveAccuracy" parameterClass="dto">
+		INSERT INTO accuracy (accuracyid,name,remark) 
+		VALUES (#accuracyid#,#name#,#remark#)
+	</insert>
+	
+	<!-- 更新加工精度类型编号  -->
+	<update id="updateAccuracy" parameterClass="map" >
+		UPDATE Accuracy
+		<dynamic prepend="SET"> 
+			<isNotEmpty prepend="," property="name"> 
+									a.accuracyname = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="," property="remark"> 
+									a.turningtype = #remark#
+			</isNotEmpty>							
+		</dynamic> 
+	        WHERE accuracyid = #accuracyid#    
+	</update>
+	
+	<!-- 删除加工精度类型编号  -->
+	<delete id="deleteAccuracy" parameterClass="map" >
+		DELETE FROM Accuracy
+		      WHERE accuracyid = #accuracyid#
+	</delete>
+	<!-- 删除加工精度类型编号  -->
+	<delete id="deleteGroove4Accuracy" parameterClass="map" >
+		DELETE FROM Groove
+		      WHERE accuracyid = #accuracyid#
+	</delete>
+</sqlMap>

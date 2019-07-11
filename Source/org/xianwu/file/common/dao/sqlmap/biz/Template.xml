@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 演示与教程手工映射SQL语句 -->
+
+<sqlMap namespace="Template">
+	<!-- 查询文件列表信息 -->
+	<select id="queryTemplate4Manage" parameterClass="map" resultClass="dto">
+		SELECT fileid, title, path, filesize, filetype, remark
+		FROM systemfile a WHERE filetype = '.xls'
+		<dynamic>
+			<isNotEmpty prepend="AND" property="keyword">
+				(a.title like '%$keyword$%' or a.remark like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+		order by fileid desc
+	</select>
+
+	<!-- 统计文件列表 -->
+	<select id="queryTemplate4Manage4PageCount" parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1)
+		FROM systemfile a WHERE filetype = '.xls'
+		<dynamic>
+			<isNotEmpty prepend="AND" property="keyword">
+				(a.title like '%$keyword$%' or a.remark like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+		order by fileid desc
+	</select>
+
+	<!-- 根据文件ID获取一个文件 -->
+	<select id="queryTemplateByKey" parameterClass="java.lang.String"
+		resultClass="dto">
+		SELECT fileid, title, path, filesize, filetype, remark
+		FROM systemfile WHERE fileid = #fileid#
+	</select>
+</sqlMap>

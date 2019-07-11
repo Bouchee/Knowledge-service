@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 机床刀体关系 -->
+<sqlMap namespace="Machinetoolholder">
+	<typeAlias alias="dto" type="org.xianwu.core.metatype.impl.BaseDto"/>
+	
+	<!-- 查询机床刀体关系 -->
+	<select id="queryMachinetoolholder4Manage" parameterClass="map" resultClass="dto">
+	SELECT
+	c.machinetoolid AS machinetoolid,
+	c.toolholderid AS toolholderid,
+	c.remark AS machinetoolholderremark,
+	m.assetscode AS assetscode,
+	m.mtmodel AS mtmodel,
+	m.name AS machinetoolname,
+	m.figure AS machinetoolfigure,
+	m.categoryid AS categoryid,
+	(
+		SELECT
+			category.emulsionname
+		FROM
+			category
+		WHERE
+			(
+				category.categoryid = m.categoryid
+			)
+	) AS emulsionname,
+	m.manufacturer AS manufacturer,
+	m.position AS position,
+	m.mtinterface AS mtinterface,
+	m.mainshaftpower AS mainshaftpower,
+	m.maxspeed AS maxspeed,
+	m.mtperformance AS mtperformance,
+	m.remark AS machinetoolremark,
+	t.erpcode AS erpcode,
+	t.name AS toolholdername,
+	t.toolholdertype AS toolholdertype,
+	t.brandid AS brandid,
+	(
+		SELECT
+			brand.name
+		FROM
+			brand
+		WHERE
+			(
+				brand.brandid = t.brandid
+			)
+	) AS brandname,
+	t.turningtype AS turningtype,
+	t.portsize AS portsize,
+	t.handoftool AS handoftool,
+	t.figure AS toolholderfigure,
+	t.featurecode AS featurecode,
+	t.cseries AS cseries,
+	t.length AS length,
+	t.width AS width,
+	t.thheadangle AS thheadangle,
+	t.aname1 AS aname1,
+	t.atype1 AS atype1,
+	t.aname2 AS aname2,
+	t.atype2 AS atype2,
+	t.aname3 AS aname3,
+	t.atype3 AS atype3,
+	t.aname4 AS aname4,
+	t.atype4 AS atype4,
+	t.aname5 AS aname5,
+	t.atype5 AS atype5,
+	t.remark AS toolholderremark
+FROM
+	(
+		(
+			machinetoolholder c
+			LEFT JOIN machinetool m ON (
+				(
+					m.machinetoolid = c.machinetoolid
+				)
+			)
+		)
+		LEFT JOIN toolholder t ON (
+			(
+				t.toolholderid = c.toolholderid
+			)
+		)
+	)
+	where 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="keyword">
+				(m.name like '%$keyword$%' or t.name like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<select id="queryMachinetoolholder4Manage4PageCount" parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		FROM
+	(
+		(
+			machinetoolholder c
+			LEFT JOIN machinetool m ON (
+				(
+					m.machinetoolid = c.machinetoolid
+				)
+			)
+		)
+		LEFT JOIN toolholder t ON (
+			(
+				t.toolholderid = c.toolholderid
+			)
+		)
+	)
+	where 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="keyword">
+				(m.name like '%$keyword$%' or t.name like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	
+	<!-- 插入机床刀体关系 -->
+	<insert id="saveMachinetoolholder" parameterClass="dto">
+		INSERT INTO machinetoolholder (machinetoolid, toolholderid, remark) 
+		VALUES (#machinetoolid#, #toolholderid#, #remark#)
+	</insert>
+	
+	<!-- 更新机床刀体关系  -->
+	<update id="updateMachinetoolholder" parameterClass="map" >
+		UPDATE Machinetoolholder
+		<dynamic prepend="SET"> 
+			<isNotEmpty prepend="," property="remark">
+	         remark = #remark#
+			</isNotEmpty>							
+		</dynamic> 
+	        WHERE machinetoolid = #machinetoolid# and toolholderid = #toolholderid#   
+	</update>
+	
+	<!-- 删除机床刀体关系  -->
+	<delete id="deleteMachinetoolholder" parameterClass="map" >
+		DELETE FROM Machinetoolholder
+		      WHERE machinetoolid = #machinetoolid# and toolholderid = #toolholderid#
+	</delete>
+	
+	<!-- 查询机床 -->
+	<select id="queryMachinetool4Machinetoolholder" parameterClass="map" resultClass="dto">
+        SELECT machinetoolid as value, mtmodel as text
+        FROM machinetool
+	</select>
+    
+	<!-- 查询刀体 -->
+	<select id="queryToolholder4Machinetoolholder" parameterClass="map" resultClass="dto">
+        SELECT toolholderid as value, toolholdertype as text
+        FROM toolholder
+	</select>
+	
+	<!-- 查询数量 -->
+	<select id="queryMachinetoolholderNumber" parameterClass="map"
+		resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		FROM
+		Machinetoolholder WHERE machinetoolid = #machinetoolid# and toolholderid = #toolholderid#
+	</select>
+	
+</sqlMap>

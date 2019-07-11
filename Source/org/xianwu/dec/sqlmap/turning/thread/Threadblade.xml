@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 刀片 -->
+<sqlMap namespace="Threadblade">
+	<typeAlias alias="dto" type="org.xianwu.core.metatype.impl.BaseDto" />
+
+	<!-- 查询刀片 -->
+	<select id="queryThreadblade4Manage" parameterClass="map" resultClass="dto">
+		 SELECT a.threadbladeid, a.sapcode, a.name, a.bladetype, a.figure,
+		a.figure2, a.threadtype, a.bladematerialid, ( SELECT name FROM
+		threadbladematerial WHERE bladematerialid = a.bladematerialid ) AS
+		bladematerialname, a.brandid, ( SELECT name FROM brand WHERE brandid =
+		a.brandid ) AS bladebrandname, a.pitch, a.threadstandard, a.blademold,
+		a.bladesize, a.thickness, a.threadhand, a.description, a.featurecode,
+		a.apmax, a.fnmax, a.remark FROM threadblade AS a WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="threadbladeid">
+				a.threadbladeid = #threadbladeid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="sapcode">
+				a.sapcode = #sapcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+				a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladetype">
+				a.bladetype = #bladetype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure">
+				a.figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure2">
+				a.figure2 = #figure2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="threadtype">
+				a.threadtype = #threadtype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladematerialid">
+				a.bladematerialid = #bladematerialid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandid">
+				a.brandid = #brandid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="pitch">
+				a.pitch = #pitch#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="threadstandard">
+				a.threadstandard = #threadstandard#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="blademold">
+				a.blademold = #blademold#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladesize">
+				a.bladesize = #bladesize#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="thickness">
+				a.thickness = #thickness#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="threadhand">
+				a.threadhand = #threadhand#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="description">
+				a.description = #description#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode = #featurecode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="apmax">
+				a.apmax = #apmax#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="fnmax">
+				a.fnmax = #fnmax#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+				a.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="keyword">
+				(a.bladetype like '%$keyword$%' or
+				a.description like '%$keyword$%' or a.remark like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+		order by a.threadbladeid
+	</select>
+
+	<select id="queryThreadblade4Manage4PageCount" parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		FROM threadblade a WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="threadbladeid">
+				a.threadbladeid = #threadbladeid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="sapcode">
+				a.sapcode = #sapcode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="name">
+				a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladetype">
+				a.bladetype = #bladetype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure">
+				a.figure = #figure#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="figure2">
+				a.figure2 = #figure2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="threadtype">
+				a.threadtype = #threadtype#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladematerialid">
+				a.bladematerialid = #bladematerialid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandid">
+				a.brandid = #brandid#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="pitch">
+				a.pitch = #pitch#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="threadstandard">
+				a.threadstandard = #threadstandard#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="blademold">
+				a.blademold = #blademold#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="bladesize">
+				a.bladesize = #bladesize#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="thickness">
+				a.thickness = #thickness#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="threadhand">
+				a.threadhand = #threadhand#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="description">
+				a.description = #description#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="featurecode">
+				a.featurecode = #featurecode#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="apmax">
+				a.apmax = #apmax#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="fnmax">
+				a.fnmax = #fnmax#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark">
+				a.remark = #remark#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="keyword">
+				(a.bladetype like '%$keyword$%' or
+				a.description like '%$keyword$%' or a.remark like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<!-- 插入刀片 -->
+	<insert id="saveThreadblade" parameterClass="dto">
+		INSERT INTO threadblade (threadbladeid, sapcode, name, bladetype, figure, figure2, threadtype, bladematerialid, brandid, pitch, 
+		threadstandard, blademold, bladesize, thickness, threadhand, description, featurecode, apmax, fnmax, remark)
+		VALUES (#threadbladeid#, #sapcode#, #name#, #bladetype#, #figure#, #figure2#, #threadtype#, #bladematerialid#, #brandid#, #pitch#, #threadstandard#,
+		#blademold#, #bladesize#, #thickness#, #threadhand#, #description#, #featurecode#, #apmax#, #fnmax#, #remark#)
+	</insert>
+
+	<!-- 更新刀片  -->
+	<update id="updateThreadblade" parameterClass="map" >
+		UPDATE threadblade set
+
+
+				threadbladeid = #threadbladeid#,
+
+
+				sapcode = #sapcode#,
+
+
+				name = #name#,
+
+
+				bladetype = #bladetype#,
+
+
+
+
+				threadtype = #threadtype#,
+
+
+				bladematerialid = #bladematerialid#,
+
+
+				brandid = #brandid#,
+
+
+				pitch= #pitch#,
+
+
+				threadstandard = #threadstandard#,
+
+
+				blademold = #blademold#,
+
+
+				bladesize = #bladesize#,
+
+
+				thickness = #thickness#,
+
+
+				threadhand = #threadhand#,
+
+
+				description = #description#,
+
+
+				featurecode = #featurecode#,
+
+
+				apmax = #apmax#,
+
+
+				fnmax = #fnmax#,
+
+
+				remark = #remark#
+	<dynamic>
+<isNotEmpty prepend=","   property="figure">
+	figure = #figure#
+</isNotEmpty>
+<isNotEmpty prepend=","  property="figure2">
+	figure2 = #figure2#
+</isNotEmpty>
+	</dynamic>
+
+	        WHERE threadbladeid = #threadbladeid#
+	</update>
+
+	<!-- 删除刀片  -->
+	<delete id="deleteThreadblade" parameterClass="map" >
+		DELETE FROM threadblade
+		      WHERE threadbladeid = #threadbladeid#
+	</delete>
+
+	<!-- 更新刀片  -->
+	<update id="updateThreadbladetoolholder4Threadblade" parameterClass="map" >
+		update threadbladetoolholder set threadbladeid = null where threadbladeid = #threadbladeid#
+	</update>
+
+	<!-- 查询刀片材质  -->
+	<select id="queryThreadbladematerial4Threadblade" parameterClass="map" resultClass="dto">
+		 SELECT bladematerialid as value, name as text
+		 FROM threadbladematerial
+	</select>
+
+	<!-- 查询刀片品牌  -->
+	<select id="queryBrand4Threadblade" parameterClass="map" resultClass="dto">
+		 SELECT brandid as value, name as text
+		 FROM brand
+	</select>
+
+	<!-- 根据刀片型号和刀片品牌判定是否存在刀片  -->
+	<select id="checkBladetypeAndBladebrand4Threadblade" parameterClass="map" resultClass="dto">
+		 SELECT count(threadbladeid) as count
+		 FROM threadblade where bladetype = #bladetype# and brandid = #brandid#
+	</select>
+
+	<!-- 根据ID查询图片位置  -->
+	<select id="queryFigure4Delete4Threadblade" parameterClass="map" resultClass="dto">
+		 SELECT figure, figure2
+		 FROM threadblade where threadbladeid = #threadbladeid#
+	</select>
+</sqlMap>

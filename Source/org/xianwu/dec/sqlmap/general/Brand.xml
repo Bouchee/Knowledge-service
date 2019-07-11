@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<!-- 品牌编号 -->
+<sqlMap namespace="Brand">
+	<typeAlias alias="dto" type="org.xianwu.core.metatype.impl.BaseDto"/>
+
+	<!-- 查询品牌编号 -->
+	<select id="queryBrand4Manage" parameterClass="map" resultClass="dto">
+		 SELECT brandid, name, alias, nation, office, address, telephone,
+		 mailaddress, brandfeature, remark1, remark2
+		 FROM brand a WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="name">
+									a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="alias">
+									a.alias = #alias#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="nation">
+									a.nation = #nation#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="office">
+									a.office = #office#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="address">
+									a.address = #address#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="telephone">
+									a.telephone = #telephone#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="mailaddress">
+									a.mailaddress = #mailaddress#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandfeature">
+									a.brandfeature = #brandfeature#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark1">
+									a.remark1 = #remark1#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark2">
+									a.remark2 = #remark2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="keyword">
+				(a.name like '%$keyword$%' or a.address like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<select id="queryBrand4Manage4PageCount" parameterClass="map" resultClass="java.lang.Integer">
+		SELECT count(1) as count
+		FROM brand a WHERE 1 = 1
+		<dynamic>
+			<isNotEmpty prepend="AND" property="name">
+									a.name = #name#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="alias">
+									a.alias = #alias#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="nation">
+									a.nation = #nation#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="office">
+									a.office = #office#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="address">
+									a.address = #address#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="telephone">
+									a.telephone = #telephone#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="mailaddress">
+									a.mailaddress = #mailaddress#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="brandfeature">
+									a.brandfeature = #brandfeature#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark1">
+									a.remark1 = #remark1#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="remark2">
+									a.remark2 = #remark2#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="keyword">
+				(a.name like '%$keyword$%' or a.address like '%$keyword$%')
+			</isNotEmpty>
+		</dynamic>
+	</select>
+
+	<!-- 插入品牌编号 -->
+	<insert id="saveBrand" parameterClass="dto">
+		INSERT INTO brand (brandid, name, alias, nation, office, address, telephone,
+		 mailaddress, brandfeature, remark1, remark2)
+		VALUES (#brandid#, #name#, #alias#, #nation#, #office#, #address#, #telephone#,
+		#mailaddress#, #brandfeature#, #remark1#, #remark2#)
+	</insert>
+
+	<!-- 更新品牌编号  -->
+	<update id="updateBrand" parameterClass="map" >
+		UPDATE Brand set
+
+
+									name = #name#,
+
+
+									alias = #alias#,
+
+
+									nation = #nation#,
+
+
+									office = #office#,
+
+
+									address = #address#,
+
+
+									telephone = #telephone#,
+
+
+									mailaddress = #mailaddress#,
+
+
+									brandfeature = #brandfeature#,
+
+
+									remark1 = #remark1#,
+
+
+									remark2 = #remark2#
+
+
+	        WHERE brandid = #brandid#
+	</update>
+
+	<!-- 删除品牌编号  -->
+	<delete id="deleteBrand" parameterClass="map" >
+		DELETE FROM Brand
+		      WHERE brandid = #brandid#
+	</delete>
+
+	<!-- 删除品牌编号  -->
+	<delete id="deleteWorkpieceblade4Bladematerial4Brand" parameterClass="map" >
+		DELETE FROM Workpieceblade
+		      WHERE bladematerialid in (select bladematerialid from bladematerial where brandid = #brandid#)
+	</delete>
+
+	<!-- 删除品牌编号  -->
+	<delete id="deleteCtparameter4Bladematerial4Brand" parameterClass="map" >
+		DELETE FROM Ctparameter
+		      WHERE bladematerialid in (select bladematerialid from bladematerial where brandid = #brandid#)
+	</delete>
+
+	<!-- 删除品牌编号  -->
+	<delete id="deleteBladetoolholder4Blade4Bladematerial4Brand" parameterClass="map" >
+		DELETE FROM Bladetoolholder
+		      WHERE bladeid in (select bladeid from blade where bladematerialid in
+			  (select bladematerialid from bladematerial where brandid = #brandid#))
+	</delete>
+
+	<!-- 删除品牌编号  -->
+	<delete id="deleteBladematerial4Brand" parameterClass="map" >
+		DELETE FROM Bladematerial
+		      WHERE brandid = #brandid#
+	</delete>
+
+	<!-- 删除品牌编号  -->
+	<delete id="deleteBladetoolholder4Blade4Brand" parameterClass="map" >
+		DELETE FROM Bladetoolholder
+		      WHERE bladeid in (select bladeid from blade where brandid = #brandid#)
+	</delete>
+
+	<!-- 删除品牌编号  -->
+	<delete id="deleteBlade4Brand" parameterClass="map" >
+		DELETE FROM Blade
+		      WHERE brandid = #brandid#
+	</delete>
+
+	<!-- 更新刀片品牌编号  -->
+	<update id="updateBlade4Brand" parameterClass="map" >
+		update blade set brandid = null where brandid = #brandid#
+	</update>
+	
+	<!-- 更新槽形品牌编号  -->
+	<update id="updateGroove4Brand" parameterClass="map" >
+		update groove set brandid = null where brandid = #brandid#
+	</update>
+	
+	<!-- 更新刀体品牌编号  -->
+	<update id="updateToolholder4Brand" parameterClass="map" >
+		update toolholder set brandid = null where brandid = #brandid#
+	</update>
+	
+	<!-- 更新刀片材质品牌编号  -->
+	<update id="updateBladematerial4Brand" parameterClass="map" >
+		update bladematerial set brandid = null where brandid = #brandid#
+	</update>
+	
+	<!-- 删除品牌编号  -->
+	<delete id="deleteBladetoolholder4Blade4Groove4Brand" parameterClass="map" >
+		DELETE FROM Bladetoolholder
+		      WHERE bladeid in (select bladeid from blade where grooveid in
+			  (select grooveid from groove where brandid = #brandid#))
+	</delete>
+
+	<!-- 删除品牌编号  -->
+	<delete id="deleteGroove4Brand" parameterClass="map" >
+		DELETE FROM Groove
+		      WHERE brandid = #brandid#
+	</delete>
+
+	<!-- 删除品牌编号  -->
+	<delete id="deleteBladetoolholder4Toolholder4Brand" parameterClass="map" >
+		DELETE FROM bladetoolholder
+		      WHERE toolholderid in (select toolholderid from toolholder where brandid = #brandid#)
+	</delete>
+
+	<!-- 删除品牌编号  -->
+	<delete id="deleteMachinetoolholder4Toolholder4Brand" parameterClass="map" >
+		DELETE FROM machinetoolholder
+		      WHERE toolholderid in (select toolholderid from toolholder where brandid = #brandid#)
+	</delete>
+
+	<!-- 删除品牌编号  -->
+	<delete id="deleteToolholder4Brand" parameterClass="map" >
+		DELETE FROM Toolholder
+		      WHERE brandid = #brandid#
+	</delete>
+</sqlMap>
