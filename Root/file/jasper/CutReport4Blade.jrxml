@@ -1,0 +1,712 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2015-12-21T10:16:22 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="aaa" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2c5ff664-ff8b-4812-a143-cd2bebbe3c3a">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="accuracyid" class="java.lang.String"/>
+	<parameter name="shape" class="java.lang.String"/>
+	<parameter name="reliefangle" class="java.lang.String"/>
+	<parameter name="celength" class="java.lang.String"/>
+	<parameter name="noseradius" class="java.lang.String"/>
+	<parameter name="name" class="java.lang.String"/>
+	<parameter name="sapcode" class="java.lang.String"/>
+	<parameter name="shujuyuan1" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="shujuyuanlujing1" class="java.lang.String"/>
+	<parameter name="shujuyuan2" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="shujuyuanlujing2" class="java.lang.String"/>
+	<parameter name="shujuyuan3" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
+	<parameter name="shujuyuanlujing3" class="java.lang.String"/>
+	<parameter name="heattreat" class="java.lang.String"/>
+	<parameter name="turningtype" class="java.lang.String"/>
+	<parameter name="thheadangle" class="java.lang.String"/>
+	<parameter name="handoftool" class="java.lang.String"/>
+	<parameter name="portsize" class="java.lang.String"/>
+	<parameter name="cseries" class="java.lang.String"/>
+	<parameter name="workpieceisotype" class="java.lang.String"/>
+	<parameter name="threaddirection" class="java.lang.String"/>
+	<parameter name="threadtype" class="java.lang.String"/>
+	<parameter name="threadstandard" class="java.lang.String"/>
+	<parameter name="pitch" class="java.lang.String"/>
+	<parameter name="bladesize" class="java.lang.String"/>
+	<parameter name="apmax" class="java.lang.String"/>
+	<parameter name="fnmax" class="java.lang.String"/>
+	<parameter name="diameter" class="java.lang.String"/>
+	<parameter name="bladewidth" class="java.lang.String"/>
+	<parameter name="cuttingradius" class="java.lang.String"/>
+	<parameter name="cuttinghand" class="java.lang.String"/>
+	<parameter name="cuttingedge" class="java.lang.String"/>
+	<parameter name="cuttingdepth" class="java.lang.String"/>
+	<parameter name="cutdiameter" class="java.lang.String"/>
+	<parameter name="diametermax" class="java.lang.String"/>
+	<parameter name="Parameter1" class="java.lang.String"/>
+	<parameter name="name、" class="java.lang.String"/>
+	<parameter name="nominaldiameter" class="java.lang.String"/>
+	<parameter name="mainangle" class="java.lang.String"/>
+	<parameter name="interferencedepth" class="java.lang.String"/>
+	<parameter name="sapcodeoftoolholder" class="java.lang.String"/>
+	<parameter name="coolingtype" class="java.lang.String"/>
+	<parameter name="interferencedepth_or_aemax" class="java.lang.String"/>
+	<parameter name="interferencedepth_or_interferencedepth" class="java.lang.String"/>
+	<parameter name="cutedge_or_apmax" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="sapcode" class="java.lang.String"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="bladetype" class="java.lang.String"/>
+	<field name="turningtype" class="java.lang.String"/>
+	<field name="bladematerialname" class="java.lang.String"/>
+	<field name="groovename" class="java.lang.String"/>
+	<field name="bladebrandname" class="java.lang.String"/>
+	<field name="reliefangle" class="java.lang.String"/>
+	<field name="shape" class="java.lang.String"/>
+	<field name="celength" class="java.lang.String"/>
+	<field name="noseradius" class="java.lang.String"/>
+	<field name="thickness" class="java.lang.String"/>
+	<field name="featurecode" class="java.lang.String"/>
+	<field name="toolholdertype" class="java.lang.String"/>
+	<field name="portsize" class="java.lang.String"/>
+	<field name="thheadangle" class="java.lang.String"/>
+	<field name="handoftool" class="java.lang.String"/>
+	<field name="toolholderbrandname" class="java.lang.String"/>
+	<field name="cseries" class="java.lang.String"/>
+	<field name="length" class="java.lang.String"/>
+	<field name="width" class="java.lang.String"/>
+	<field name="bore" class="java.lang.String"/>
+	<field name="threadtype" class="java.lang.String"/>
+	<field name="brandname" class="java.lang.String"/>
+	<field name="pitch" class="java.lang.String"/>
+	<field name="threadstandard" class="java.lang.String"/>
+	<field name="blademold" class="java.lang.String"/>
+	<field name="bladesize" class="java.lang.String"/>
+	<field name="threadhand" class="java.lang.String"/>
+	<field name="apmax" class="java.lang.String"/>
+	<field name="fnmax" class="java.lang.String"/>
+	<field name="diameter" class="java.lang.String"/>
+	<field name="cutbladematerialname" class="java.lang.String"/>
+	<field name="cutbladebrandname" class="java.lang.String"/>
+	<field name="cuttinghand" class="java.lang.String"/>
+	<field name="cuttingedge" class="java.lang.String"/>
+	<field name="bladewidth" class="java.lang.String"/>
+	<field name="mainangle" class="java.lang.String"/>
+	<field name="cuttingdepth" class="java.lang.String"/>
+	<field name="sidereliefangle" class="java.lang.String"/>
+	<field name="cuttingradius" class="java.lang.String"/>
+	<field name="description" class="java.lang.String"/>
+	<field name="priority" class="java.lang.String"/>
+	<field name="cutgroovename" class="java.lang.String"/>
+	<field name="handletype" class="java.lang.String"/>
+	<field name="cuttoolholderbrandname" class="java.lang.String"/>
+	<field name="cutwidthmin" class="java.lang.String"/>
+	<field name="diametermax" class="java.lang.String"/>
+	<field name="cutdiametermax" class="java.lang.String"/>
+	<field name="cutdiametermin" class="java.lang.String"/>
+	<field name="cuttype" class="java.lang.String"/>
+	<field name="nominaldiameter" class="java.lang.String"/>
+	<field name="brandid" class="java.lang.String"/>
+	<field name="effectivetoothnumber" class="java.lang.String"/>
+	<field name="interferencedepth" class="java.lang.String"/>
+	<field name="aemax" class="java.lang.String"/>
+	<field name="toolweight" class="java.lang.String"/>
+	<field name="sapcodeoftoolholder" class="java.lang.String"/>
+	<field name="wiperlength" class="java.lang.String"/>
+	<field name="thichness" class="java.lang.String"/>
+	<field name="grooveid" class="java.lang.String"/>
+	<field name="turningtime" class="java.lang.String"/>
+	<field name="remark" class="java.lang.String"/>
+	<field name="coneangle" class="java.lang.String"/>
+	<field name="helicalangle" class="java.lang.String"/>
+	<field name="teethnumber" class="java.lang.String"/>
+	<field name="mimmaterialname" class="java.lang.String"/>
+	<field name="characteristic" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+		</band>
+	</background>
+	<title>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="228" y="0" width="266" height="40" uuid="bd827022-f02e-4889-9168-e08f78d9f68b"/>
+				<textElement>
+					<font fontName="宋体" size="26" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[数据库刀具参数表]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="641" splitType="Stretch">
+			<staticText>
+				<reportElement x="380" y="45" width="70" height="17" uuid="aeff891d-5249-4002-9cee-aacafe1280b9">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[切削刃数目：]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="220" y="112" width="163" height="168" uuid="ee11f14d-4daa-4fdf-8a9d-c28270d43c61">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<dataSourceExpression><![CDATA[$P{shujuyuan1}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{shujuyuanlujing1}+"CutReport4Bladectp.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="220" y="28" width="54" height="17" uuid="f9462dca-c0c1-4de9-a575-de67c640e4d2">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[车削类型：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="213" width="100" height="17" uuid="d0b8f6b8-02b7-4f3a-9891-648440511bc5">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cuttinghand}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="10" y="27" width="550" height="1" uuid="b69cb74c-ecec-425a-a1ed-d65859dabaef">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="220" y="45" width="70" height="17" uuid="67d3b3f1-23a6-43e1-b942-a859dd3f9168">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[刀片左右手：]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="220" y="280" width="331" height="67" uuid="6d2b6348-7e25-4197-8cfc-a757da3da3f4">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<dataSourceExpression><![CDATA[$P{shujuyuan2}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{shujuyuanlujing2}+"ccc.jasper"]]></subreportExpression>
+			</subreport>
+			<textField>
+				<reportElement x="64" y="281" width="100" height="17" uuid="3ead5d02-8a4e-48c0-b24b-681785a34ec1">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{reliefangle}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="230" width="70" height="17" uuid="05ceb8fc-781c-4b07-8cd0-53bf44b00f23">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[切削刃数目：]]></text>
+			</staticText>
+			<line>
+				<reportElement x="10" y="10" width="550" height="1" uuid="69604f67-5830-4c2a-85ec-3e44f0c14d38">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="3.0"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="10" y="28" width="54" height="17" uuid="1e9e2bed-2c74-4ae5-8127-198db57363ac">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[工件材料：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="281" width="54" height="17" uuid="d3ce56ed-8e9f-476d-ae4a-6c5d144aad29">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[刀片后角：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="64" y="247" width="100" height="17" uuid="9cc83bb2-55bb-403b-bc55-de7c8d78920a">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{bladewidth}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="220" y="280" width="330" height="1" uuid="c03406a5-7716-45d8-9095-5cad792e84b2">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="10" y="382" width="70" height="17" uuid="a557d9d0-aad2-46b9-99c6-fb3141c4079a">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[刀片优先级：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="298" width="70" height="17" uuid="b18c6d37-3520-4eda-be1e-eac57a9e69f8">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[刀片侧后角：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="64" y="179" width="100" height="17" uuid="dd0ae0f6-3787-423c-82f3-37c716a8ab2f">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{cutbladematerialname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="331" width="54" height="17" uuid="6b0d5811-e1d8-4500-8aad-232aa814b26b">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[圆角半径：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="450" y="45" width="100" height="17" uuid="f6e35bac-48b6-40f2-bbaf-bc845e15c3eb">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{cuttingedge}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="219" y="249" width="1" height="99" uuid="3aa4c1ee-86ed-49e4-a69d-b264f61d4104">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="10" y="162" width="54" height="17" uuid="2818af21-8ec3-4814-ac65-0c7b3d430edb">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[车削类型：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="128" width="54" height="17" uuid="1dc60816-9852-4cad-847c-d0df1b032ee9">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[SAP编码：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="290" y="45" width="90" height="17" uuid="338751c1-cd1d-4ee7-87fa-ba15478bf6cf">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{cuttinghand}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="64" y="145" width="100" height="17" uuid="7c4eb6cc-9419-4215-8a5f-d1078b95ed25">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{bladetype}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="10" y="111" width="550" height="1" uuid="e3b12163-232e-4b72-9a74-fdffef837659">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="274" y="28" width="100" height="17" uuid="e5ed88c6-8979-411f-ad56-f8a8f2727eb8">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{turningtype}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="64" y="400" width="100" height="17" uuid="597b5a9a-76f5-4097-abb0-af2f64f912e0">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{cutgroovename}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="10" y="94" width="550" height="1" uuid="5721676e-2ecb-4ec3-b4ce-c1e0318d1d46">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="3.0"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="10" y="315" width="80" height="17" uuid="02576181-f3c5-43a1-94f2-425e5d6e1459">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[最大切槽深度：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="230" width="100" height="17" uuid="e0e0bd38-1cc2-4c3b-8722-19a16fda28ef">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{cuttingedge}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="179" width="54" height="17" uuid="5401f6e0-cfcd-4884-be19-b48e4052ccc1">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[刀片材质：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="94" width="54" height="17" uuid="237bb7ff-9133-4acb-8503-49b166596320">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[刀片详情]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="64" y="331" width="100" height="17" uuid="c91fe852-eb89-46e1-ac08-70949f62e137">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{cuttingradius}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="196" width="54" height="17" uuid="bfb6b48e-28ec-4cb0-bbd3-26c67026df50">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[刀片品牌：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="247" width="54" height="17" uuid="d1aff134-99de-4a32-88da-615e1e7de554">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[刀片宽度：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="213" width="70" height="17" uuid="de351392-2059-41aa-99aa-8c946feda262">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[刀片左右手：]]></text>
+			</staticText>
+			<line>
+				<reportElement x="219" y="112" width="1" height="136" uuid="5762d89c-ecd8-46d4-8012-8be0069a3e8b">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0"/>
+				</graphicElement>
+			</line>
+			<image>
+				<reportElement x="384" y="128" width="167" height="136" uuid="46e67e02-d3a8-4246-9ffd-3efd484a79e4">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<imageExpression><![CDATA[$P{shujuyuanlujing3}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="10" y="145" width="54" height="17" uuid="29eb0094-d20b-466f-87f4-d32b2a911420">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[刀片型号：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="64" y="196" width="100" height="17" uuid="33500f10-04db-49f6-a5f6-9c2730bb7ede">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cutbladebrandname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="45" width="80" height="17" uuid="db4e3942-905f-42bf-94af-517f3157408b">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[刀尖圆弧半径：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="400" width="54" height="17" uuid="65847c20-6ae9-4aa6-b61b-500175419ab3">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[槽型：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="111" width="54" height="17" uuid="4f28f5ab-386f-441e-b927-42255127ddb1">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[刀片名称：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="365" width="100" height="17" uuid="d2bbd2ab-4408-46ab-8794-90a8ddc20acc">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{featurecode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="64" y="162" width="100" height="17" uuid="4068a22a-33dc-49da-9162-3620f4244f29">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{turningtype}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="383" y="112" width="1" height="168" uuid="9165ea55-6954-4ef8-ba9d-56ec3b8a9ccd">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="434" y="28" width="100" height="17" uuid="6f07756d-1844-4c99-b4ae-e5d871a303d8">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{bladewidth}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="315" width="100" height="17" uuid="7bb59c0e-963c-4bc7-965d-3c7a2292ca8d">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{cuttingdepth}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="64" y="28" width="100" height="17" uuid="4940ec3f-bffa-4a60-8308-1fd0f320fab6">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{workpieceisotype}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="64" y="264" width="100" height="17" uuid="0f99ea2d-0f8c-4e34-afa1-d7c292e3cfb7">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{mainangle}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="264" width="54" height="17" uuid="89f2caa5-2006-4616-9bee-10d66f83acd9">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[主偏角：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="348" width="54" height="17" uuid="3c7435e8-df5c-4397-915c-95ddb07e3051">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[特征描述：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="90" y="45" width="100" height="17" uuid="70a29872-8c71-447b-ade8-08199b4af40b">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$P{cuttingradius}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="380" y="28" width="54" height="17" uuid="07a17534-81ff-434e-b0b7-9e450fefbda0">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[切槽宽度：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="298" width="100" height="17" uuid="c4150a52-a6f0-4e91-91f5-fad84e432626">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{sidereliefangle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="64" y="348" width="100" height="17" uuid="3e66ff3e-9117-449c-8eba-bd7dd1307515">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="11" width="54" height="17" uuid="c3f61164-fb4f-4523-b79e-aabb55343727">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[查询条件]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="64" y="111" width="100" height="17" uuid="223dcf3a-e8fa-46dd-8b0a-7e8d3fbf2f4b">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="219" y="340" width="1" height="90" uuid="a7c58323-b3d6-4115-a05a-3d8bd9e47c78">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="10" y="430" width="550" height="1" uuid="77448aec-e837-4702-be6d-ca2a50b85425">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="3.0"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="64" y="128" width="100" height="17" uuid="011cb0c8-f6cd-4a6d-a9b5-048b2cf3052b">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{sapcode}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="365" width="70" height="17" uuid="df82e068-1537-466d-abea-d4426b0c463c">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[刀片特征码：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="382" width="100" height="17" uuid="ada3d128-8098-494a-ac6f-17c9bd5aa150">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{priority}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="220" y="298" width="330" height="1" uuid="5f75fb36-19e7-4a62-975e-eef3ca1ceba2">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="1.0"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

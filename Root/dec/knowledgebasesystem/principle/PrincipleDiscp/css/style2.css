@@ -1,0 +1,163 @@
+
+
+
+div, h1, h2, h3, h4, p, form, label, input, textarea, img, span{
+    margin:0; padding:0;
+}
+
+h2{
+ display:block;
+ width:515px;
+ height:26px;
+ border-bottom:#E7E7E7 solid 2px;
+ font-size:24px;
+ line-height:26px;
+ font-weight:bold;
+ color:#000;
+ background-color:inherit;
+ margin:0 0 17px 0;
+}
+
+ul{
+    margin:0; 
+    padding:0;
+    list-style-type:none;
+    font-size:0;
+    line-height:0;
+}
+.spacer{
+    clear:both; 
+    font-size:0; 
+    line-height:0;
+}
+
+/*html----------------------*/
+html{
+  text-align: center;
+}
+
+/*body----------------------*/
+body{
+  width:880px;
+  margin:0 auto;
+  text-align: left;
+  position: relative;
+  font-family:Arial, Helvetica, sans-serif; 
+  padding:0;
+}
+
+/*container----------------------*/
+#container{
+  position: relative;
+  width:100%;
+}
+
+/*branding----------------------*/
+#branding{
+  position: relative;
+  width:100%;
+  background-color:#FFFFFF;
+}
+
+#branding p{
+  font-weight:bold;
+  color:#fff;
+  background-color:#333;
+  padding:2px;
+  text-align:right;
+}
+
+#pagename{
+background-color:#009999;
+
+}
+
+#pagename h1{
+text-align:left;
+color:#fff;
+padding:5px;
+}
+
+
+/*content----------------------*/
+#content{
+  position: relative;
+  width:100%;
+}
+
+/*main_con----------------------*/
+#main_con{
+  position: absolute;
+  left:0;
+  width:65%;
+  padding: 1em 0;
+}
+
+/*sup_con----------------------*/
+#sup_con{
+  position: absolute;
+  left:65%;
+  width:35%;
+  padding: 1em 0;
+  
+}
+
+#data{
+  padding: .5em 0;
+  margin: 2em .5em;
+}
+
+
+#data table.datatable {
+    width: 100%;
+    border-collapse: collapse;
+    border-bottom: 1px solid #fff;
+    padding: 0;
+    border: 0;
+}
+
+table.datatable th.datatable_header {
+    color: #fff;
+    background-color: #052d92;
+    padding: 5px;
+    border: #fff 1px solid;
+    text-align: left;
+}
+
+table.datatable td {
+    padding: 5px;
+    border-style: solid;
+    border-width: 1px 1px 0 1px;
+    border-color: #ccc #fff #ccc #fff;
+}
+
+table.datatable tr.odd_row {
+    background-color: #e4f2fb;
+}
+
+table.datatable tr.even_row {
+    background-color: #f8f8f8;
+}
+
+/*site_info----------------------*/
+#site_info{
+position:relative;}
+
+#site_info p{
+text-align:center;
+background-color:#333;
+color:#fff;
+font-weight:bold;
+padding:2px;
+}
+
+
+
+
+
+
+
+
+
+
+

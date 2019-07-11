@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="/dec/dec/knowledgebasesystem/css/style.css"/>
+<title>智能制造</title>
+
+<style type="text/css">
+#page{
+	width:100%;
+	background-color: #EEEEEF;	/* 页面背景色 */
+	 }
+.classpage
+{
+	width:778px;
+    margin:0 auto;
+    padding-top: 10px;
+	padding-left: 8px;
+	padding-right: 5px;
+	font-size: 18px;
+	line-height:20px; 
+	background-color: #F5F5F5;
+}	 
+body,td,th {
+	font-size: 18px;
+	font-family: "华文仿宋"
+}	 
+h3 {
+	font-size: 18px;
+	line-height:50px; 
+	font-weight: bold;
+	letter-spacing: 0px;
+	text-align: left;
+	font-family: "宋体";
+}
+.textp {
+	font-size: 18px;
+	line-height: 20px;
+	letter-spacing: 0.5px;
+	text-align: left;
+	text-indent: 2em;
+	padding: 10px 0; 
+}
+img {
+    border:1px solid #999999;	/* 图片边框 */
+}
+
+.headlist {
+	font-size: 18px;
+	line-height: 40px;
+	font-weight: bold;
+	list-style-type: disc;
+}
+.biaohao {
+	font-size: 18px;
+	font-weight: bold;
+	line-height: 40px;
+}
+
+
+#box1 {
+	width:460px;
+    height:3000px;
+    border:solid 4px blue;
+    float:right;
+    margin:5px;
+}
+.English {
+	font-family: "Times New Roman", Times, serif;
+	font-size: 18px;
+}
+	
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+<div id="page">
+<div class="classpage">
+<h3>智能制造系统运作过程</h3>
+<p class="textp">
+1、任一网络用户都可以通过访问该系统的主页获得该系统的相关信息，还可通过填写和提交系统主页所提供的用户定单登记表来向该系统发出定单；
+</p>
+<p class="textp">
+2、如果接到并接受网络用户的定单，Agent就将其存入全局数据库，任务规划结点可以从中取出该定单，进行任务规划，将该任务分解成若干子任务，将这些任务分配给系统上获得权限的结点；
+</p>
+<p class="textp">
+3、产品设计子任务被分配给设计结点，该结点通过良好的人机交互完成产品设计子任务，生成相应的CAD/CAPP数据和文档以及数控代码，并将这些数据和文档存入全局数据库，最后向任务规划结点提交该子任务；
+</p>
+<p class="textp">
+4、加工子任务被分配给生产者；一旦该子任务被生产者结点接受，机床Agent将被允许从全局数据库读取必要的数据，并将这些数据传给加工中心，加工中心则根据这些数据和命令完成加工子任务，并将运行状态信息送给机床Agent，机床Agent向任务规划结点返回结果，提交该子任务；
+</p>
+<p class="textp">
+5、在系统的整个运行期间，系统Agent都对系统中的各个结点间的交互活动进行记录，如消息的收发，对全局数据库进行数据的读写，查询各结点的名字、类型、地址、能力及任务完成情况等。
+</p>
+<p class="textp">
+6、网络客户可以了解定单执行的结果。
+</p>
+
+
+
+
+<p>&nbsp; </p>
+</br>
+</div>
+</div>
+
+</body>
+</html>

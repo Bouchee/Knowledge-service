@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>4.3.4仿形铣削</title>
+<link href="/dec/dec/knowledgebasesystem/知识库/铣削/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div id="page">
+<div class="classpage">
+<h2>仿形铣削</h2>
+
+<p>仿形铣是指利用仿形铣削刀具进行二维和三维曲面的多轴铣削，与普通铣削刀具相比，仿形铣削刀具多采用圆弧刃，典型的包括了球头铣刀、安装圆刀片的套式铣刀和带有较大刀尖圆弧的立铣刀具。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3>仿形铣削刀具的选用：</h3>
+<p>仿形铣削一般分为三种工序，即粗加工、半精加工和精加工，由于工序内容的不同，在刀具的选择上也有较大的区别。</p>
+<table width="700" border="1" align="center" cellpadding="0" cellspacing="0" class="tables">
+  <tr class="center">
+    <td>刀具类型</td>
+    <td>应用</td>
+  </tr>
+  <tr>
+    <td width="280"><div class="center">&nbsp;圆角片铣刀&nbsp;<img src="/dec/dec/knowledgebasesystem/img/铣削典型铣削刀具35.png" width="260" height="171"/></div></td>
+    <td><p>具有较高的加工稳定性。</p><p>推荐用于仿形粗加工，可以用于精加工。</p><p>具有较高的加工效率。</p><p>刀片可实现多次转位，具有较好的经济性。</p></td>
+  </tr>
+  <tr>
+    <td><div class="center">&nbsp;可转位球头铣刀&nbsp;<img src="/dec/dec/knowledgebasesystem/img/铣削典型铣削刀具36.png" width="260" height="171"/></div></td>
+    <td><p>刀具可达性较好。</p><p>推荐用于半精加工，可以用于粗加工和精加工。</p><p>相对于整体式刀具具有较好的经济性。</p></td>
+  </tr>
+  <tr>
+    <td><div class="center">&nbsp;机夹式铣刀&nbsp;<img src="/dec/dec/knowledgebasesystem/img/铣削典型铣削刀具37.png" width="260" height="171"/></div></td>
+    <td><p>用于仿形精铣加工。</p><p>可采用高速切削加工。</p><p>每个刀片仅有1个切削刃口。</p></td>
+  </tr>
+  <tr>
+    <td><div class="center">&nbsp;可换头铣刀&nbsp;<img src="/dec/dec/knowledgebasesystem/img/铣削典型铣削刀具38.png" width="260" height="171"/></div></td>
+    <td><p>铣削刀头与刀柄可实现互换，进行多种类型的组合。</p><p>推荐用于精加工。</p></td>
+  </tr>
+  <tr>
+    <td><div class="center">&nbsp;整体硬质合金球头铣刀&nbsp;<img src="/dec/dec/knowledgebasesystem/img/铣削典型铣削刀具39.png" width="260" height="171"/></div></td>
+    <td><p>推荐用于精加工。</p><p>可实现较小直径设计，具有较好的刀具可达性。</p></td>
+  </tr>
+</table>
+
+<p>&nbsp;</p>
+<h3>仿形铣削策略</h3>
+<h4>（1）准备工作</h4>
+<p>仿形铣削的策略制定与CAM软件是密不可分的，使用先进的CAM软件进行编程可以显著减少甚至完全消除费时的手动程序修改工作，最后加工出具有较好的几何精度和较高表面质量的产品。目前我公司应用到的CAM软件有UG、PRO/E、Cimatron等多种产品，但是无论采用何种软件，我们在编程之前都必须研究零件轮廓，以选择正确的刀具和找到最适合的加工方法，所以在编程之前我们必须做好以下工作：</p>
+<div class="right"><img src="/dec/dec/knowledgebasesystem/img/铣削典型铣削刀具40.png" width="300" height="300"/></div>
+<ul class="list">
+<li>确定最小半径和最大型腔深度。</li>
+<li>估计要去除的材料量。</li>
+<li>考虑刀具装夹和工件夹紧，以避免振动。</li>
+<li>使用单独的高精度机床进行精加工和超级精加工工序，这样可以减少某些情况下消除费时的手动抛光工作。</li>
+<li>对于大零件的粗加工采用传统方法和刀具具有较高效率。</li>
+<li>在较深区域的粗加工工序中为了提高加工效率降低振动风险，可采用分层切削方法逐级加工刀具长度。并且对不同刀具选用相对应的切削参数，以保持最大生产效率。</li>
+</ul>
+<h4>（2）等高铣和仿形铣的选择</h4>
+<p>在现代CAM软件的编程策略中对于类型腔和凸台的刀具路径大的方为两类，即等高铣和仿形铣。一般来说在零件结构允许的情况下优先推荐使用等高铣方法。</p>
+<table width="700" border="1" cellspacing="0" cellpadding="0" class="tables">
+  <tr>
+    <td><div class="center">&nbsp;&nbsp;等高铣&nbsp;&nbsp;<img src="/dec/dec/knowledgebasesystem/img/铣削典型铣削刀具41.png" width="340" height="320"/></div></td>
+    <td><div class="center">&nbsp;&nbsp;仿形铣&nbsp;&nbsp;<img src="/dec/dec/knowledgebasesystem/img/铣削典型铣削刀具42.png" width="340" height="320"/></div></td>
+  </tr>
+  <tr>
+    <td><li>侧刃进行切削，便于获得较佳的切削速度控制。</li><li>可采用较高的进给率。</li><li>生产效率较高。</li><li>刀具刃口切削状态良好，可获得较长的刀具寿命。</li><li>切削过程较平稳，安全性较高。</li></td>
+    <td><li>刀具端刃部分受力不佳。</li><li>在某些切削位置为保证切削平稳必须降低进给率。</li><li>由于切削过程波动，会降低刀具寿命。</li><li>由于切削力变化会承受一定的机械冲击。</li><li>编程时间和切削时间较长。</li></td>
+  </tr>
+</table>
+<h4>（3）实际切削速度</h4>
+<p>当计算球头铣刀或圆刀片刀具的切削速度时，如果使用刀具公称直径实际的切削速度Vc选取可能会较低，导致生产效率降低，此时更应该关注实际或有效切削直径Dcap。</p>
+<div class="center">V_c=(π×n×D_cap)/1000 m/min</div>
+<div class="center"><img src="/dec/dec/knowledgebasesystem/img/铣削典型铣削刀具43.png" width="718" height="320" /></div>
+<h4>（4）倾斜刀具</h4>
+<div class="right"><img src="/dec/dec/knowledgebasesystem/img/铣削典型铣削刀具44.png" width="380" height="240"/></div>
+<p>当使用球头立铣刀时，切削刃最关键的区域是刀具中心，此处的切削速度接近零，这对于切削过程是非常不利的，而且由于刀具的横刃设计，导致排屑也存在一定难度。</p>
+<p>因此，在可能的情况下建议主轴或工件倾斜10至15度，这将使切削区域远离刀具中心，有助于提高刀具的实际切削速度，使刀具切屑形状和刀具寿命得到改善，并将有效提高加工表面质量。</p>
+<h4>（5）行宽</h4>
+<div class="right"><img src="/dec/dec/knowledgebasesystem/img/铣削典型铣削刀具45.png" width="300" height="380"/></div>
+<table width="450" border="1" cellspacing="0" cellpadding="0" class="center">
+  <tr>
+    <td>刀具直径Dc（mm）</td>
+    <td>行宽bR（mm）tR=5um</td>
+    <td>行宽bR（mm）tR=2um</td>
+  </tr>
+  <tr>
+    <td>0.5</td>
+    <td>0.10</td>
+    <td>0.06</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>0.14</td>
+    <td>0.09</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>0.20</td>
+    <td>0.12</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>0.25</td>
+    <td>0.16</td>
+  </tr>
+  <tr>
+    <td>4</td>
+    <td>0.28</td>
+    <td>0.18</td>
+  </tr>
+  <tr>
+    <td>5</td>
+    <td>0.31</td>
+    <td>0.20</td>
+  </tr>
+  <tr>
+    <td>6</td>
+    <td>0.34</td>
+    <td>0.22</td>
+  </tr>
+  <tr>
+    <td>8</td>
+    <td>0.40</td>
+    <td>0.25</td>
+  </tr>
+  <tr>
+    <td>10</td>
+    <td>0.45</td>
+    <td>0.28</td>
+  </tr>
+  <tr>
+    <td>12</td>
+    <td>0.49</td>
+    <td>0.31</td>
+  </tr>
+  <tr>
+    <td>16</td>
+    <td>0.56</td>
+    <td>0.36</td>
+  </tr>
+  <tr>
+    <td>20</td>
+    <td>0.63</td>
+    <td>0.40</td>
+  </tr>
+  <tr>
+    <td>25</td>
+    <td>0.71</td>
+    <td>0.45</td>
+  </tr>
+  <tr>
+    <td>32</td>
+    <td>0.80</td>
+    <td>0.50</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2>整体硬质合金立铣刀</h2>
+<div class="right"><img src="/dec/dec/knowledgebasesystem/img/铣削典型铣削刀具46.png" width="300" height="300"/></div>
+<p>整体硬质合金立铣刀广泛用于零件的槽、小平面、成型面、台阶面的加工，特别是在模具各种结构的型腔、空间曲面的加工。随着数控加工机床特别是高速加工技术应用，产品零件材料的性能要求与精度不断提高，工件结构形状愈来愈复杂，对立铣刀的要求也随之愈来愈高。对立铣刀的结构形状、几何参数、品种规格、刀具精度提出了更高的要求。为满足加工的需求，近年来整体硬质合金立铣刀使用愈来愈广泛。而硬质合金材质的提高亦为整体硬质合金立铣刀广泛应用提供了必要的条件。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</div>
+</div>
+</body>
+</html>

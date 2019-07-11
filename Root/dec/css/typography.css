@@ -1,0 +1,33 @@
+/*starting the typography css*/
+body {
+font : 0.74em Arial, sans-serif;
+line-height : 1.5em;
+}
+
+a {
+background : inherit;
+text-decoration : none;
+}
+
+a:hover {
+background : inherit;
+text-decoration : underline;
+}
+
+h1 {
+font : bold 1.8em Arial, Sans-Serif;
+letter-spacing : -1px;
+}
+
+h2 {
+font : bold 1.6em Arial, Sans-Serif;
+letter-spacing : -1px;
+}
+
+h3 {
+padding : 4px 0;
+margin : 0;
+}
+
+/*start from the branding*/
+

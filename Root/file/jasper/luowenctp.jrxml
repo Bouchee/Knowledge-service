@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2015-12-16T15:44:57 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bbb" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="57f306fa-03ea-4948-aee8-3afbc5c8b7e3">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="vcmax" class="java.lang.String"/>
+	<parameter name="vcmin" class="java.lang.String"/>
+	<parameter name="apmax" class="java.lang.String"/>
+	<parameter name="apmin" class="java.lang.String"/>
+	<parameter name="fnmax" class="java.lang.String"/>
+	<parameter name="fnmin" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="2" class="java.lang.String"/>
+	<field name="vcmax" class="java.lang.String"/>
+	<field name="vcmin" class="java.lang.String"/>
+	<field name="fnmax" class="java.lang.String"/>
+	<field name="fnmin" class="java.lang.String"/>
+	<field name="apmax" class="java.lang.String"/>
+	<field name="apmin" class="java.lang.String"/>
+	<field name="vc" class="java.lang.String"/>
+	<field name="s" class="java.lang.String"/>
+	<field name="fz" class="java.lang.String"/>
+	<field name="f" class="java.lang.String"/>
+	<field name="ap" class="java.lang.String"/>
+	<field name="ae" class="java.lang.String"/>
+	<field name="fn" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="227" splitType="Stretch">
+			<staticText>
+				<reportElement x="-13" y="17" width="54" height="17" uuid="544cdfff-7715-4819-97b4-262af5102cd8">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Vc min：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="41" y="17" width="59" height="17" uuid="cd9bd3f2-7c0b-4b67-9a2d-66677c3b9361">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{vcmin}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="51" width="70" height="17" uuid="75e66020-d0f6-455e-8206-463771ceb536">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{fnmax}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="34" width="70" height="17" uuid="2e8223a3-1ab5-4d48-97b1-357d8c72e0be">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{apmax}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-13" y="34" width="83" height="17" uuid="681e0f61-d55d-42c5-be05-abe6fd32b1cd">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[最大走刀次数：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="41" y="0" width="59" height="17" uuid="393e9cf6-9218-416f-aa7c-28b11bf5dd1b">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{vcmax}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="41" y="-17" width="54" height="17" uuid="24648ee7-503c-4f9c-a392-df8c674bddb1">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[切削参数]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-13" y="0" width="54" height="17" uuid="badf45fc-b53c-4191-947b-7e35f7b7e23d">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Vc max：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-13" y="50" width="83" height="17" uuid="33c9d3dc-0e04-4789-9e3b-a6cfbc770aac">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[最小走刀次数：]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

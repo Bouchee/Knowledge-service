@@ -1,0 +1,157 @@
+#page{
+	width:100%;
+	background-color: #EEEEEF;	/* 页面背景色 */
+	 }
+.tables{
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+	font-size: 18px;
+	}
+.box{
+	width:200px;
+	text-align:center;
+	line-height:20px;
+	font-size: 14px;
+	}
+.right{
+	margin-top:0px;
+	margin-left:10px;
+	margin-right:10px;
+	margin-bottom:10px;
+	/* width:300;
+	height:250; */
+	float:right;
+	}
+.left{
+	float:left;
+	/* width:200;
+	height:300; */
+	margin:10px;
+	}
+.center{
+	text-align: center;
+	margin:10px;
+	padding:5px;
+	font-size:18px;
+	}
+.classpage
+{
+	width:778px;
+    margin:0 auto;
+    padding-top: 10px;
+	padding-left: 8px;
+	padding-right: 5px;
+	font-size: 18px;
+	line-height:20px; 
+	background-color: #F5F5F5;
+}	 
+body,td,th {
+	font-size: 16px;
+	font-family: "华文仿宋"
+}	 
+
+h1 {
+	font-family: "宋体";
+	font-size: 24px;
+	font-weight: bold;
+	text-align: left;
+}
+
+h2 {
+	font-family: "宋体";
+	font-size: 20px;
+	line-height:50px; 
+	font-weight: bold;
+	text-align: left;
+}
+
+h3 {
+	font-size: 18px;
+	line-height:50px; 
+	font-weight: bold;
+	letter-spacing: 0px;
+	text-align: left;
+	font-family: "宋体";
+}
+h4{
+	font-size: 18px;
+	line-height:50px; 
+	letter-spacing: 0px;
+	font-family: "宋体";
+	}
+
+p{
+font-size: 18px;
+	line-height: 30px;
+	letter-spacing: 0.5px;
+	text-align: left;
+	text-indent: 2em;
+	line-height:20px;
+	padding: 10px 0; 	
+	
+}
+
+.textp {
+	font-size: 18px;
+	line-height: 30px;
+	letter-spacing: 0.5px;
+	text-align: left;
+	text-indent: 2em;
+	line-height:20px;
+	padding: 10px 0; 
+}
+img {
+    border:1px solid #999999;	/* 图片边框 */
+}
+
+.headlist {
+	font-size: 18px;
+	line-height: 40px;
+	font-weight: bold;
+	list-style-type: disc;
+}
+.biaohao {
+	font-size: 18px;
+	font-weight: bold;
+	line-height: 40px;
+}
+
+
+
+#box1 {
+	width:460px;
+    height:3000px;
+    border:solid 4px blue;
+    float:right;
+    margin:5px;
+}
+.English {
+	font-family: "Times New Roman", Times, serif;
+	font-size: 18px;
+}
+.list {
+	list-style-position: inside;
+	list-style-type: disc;
+	font-size: 18px;
+	letter-spacing: 0.5px;
+	text-align: left;
+	text-indent: 2em;
+	padding: 10px 0; 
+}	
+
+/*li
+{
+list-style-position: inside;
+	list-style-type: disc;	}*/
+	
+.listhead
+{
+	list-style-position: inside;
+	list-style-type: disc;
+	line-height: 40px;
+	font-weight: bold;
+	text-indent: 2em;
+	font-size: 18px;
+}/*空两格的加粗的列表标题*/

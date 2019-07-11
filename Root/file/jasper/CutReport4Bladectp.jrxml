@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2015-12-21T10:17:30 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bbb" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="57f306fa-03ea-4948-aee8-3afbc5c8b7e3">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="vcmax" class="java.lang.String"/>
+	<parameter name="vcmin" class="java.lang.String"/>
+	<parameter name="apmax" class="java.lang.String"/>
+	<parameter name="apmin" class="java.lang.String"/>
+	<parameter name="fnmax" class="java.lang.String"/>
+	<parameter name="fnmin" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="2" class="java.lang.String"/>
+	<field name="vcmax" class="java.lang.String"/>
+	<field name="vcmin" class="java.lang.String"/>
+	<field name="fnmax" class="java.lang.String"/>
+	<field name="fnmin" class="java.lang.String"/>
+	<field name="apmax" class="java.lang.String"/>
+	<field name="apmin" class="java.lang.String"/>
+	<field name="vc" class="java.lang.String"/>
+	<field name="s" class="java.lang.String"/>
+	<field name="fz" class="java.lang.String"/>
+	<field name="f" class="java.lang.String"/>
+	<field name="ap" class="java.lang.String"/>
+	<field name="ae" class="java.lang.String"/>
+	<field name="fn" class="java.lang.String"/>
+	<field name="fnxmin" class="java.lang.String"/>
+	<field name="fnzmin" class="java.lang.String"/>
+	<field name="fnzmax" class="java.lang.String"/>
+	<field name="fnxmax" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="349" splitType="Stretch">
+			<staticText>
+				<reportElement x="-13" y="118" width="54" height="17" uuid="76a9a743-2444-4292-a739-805b0eae5bdc">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Fnx min：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-13" y="34" width="54" height="17" uuid="be1512f9-89a8-4e38-9097-bdab5eae9ee9">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Apz：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="40" y="33" width="91" height="17" uuid="4f2aad00-1c86-4621-b5a3-01bb69fa41ec">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{apmax}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-13" y="0" width="54" height="17" uuid="48ba750f-683d-4a8d-bec8-8fa74dc59501">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Vc max：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="41" y="17" width="81" height="17" uuid="9cca4fd8-b688-4307-92ae-021259945871">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{vcmin}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="41" y="-17" width="54" height="17" uuid="09c108b7-f63d-42c7-8acd-0959fbcd7555">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[切削参数]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="41" y="50" width="91" height="17" uuid="ca0e7b91-a4fc-479d-912b-206160e782ee">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{apmin}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="41" y="0" width="80" height="17" uuid="0cf42e3c-8296-4193-94a3-34023a3b7608">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{vcmax}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-13" y="84" width="54" height="17" uuid="2e64286c-0833-4e9f-8d4b-445909109958">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Fnz min：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-13" y="67" width="54" height="17" uuid="7b0e3afe-8e0f-4359-958f-772a66798d8a">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Fnz max：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-13" y="50" width="54" height="17" uuid="2a44b7f4-5e05-4e3e-8377-56ba4ec0789e">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Apx：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-13" y="17" width="54" height="17" uuid="d59873f7-c416-458f-bc48-758bd158dc6e">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Vc min：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-13" y="101" width="54" height="17" uuid="7c842d50-c8e5-4d67-8919-c058f898c09a">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Fnx max：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="40" y="118" width="100" height="17" uuid="ad41c92f-4c3d-4772-a309-514c8d176f3a">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{fnxmin}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="40" y="84" width="100" height="17" uuid="41f9bd17-b4f3-414b-a4b7-62d4bdb269be">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{fnzmin}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="41" y="67" width="100" height="17" uuid="26d7b429-4501-49fd-b702-5f57e6bac33f">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{fnzmax}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="40" y="101" width="100" height="17" uuid="aee84d5d-014f-44f4-b7e3-42dcab2805cd">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{fnxmax}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

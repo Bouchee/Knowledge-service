@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2015-12-09T13:43:05 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bbb" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="57f306fa-03ea-4948-aee8-3afbc5c8b7e3">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="vcmax" class="java.lang.String"/>
+	<parameter name="vcmin" class="java.lang.String"/>
+	<parameter name="apmax" class="java.lang.String"/>
+	<parameter name="apmin" class="java.lang.String"/>
+	<parameter name="fnmax" class="java.lang.String"/>
+	<parameter name="fnmin" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="2" class="java.lang.String"/>
+	<field name="vcmax" class="java.lang.String"/>
+	<field name="vcmin" class="java.lang.String"/>
+	<field name="fnmax" class="java.lang.String"/>
+	<field name="fnmin" class="java.lang.String"/>
+	<field name="apmax" class="java.lang.String"/>
+	<field name="apmin" class="java.lang.String"/>
+	<field name="vc" class="java.lang.String"/>
+	<field name="s" class="java.lang.String"/>
+	<field name="fz" class="java.lang.String"/>
+	<field name="f" class="java.lang.String"/>
+	<field name="ap" class="java.lang.String"/>
+	<field name="ae" class="java.lang.String"/>
+	<field name="fn" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement x="168" y="-17" width="63" height="17" uuid="b99f790f-0af0-4b94-95dd-c625a6642b45">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{f}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="43" y="-17" width="63" height="17" uuid="9c4b1365-d75f-4a74-b32b-0b9f74c36a25">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{s}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-20" y="-17" width="63" height="17" uuid="52bdbae8-f23b-4c9b-953c-bd022506c59e">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{vc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="106" y="-17" width="63" height="17" uuid="2f78cbf7-4e24-4917-84bb-9e3e6afacd64">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{fn}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

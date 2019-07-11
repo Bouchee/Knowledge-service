@@ -1,0 +1,24 @@
+.ux-lovcombo-icon {
+	width:16px;
+	height:16px;
+	float:left;
+	background-position: -1px -1px ! important;
+	background-repeat:no-repeat ! important;
+}
+.ux-lovcombo-icon-checked {
+	background: transparent url(image/checked.gif);
+}
+.ux-lovcombo-icon-unchecked {
+	background: transparent url(image/unchecked.gif);
+}
+.ext-ie .ux-lovcombo-item-text {
+	position:absolute;
+	left:16px;
+	top:3px;
+}
+.ext-ie .ux-lovcombo-icon {
+	float:none;
+}
+.ext-ie .x-combo-list-item {
+	position:relative;
+}

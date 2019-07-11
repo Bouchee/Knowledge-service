@@ -1,0 +1,11 @@
+.x-grid3 table {
+		table-layout: auto;
+}
+
+.x-grid3-hd-inner {
+		white-space: pre-line;
+}
+
+.x-grid3-cell-inner{
+		white-space: pre-line;
+}

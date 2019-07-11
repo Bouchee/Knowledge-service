@@ -1,0 +1,73 @@
+/*  ContentFlowAddOn_fancyScrollbar, version 3.0 
+ *  (c) 2008 - 2010 Sebastian Kutsch
+ *  <http://www.jacksasylum.eu/ContentFlow/>
+ *
+ *  This file is distributed under the terms of the MIT license.
+ *  (see http://www.jacksasylum.eu/ContentFlow/LICENSE)
+ *
+ *--------------------------------------------------------------------------*/
+
+/* ========== ContentFlow ========== */
+/*
+ * Within this file you can ajust the styling of ContentFlow
+ * to your personal needs. The default styling is the same as found on the 
+ * projectpage.
+ *
+ */
+
+.ContentFlowAddOn_fancyScrollbar {
+}
+
+        /* ----- some extra styling for a fancy scrollbar ----- */
+        .ContentFlowAddOn_fancyScrollbar .scrollbar {
+            width: 70%;
+            background: url(images/slider_fancy_middle.png) left center repeat-x;
+            visibility: visible;
+        }
+        * html .ContentFlowAddOn_fancyScrollbar .scrollbar {
+            background: url(images/slider_fancy_middle.gif) left center repeat-x;
+        }
+            .ContentFlowAddOn_fancyScrollbar .scrollbar .preButton, 
+            .ContentFlowAddOn_fancyScrollbar .scrollbar .nextButton {
+                height: 16px;
+                width: 29px;
+            }
+            * html .ContentFlowAddOn_fancyScrollbar .scrollbar .preButton, 
+            * html .ContentFlowAddOn_fancyScrollbar .scrollbar .nextButton {
+                position: relative;
+                background: none;
+                margin-top: 4px;
+            }
+
+            .ContentFlowAddOn_fancyScrollbar .scrollbar .preButton {
+                float: left;
+                margin-left: -29px;
+                background: url(images/slider_fancy_left.png) right center no-repeat;
+            }
+            * html .ContentFlowAddOn_fancyScrollbar .scrollbar .preButton {
+                filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=crop, src='images/slider_fancy_left.png');
+            }
+            .ContentFlowAddOn_fancyScrollbar .scrollbar .nextButton {
+                float: right;
+                margin-right: -29px;
+                background: url(images/slider_fancy_right.png) left center no-repeat;
+            }
+            * html .ContentFlowAddOn_fancyScrollbar .scrollbar .nextButton {
+                filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=crop, src='images/slider_fancy_right.png');
+            }
+            .ContentFlowAddOn_fancyScrollbar .scrollbar .slider {
+                width: 36px;
+                height: 16px;
+                background: url(images/slider_fancy_handle.png) center center no-repeat;
+            }
+
+            * html .ContentFlowAddOn_fancyScrollbar .scrollbar .slider {
+                background-image: none;
+                position: relative;
+                margin-top: 1px;
+                filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod=crop, src='images/slider_fancy_handle.png');
+            }
+
+
+/* ================================= */
+

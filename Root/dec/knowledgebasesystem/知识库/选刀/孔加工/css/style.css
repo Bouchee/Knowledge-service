@@ -1,0 +1,51 @@
+#page{
+      width:100%;
+      margin:0 auto;
+	  background-color:#F1FEDD;	/* 页面背景色 */
+      padding-top:10px;
+	  padding-left:8px;
+	  padding-right:5px;
+	 
+	 
+	 
+	 }
+
+h1 {						/* 左侧标题 */
+    font-size:24px;
+    font-weight:bold;			/* 粗体*/
+    text-align:left;			/* 左对齐 */
+    			/* 标题颜色 */
+   }	 
+h2 {						/* 左侧标题 */
+    font-size:20px;
+    font-weight:bold;			/* 粗体*/
+    text-align:left;			/* 左对齐 */
+    			/* 标题颜色 */
+   }
+h3 {						/* 左侧标题 */
+    font-size:16px;
+    font-weight:bold;			/* 粗体*/
+    text-align:left;			/* 左对齐 */
+    			/* 标题颜色 */
+   }	 
+   
+p {
+    text-indent:2em;
+	letter-spacing: 0.５px;
+    line-height: 18px;
+	font-size:14px;				/* 段落文字大小 */
+}
+img {
+    border:1px solid #999999;	/* 图片边框 */
+	 }
+	 
+#formula
+    {
+		 
+	 }
+#gradetable
+    {
+	font-size:13px;
+	text-align:center;
+	margin: 0 auto;
+	}

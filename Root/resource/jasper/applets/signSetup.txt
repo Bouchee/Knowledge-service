@@ -1,0 +1,24 @@
+keytool 位置在C:\Program Files\Java\jdk1.6.0_43\bin\keytool.exe;
+
+1、命令用来产生一个密匙库，生成ft.store的文件。在执行命令的时候还有提示你输入密匙库的密码，这里一定要记住密码，否则后面要用的时候无法输入。
+keytool -genkey -keystore ft.store -alias ft -validity 3650
+keytool -genkey -alias ft -dname "CN=fuxianwu, OU=scu, O=scu, L=cd, ST=sc, C=cn" -keystore ft.store -keypass fuxianwu -storepass fuxianwu -validity 3650
+
+2、命令用来产生签名时所要用的证书，同样这里的ft也可以换成你自己需要的名字。这个命令执行完后产生一个ft.cert的文件。
+keytool -export -keystore ft.store -alias ft -file ft.cert
+"C:\Program Files\Java\jdk1.6.0_43\bin\keytool.exe" -export -keystore ft.store -alias ft -file ft.cert -storepass fuxianwu
+
+3、命令用上面产生的证书将我们的jar文件进行了签名。
+"C:\Program Files\Java\jdk1.6.0_43\bin\jarsigner.exe" -keystore ft.store report-applet-fuxianwu.jar ft -storepass fuxianwu
+"C:\Program Files\Java\jdk1.6.0_43\bin\jarsigner.exe" -keystore ft.store commons-collections-3.2.jar ft -storepass fuxianwu
+"C:\Program Files\Java\jdk1.6.0_43\bin\jarsigner.exe" -keystore ft.store commons-logging-1.1.1.jar ft -storepass fuxianwu
+"C:\Program Files\Java\jdk1.6.0_43\bin\jarsigner.exe" -keystore ft.store jasperreports-applet-5.0.0.jar ft -storepass fuxianwu
+
+4、 确定JAR已经被成功签名，以更好地控制JNLP或applet的安全模型。 
+jarsigner -verbose -verify report-applet-fuxianwu.jar
+jarsigner -verbose -verify commons-collections-3.2.jar
+jarsigner -verbose -verify commons-logging-1.1.1.jar
+jarsigner -verbose -verify jasperreports-applet-5.0.0.jar
+
+5、 如果无用了，可以删除密匙库。
+keytool -delete -alias ft -keystore ft.store -storepass fuxianwu

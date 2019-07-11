@@ -1,0 +1,52 @@
+#page{
+	width: 778px;
+	margin: 0 auto;
+	background-color: #F1FEDD;	/* 页面背景色 */
+	padding-top: 10px;
+	padding-left: 8px;
+	padding-right: 5px;
+	font-size: 14px;
+	 }
+
+
+h3 {
+	font-size: 16px;
+	font-weight: bold;
+	letter-spacing: 0px;
+	text-align: left;
+	font-family: "Times New Roman", Times, serif;
+}
+.textp {
+	font-size: 14px;
+	line-height: 18px;
+	letter-spacing: 0.5px;
+	text-align: left;
+	text-indent: 2em;
+}
+img {
+    border:1px solid #999999;	/* 图片边框 */
+}
+
+
+.headlist {
+	font-size: 16px;
+	line-height: 18px;
+	font-weight: bold;
+	list-style-type: disc;
+}
+h1 {
+	font-family: "Times New Roman", Times, serif;
+	font-size: 24px;
+	font-weight: bold;
+	text-align: left;
+}
+
+h2 {
+	font-family: "Times New Roman", Times, serif;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: left;
+}
+img {
+    border:1px solid #999999;	/* 图片边框 */
+	 }

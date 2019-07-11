@@ -1,0 +1,22 @@
+/*starting the color css*/
+body {
+background : #F8F8F8;
+color : #454545;
+}
+
+a {
+color : #FF6603;
+background : inherit;
+}
+
+a:hover {
+color : #FF6603;
+background : inherit;
+}
+
+hr {
+color : #d0d0d0;
+background-color : #c0c0c0;
+}
+
+/*starting from the branding*/
